@@ -1,11 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { use, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { TERMS, CATEGORIES } from "@/lib/terms";
 
-export default function Terms() {
-  const [q, setQ] = useState("");
+type TermsProps = {
+  searchParams: Promise<{ q?: string }>;
+};
+
+export default function Terms({ searchParams }: TermsProps) {
+  const { q: initialQ } = use(searchParams);
+  const [q, setQ] = useState(initialQ ?? "");
   const [cat, setCat] = useState<string>("전체");
 
   const list = useMemo(() => {

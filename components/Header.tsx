@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 import { NAV } from "@/lib/nav";
 
 export default function Header() {
@@ -76,6 +77,18 @@ export default function Header() {
               </Link>
             );
           })}
+          <Link
+            href="/search"
+            aria-label="통합 검색"
+            aria-current={pathname === "/search" ? "page" : undefined}
+            className={`inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors ${
+              pathname === "/search"
+                ? "text-primary bg-surface-variant"
+                : "text-on-surface-variant hover:text-primary hover:bg-surface-variant"
+            }`}
+          >
+            <Search className="w-5 h-5" aria-hidden="true" />
+          </Link>
         </nav>
 
         {/* 모바일 햄버거 */}
@@ -115,6 +128,17 @@ export default function Header() {
         >
           &times;
         </button>
+        <Link
+          href="/search"
+          aria-current={pathname === "/search" ? "page" : undefined}
+          onClick={() => setOpen(false)}
+          className={`flex items-center gap-2 py-4 px-2 text-[17px] font-semibold border-b border-surface-container-high ${
+            pathname === "/search" ? "text-primary" : "text-on-surface"
+          }`}
+        >
+          <Search className="w-5 h-5" aria-hidden="true" />
+          통합 검색
+        </Link>
         {NAV.map((item) => {
           const active = pathname === item.href;
           return (
