@@ -38,6 +38,7 @@ const SEED = [
     title: "사망신고 후 은행 계좌 정리는 어떻게 하나요?",
     body: "동사무소에서 사망신고는 마쳤습니다. 고인의 통장에 있는 소액의 예금을 인출하려면 어떤 서류가 필요한지 궁금합니다.",
     comfort: 1,
+    reported: 1,
     createdAt: new Date(Date.now() - 180 * MIN),
     comments: [
       { body: "안심상속 원스톱 서비스로 먼저 계좌부터 조회해 보세요. 기본증명서, 가족관계증명서, 상속인 신분증이 필요합니다.", createdAt: new Date(Date.now() - 170 * MIN) },

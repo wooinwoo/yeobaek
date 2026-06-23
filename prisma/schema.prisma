@@ -19,6 +19,7 @@ model Post {
   body      String
   comfort   Int       @default(0) // '위로' 공감 수
   reply     Int       @default(0) // 답변(댓글) 수. 댓글 작성 시 함께 증가
+  reported  Int       @default(0) // 신고 누적 수. 일정 이상이면 운영 검토 대상
   createdAt DateTime  @default(now())
   comments  Comment[]
 
