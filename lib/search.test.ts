@@ -59,6 +59,33 @@ describe("searchSite", () => {
     expect(term!.category).toBe("용어");
   });
 
+  it("공백이 포함된 멀티토큰 쿼리는 각 토큰 점수를 합산한다", () => {
+    // "상속 포기" → "상속" + "포기" 각각 채점 후 합산.
+    // 두 토큰 모두 매칭되는 빚 상속 진단(상속포기 키워드)이 상위에 와야 한다.
+    const multi = searchSite("상속 포기");
+    expect(multi.length).toBeGreaterThan(0);
+    const debt = multi.find((r) => r.href === "/debt-simulator");
+    expect(debt).toBeDefined();
+
+    // 멀티토큰 점수는 단일 토큰 점수 이상이어야 한다(합산 효과).
+    const single = searchSite("상속");
+    const debtSingle = single.find((r) => r.href === "/debt-simulator");
+    expect(debt!.score).toBeGreaterThanOrEqual(debtSingle!.score);
+  });
+
+  it("멀티토큰: 토큰 중 하나만 맞아도 결과에 포함된다", () => {
+    // "부고 존재하지않는단어zzz" → 부고만 매칭. 부고 생성기가 나와야 한다.
+    const results = searchSite("부고 존재하지않는단어zzz");
+    expect(results.some((r) => r.href === "/obituary")).toBe(true);
+  });
+
+  it("멀티토큰: 앞뒤·중간 공백을 무시하고 동일하게 매칭한다", () => {
+    const a = searchSite("상속 포기");
+    const b = searchSite("  상속   포기  ");
+    expect(b.length).toBe(a.length);
+    expect(b[0]?.id).toBe(a[0]?.id);
+  });
+
   it("결과 score는 항상 양수이다", () => {
     const results = searchSite("상속");
     expect(results.length).toBeGreaterThan(0);

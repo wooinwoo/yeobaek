@@ -337,6 +337,8 @@ function scoreEntry(entry: SearchEntry, q: string): number {
 /**
  * 사이트 전역 검색.
  * - 빈/공백 쿼리는 빈 배열 반환
+ * - 공백이 포함된 쿼리는 토큰으로 분리해 각 토큰 점수를 합산
+ *   (예: "상속 포기" → "상속" + "포기" 각각 채점 후 합)
  * - 한국어 부분 일치, 가중치(제목 > 키워드 > 본문)
  * - 관련도 내림차순, 동점이면 인덱스 등장 순서 유지(안정 정렬)
  */
@@ -344,9 +346,17 @@ export function searchSite(query: string): SearchResult[] {
   const q = normalize(query ?? "");
   if (!q) return [];
 
+  // 공백 기준 토큰 분리(다중 공백 허용). 빈 토큰 제거.
+  const tokens = q.split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+
   const results: SearchResult[] = [];
   for (const entry of SEARCH_INDEX) {
-    const score = scoreEntry(entry, q);
+    // 각 토큰 점수를 합산. 토큰 중 하나라도 맞으면 결과에 포함.
+    let score = 0;
+    for (const token of tokens) {
+      score += scoreEntry(entry, token);
+    }
     if (score > 0) {
       results.push({ ...entry, score });
     }
