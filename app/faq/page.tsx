@@ -286,8 +286,8 @@ export default function Faq() {
             <section key={group.id} id={group.id} className="scroll-mt-24">
               <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-5">{group.title}</h2>
               <ul className="flex flex-col gap-3 list-none p-0 m-0">
-                {group.items.map((item) => (
-                  <li key={item.q}>
+                {group.items.map((item, i) => (
+                  <li key={`${group.id}-${i}`}>
                     <details className="group bg-surface-container-lowest rounded-2xl border border-surface-variant overflow-hidden">
                       <summary className="cursor-pointer list-none px-5 py-4 font-semibold text-on-surface flex justify-between items-center gap-3">
                         {item.q}
