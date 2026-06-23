@@ -11,17 +11,24 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function Community() {
-  const rows = await prisma.post.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
-  const posts: PostDTO[] = rows.map((r) => ({
-    id: r.id,
-    tag: r.tag,
-    title: r.title,
-    body: r.body,
-    comfort: r.comfort,
-    reply: r.reply,
-    reported: r.reported,
-    createdAt: r.createdAt.toISOString(),
-  }));
+  // DB 조회 실패가 페이지 전체를 무너뜨리지 않도록 빈 목록으로 폴백한다.
+  let posts: PostDTO[] = [];
+  let loadFailed = false;
+  try {
+    const rows = await prisma.post.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
+    posts = rows.map((r) => ({
+      id: r.id,
+      tag: r.tag,
+      title: r.title,
+      body: r.body,
+      comfort: r.comfort,
+      reply: r.reply,
+      reported: r.reported,
+      createdAt: r.createdAt.toISOString(),
+    }));
+  } catch {
+    loadFailed = true;
+  }
 
   return (
     <div className="pt-24 pb-20 px-5 md:px-8">
@@ -32,7 +39,17 @@ export default async function Community() {
         </p>
 
         <div className="grid lg:grid-cols-[1fr_300px] gap-8 items-start">
-          <CommunityBoard initialPosts={posts} />
+          <div>
+            {loadFailed && (
+              <p
+                role="status"
+                className="mb-5 rounded-3xl bg-surface-container-lowest border border-surface-variant px-5 py-4 text-sm text-on-surface-variant"
+              >
+                지금은 이야기를 불러오지 못했어요. 잠시 후 다시 들러주세요. 새 글은 그대로 남길 수 있어요.
+              </p>
+            )}
+            <CommunityBoard initialPosts={posts} />
+          </div>
 
           <aside className="flex flex-col gap-4">
             <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_8px_24px_-14px_rgba(120,82,60,0.12)]">
