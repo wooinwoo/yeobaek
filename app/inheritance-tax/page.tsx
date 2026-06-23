@@ -3,47 +3,22 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Calculator } from "lucide-react";
-
-// 누진세율 (과세표준 기준): [상한(원), 세율, 누진공제]
-const BRACKETS: [number, number, number][] = [
-  [100_000_000, 0.1, 0],
-  [500_000_000, 0.2, 10_000_000],
-  [1_000_000_000, 0.3, 60_000_000],
-  [3_000_000_000, 0.4, 160_000_000],
-  [Infinity, 0.5, 460_000_000],
-];
-
-const won = (n: number) =>
-  n >= 100_000_000
-    ? `${(n / 100_000_000).toLocaleString("ko-KR", { maximumFractionDigits: 2 })}억 원`
-    : `${Math.round(n / 10_000).toLocaleString("ko-KR")}만 원`;
+import { estimateTax, won } from "@/lib/tax";
 
 export default function InheritanceTax() {
   const [assetEok, setAssetEok] = useState(10); // 억
   const [debtEok, setDebtEok] = useState(0);
   const [spouse, setSpouse] = useState(true);
 
-  const r = useMemo(() => {
-    const asset = assetEok * 100_000_000;
-    const debt = debtEok * 100_000_000;
-    const net = Math.max(0, asset - debt);
-    // 공제: 일괄공제 5억 + 배우자공제(최소 5억)
-    const lumpSum = 500_000_000;
-    const spouseDed = spouse ? 500_000_000 : 0;
-    const deduction = lumpSum + spouseDed;
-    const base = Math.max(0, net - deduction);
-    let rate = 0,
-      prog = 0;
-    for (const [cap, rt, pg] of BRACKETS) {
-      if (base <= cap) {
-        rate = rt;
-        prog = pg;
-        break;
-      }
-    }
-    const tax = base > 0 ? Math.max(0, base * rate - prog) : 0;
-    return { net, deduction, base, rate, tax };
-  }, [assetEok, debtEok, spouse]);
+  const r = useMemo(
+    () =>
+      estimateTax({
+        asset: assetEok * 100_000_000,
+        debt: debtEok * 100_000_000,
+        spouse,
+      }),
+    [assetEok, debtEok, spouse],
+  );
 
   return (
     <div className="pt-24 pb-24 px-5 md:px-8">
