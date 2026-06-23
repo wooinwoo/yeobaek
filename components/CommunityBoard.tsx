@@ -1,8 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PencilLine, MessageCircle, Heart, Send, X, Loader2 } from "lucide-react";
-import { FILTER_TAGS, POST_TAGS, type PostDTO, type CommentDTO } from "@/lib/posts";
+import { PencilLine, MessageCircle, Heart, Send, X, Loader2, Flag } from "lucide-react";
+import {
+  FILTER_TAGS,
+  POST_TAGS,
+  SORT_OPTIONS,
+  REPORT_HIDE_THRESHOLD,
+  sortPosts,
+  type PostDTO,
+  type CommentDTO,
+  type SortValue,
+} from "@/lib/posts";
 
 // 클라이언트에서 임시로 만든 낙관적 댓글 식별(롤백/치환용)
 let tempSeq = 0;
@@ -22,6 +31,7 @@ function ago(iso: string) {
 export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO[] }) {
   const [posts, setPosts] = useState<PostDTO[]>(initialPosts);
   const [filter, setFilter] = useState<string>("전체");
+  const [sort, setSort] = useState<SortValue>("latest");
   const [open, setOpen] = useState(false);
   const [tag, setTag] = useState<(typeof POST_TAGS)[number]>(POST_TAGS[0]);
   const [title, setTitle] = useState("");
@@ -36,11 +46,13 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
   const [commentDrafts, setCommentDrafts] = useState<Record<string, string>>({});
   const [commentSubmitting, setCommentSubmitting] = useState<Record<string, boolean>>({});
   const [commentError, setCommentError] = useState<Record<string, string>>({});
+  // 신고: 글별 신고 완료 여부(중복 신고 방지 + 안내 표시)
+  const [reported, setReported] = useState<Record<string, boolean>>({});
 
-  const visible = useMemo(
-    () => (filter === "전체" ? posts : posts.filter((p) => p.tag === filter)),
-    [posts, filter],
-  );
+  const visible = useMemo(() => {
+    const filtered = filter === "전체" ? posts : posts.filter((p) => p.tag === filter);
+    return sortPosts(filtered, sort);
+  }, [posts, filter, sort]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -82,6 +94,23 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       // 롤백
       setLiked((l) => ({ ...l, [id]: false }));
       setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, comfort: p.comfort - 1 } : p)));
+    }
+  }
+
+  async function report(id: string) {
+    if (reported[id]) return;
+    // 낙관적 업데이트: 즉시 신고 처리된 것으로 표시
+    setReported((r) => ({ ...r, [id]: true }));
+    setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: p.reported + 1 } : p)));
+    try {
+      const res = await fetch(`/api/posts/${id}/report`, { method: "POST" });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: data.reported } : p)));
+    } catch {
+      // 롤백
+      setReported((r) => ({ ...r, [id]: false }));
+      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: p.reported - 1 } : p)));
     }
   }
 
@@ -155,21 +184,46 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
 
   return (
     <div>
-      {/* 태그 필터 */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {FILTER_TAGS.map((t) => (
-          <button
-            key={t}
-            onClick={() => setFilter(t)}
-            className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-              filter === t
-                ? "bg-primary text-on-primary border-primary"
-                : "bg-surface-container border-outline-variant text-on-surface-variant hover:bg-surface-variant"
-            }`}
-          >
-            {t}
-          </button>
-        ))}
+      {/* 태그 필터 + 정렬 */}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-6">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="태그 필터">
+          {FILTER_TAGS.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setFilter(t)}
+              aria-pressed={filter === t}
+              className={`min-h-[44px] px-4 py-2 rounded-full text-base border transition-colors ${
+                filter === t
+                  ? "bg-primary text-on-primary border-primary"
+                  : "bg-surface-container border-outline-variant text-on-surface-variant hover:bg-surface-variant"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <div
+          className="flex items-center gap-1 ml-auto rounded-full bg-surface-container p-1"
+          role="group"
+          aria-label="정렬 기준"
+        >
+          {SORT_OPTIONS.map((o) => (
+            <button
+              key={o.value}
+              type="button"
+              onClick={() => setSort(o.value)}
+              aria-pressed={sort === o.value}
+              className={`min-h-[44px] px-4 py-2 rounded-full text-base transition-colors ${
+                sort === o.value
+                  ? "bg-primary text-on-primary"
+                  : "text-on-surface-variant hover:bg-surface-variant"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* 작성 */}
@@ -239,10 +293,28 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       {/* 목록 */}
       <div className="flex flex-col gap-4">
         {visible.length === 0 && (
-          <p className="text-center text-outline py-16 text-sm">아직 이 분류의 글이 없어요. 첫 이야기를 남겨주세요.</p>
+          <div className="text-center py-16 px-6 bg-surface-container-lowest rounded-3xl">
+            <PencilLine className="w-8 h-8 mx-auto mb-3 text-outline" aria-hidden="true" />
+            <p className="text-on-surface-variant text-base">
+              {filter === "전체"
+                ? "아직 올라온 이야기가 없어요. 첫 이야기를 남겨주세요."
+                : `'${filter}' 분류에는 아직 글이 없어요. 첫 이야기를 남겨주세요.`}
+            </p>
+          </div>
         )}
         {visible.map((p) => (
-          <article key={p.id} className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_8px_24px_-14px_rgba(120,82,60,0.12)]">
+          <article
+            key={p.id}
+            className={`bg-surface-container-lowest rounded-3xl p-6 shadow-[0_8px_24px_-14px_rgba(120,82,60,0.12)] motion-safe:transition-opacity motion-safe:duration-150 ${
+              p.reported >= REPORT_HIDE_THRESHOLD ? "opacity-60" : ""
+            }`}
+          >
+            {p.reported >= REPORT_HIDE_THRESHOLD && (
+              <p className="flex items-center gap-1.5 text-sm text-on-surface-variant mb-3">
+                <Flag className="w-4 h-4 shrink-0" aria-hidden="true" />
+                신고가 누적되어 운영진이 검토 중인 글입니다.
+              </p>
+            )}
             <div className="flex items-center gap-3 mb-3">
               <span className="w-9 h-9 rounded-full bg-surface-variant grid place-items-center text-sm text-on-surface-variant">익</span>
               <div className="text-sm">
@@ -275,6 +347,19 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
                 }`}
               >
                 <Heart className="w-4 h-4" aria-hidden="true" fill={liked[p.id] ? "currentColor" : "none"} /> 위로 {p.comfort}
+              </button>
+              <button
+                type="button"
+                onClick={() => report(p.id)}
+                disabled={reported[p.id]}
+                aria-pressed={!!reported[p.id]}
+                aria-label={reported[p.id] ? "신고 접수됨" : "이 글 신고하기"}
+                className={`inline-flex items-center gap-1.5 ml-auto transition-colors disabled:cursor-default ${
+                  reported[p.id] ? "text-on-surface-variant" : "hover:text-error"
+                }`}
+              >
+                <Flag className="w-4 h-4" aria-hidden="true" fill={reported[p.id] ? "currentColor" : "none"} />
+                {reported[p.id] ? "신고됨" : "신고"}
               </button>
             </div>
 
