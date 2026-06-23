@@ -12,6 +12,9 @@ export const DEADLINES: Record<
   "t-car": { months: 6, eom: true, label: "자동차 이전" },
 };
 
+const MS_PER_DAY = 86_400_000; // 24*60*60*1000
+const URGENT_THRESHOLD_DAYS = 7; // 남은 일수가 7일 이하면 긴급 표시
+
 export type DdayBadge = { text: string; urgent: boolean };
 
 /**
@@ -35,7 +38,7 @@ export function ddayBadge(
   t.setMonth(t.getMonth() + rule.months);
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
-  const dd = Math.ceil((t.getTime() - today.getTime()) / 86_400_000);
+  const dd = Math.ceil((t.getTime() - today.getTime()) / MS_PER_DAY);
   const text = dd > 0 ? `D-${dd}` : dd === 0 ? "D-DAY" : `${-dd}일 지남`;
-  return { text, urgent: dd <= 7 };
+  return { text, urgent: dd <= URGENT_THRESHOLD_DAYS };
 }
