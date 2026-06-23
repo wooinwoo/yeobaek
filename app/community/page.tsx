@@ -19,6 +19,7 @@ export default async function Community() {
     body: r.body,
     comfort: r.comfort,
     reply: r.reply,
+    reported: r.reported,
     createdAt: r.createdAt.toISOString(),
   }));
 

@@ -1,17 +1,22 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { createPostSchema, POST_TAGS } from "@/lib/posts";
+import type { Prisma } from "@/lib/generated/prisma/client";
 
 export const dynamic = "force-dynamic";
 
-// GET /api/posts?tag=상속고민 — 최신순 목록
+// GET /api/posts?tag=상속고민&sort=comfort — 태그 필터 + 정렬(latest|comfort) 목록
 export async function GET(req: Request) {
-  const tag = new URL(req.url).searchParams.get("tag");
+  const params = new URL(req.url).searchParams;
+  const tag = params.get("tag");
+  const sort = params.get("sort");
   const where = tag && (POST_TAGS as readonly string[]).includes(tag) ? { tag } : undefined;
+  const orderBy: Prisma.PostOrderByWithRelationInput[] =
+    sort === "comfort" ? [{ comfort: "desc" }, { createdAt: "desc" }] : [{ createdAt: "desc" }];
   try {
     const posts = await prisma.post.findMany({
       where,
-      orderBy: { createdAt: "desc" },
+      orderBy,
       take: 50,
     });
     return NextResponse.json(posts);
