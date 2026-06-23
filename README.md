@@ -3,6 +3,8 @@
 > 가족을 떠나보낸 직후, 무엇을 언제까지 해야 하는지 상황에 맞춰 한 걸음씩 안내하는 한국형 사후 절차 길잡이.
 > 장례부터 행정, 보험·연금·지원금, 상속, 세금, 조문 예절까지 흩어진 정보를 한 곳에 모았습니다.
 
+[![CI](https://github.com/wooinwoo/yeobaek/actions/workflows/ci.yml/badge.svg)](https://github.com/wooinwoo/yeobaek/actions/workflows/ci.yml)
+
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
