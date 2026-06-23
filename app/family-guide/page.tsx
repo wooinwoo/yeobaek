@@ -197,8 +197,9 @@ export default function FamilyGuide() {
             </button>
           </div>
           <div className="mt-4 pt-4 border-t border-surface-variant flex flex-wrap items-center gap-3">
-            <span className="text-sm font-semibold">사망일</span>
+            <label htmlFor="death-date" className="text-sm font-semibold">사망일</label>
             <input
+              id="death-date"
               type="date"
               value={deathDate}
               onChange={(e) => setDeathDate(e.target.value)}
@@ -213,13 +214,13 @@ export default function FamilyGuide() {
         {/* 진행률 */}
         <div className="bg-surface-container-lowest rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)] flex items-center gap-6 mb-9">
           <div className="relative w-[88px] h-[88px] shrink-0">
-            <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+            <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90" aria-hidden="true">
               <circle cx="50" cy="50" r="44" fill="none" stroke="var(--color-surface-variant)" strokeWidth="8" />
               <circle
+                className="progress-ring__value"
                 cx="50" cy="50" r="44" fill="none"
                 stroke="var(--color-primary)" strokeWidth="8" strokeLinecap="round"
                 strokeDasharray={C} strokeDashoffset={dash}
-                style={{ transition: "stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)" }}
               />
             </svg>
             <span className="absolute inset-0 grid place-items-center font-serif text-lg text-on-surface">{pct}%</span>
@@ -272,7 +273,7 @@ export default function FamilyGuide() {
             return (
               <section key={stage.n}>
                 <h2 className="flex items-center gap-3 font-serif text-xl text-on-surface mb-4">
-                  <span className="grid place-items-center w-7 h-7 rounded-full bg-primary text-on-primary text-sm font-bold not-italic" style={{ fontFamily: "var(--font-sans)" }}>
+                  <span className="stage-num grid place-items-center w-7 h-7 rounded-full bg-primary text-on-primary text-sm font-bold not-italic">
                     {stage.n}
                   </span>
                   {stage.title}

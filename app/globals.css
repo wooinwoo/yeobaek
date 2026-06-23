@@ -101,9 +101,28 @@ html {
   to { opacity: 1; transform: none; }
 }
 .reveal { opacity: 0; }
-.reveal.in { animation: fade-in-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+.reveal.in {
+  /* 등장 순서를 어긋나게 하는 지연값은 컴포넌트가 --reveal-delay 변수로 주입한다. */
+  animation: fade-in-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms) forwards;
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; animation: none; }
+}
+
+/* 유족 길잡이 진행률 도넛: 채워진 호의 길이는 진행률에 따라 변하므로
+   --progress-dashoffset 변수로 주입하고, 트랜지션만 외부 CSS로 분리한다. */
+.progress-ring__value {
+  stroke-dashoffset: var(--progress-dashoffset, 0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .progress-ring__value {
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+
+/* 단계 번호 배지: serif 제목 안에 있지만 숫자는 본문 sans로 표시한다. */
+.stage-num {
+  font-family: var(--font-sans);
 }
 
 /* 인쇄/PDF 저장: 유족 길잡이 진행 상황을 출력해 가족과 공유하거나 보관할 수 있게.
