@@ -24,3 +24,18 @@ export type PostDTO = {
   reply: number;
   createdAt: string;
 };
+
+// 댓글 작성 입력 검증
+export const createCommentSchema = z.object({
+  body: z.string().trim().min(2, "댓글을 2자 이상 적어주세요.").max(1000, "댓글은 1000자 이내로 적어주세요."),
+});
+
+export type CreateCommentInput = z.infer<typeof createCommentSchema>;
+
+// 클라이언트로 내려보내는 직렬화된 댓글(Date → ISO 문자열)
+export type CommentDTO = {
+  id: string;
+  postId: string;
+  body: string;
+  createdAt: string;
+};
