@@ -5,5 +5,6 @@ export const NAV = [
   { href: "/etiquette", label: "조문 예절" },
   { href: "/terms", label: "용어 사전" },
   { href: "/support", label: "지원금" },
+  { href: "/faq", label: "자주 묻는 질문" },
   { href: "/community", label: "커뮤니티" },
 ] as const;
