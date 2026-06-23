@@ -11,5 +11,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
+    // Playwright E2E 스펙(e2e/*.spec.ts)은 vitest 대상에서 제외(별도 pnpm e2e로 실행).
+    exclude: ["e2e/**", "node_modules/**", "dist/**", ".next/**"],
   },
 });
