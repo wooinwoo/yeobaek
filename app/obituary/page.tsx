@@ -17,6 +17,7 @@ export default function Obituary() {
     account: "",
   });
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setF({ ...f, [k]: e.target.value });
 
@@ -38,12 +39,18 @@ export default function Obituary() {
     return L.join("\n");
   }, [f]);
 
+  const COPIED_RESET_MS = 1800; // '복사됨' 표시 유지 시간
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(text);
+      setCopyFailed(false);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {}
+      setTimeout(() => setCopied(false), COPIED_RESET_MS);
+    } catch {
+      // 클립보드 권한 거부·미지원 브라우저: 아래 안내로 직접 복사하도록 유도
+      setCopyFailed(true);
+    }
   };
 
   const field = (label: string, k: keyof typeof f, ph: string, type = "text") => (
@@ -99,7 +106,13 @@ export default function Obituary() {
             >
               {copied ? <><Check className="w-4 h-4" /> 복사됨</> : <><Copy className="w-4 h-4" /> 부고 문구 복사하기</>}
             </button>
-            <p className="text-xs text-outline mt-3 text-center">복사해서 문자·카카오톡으로 바로 보내실 수 있어요.</p>
+            {copyFailed ? (
+              <p role="status" className="text-xs text-error mt-3 text-center">
+                자동 복사가 안 됐어요. 위 미리보기 글을 길게 눌러 직접 복사해 주세요.
+              </p>
+            ) : (
+              <p className="text-xs text-outline mt-3 text-center">복사해서 문자·카카오톡으로 바로 보내실 수 있어요.</p>
+            )}
           </div>
         </div>
 

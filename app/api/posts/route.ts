@@ -8,12 +8,19 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   const tag = new URL(req.url).searchParams.get("tag");
   const where = tag && (POST_TAGS as readonly string[]).includes(tag) ? { tag } : undefined;
-  const posts = await prisma.post.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-    take: 50,
-  });
-  return NextResponse.json(posts);
+  try {
+    const posts = await prisma.post.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+    return NextResponse.json(posts);
+  } catch {
+    return NextResponse.json(
+      { error: "글 목록을 불러오지 못했어요. 잠시 후 다시 시도해 주세요." },
+      { status: 503 },
+    );
+  }
 }
 
 // POST /api/posts — 새 글 작성
@@ -33,6 +40,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const post = await prisma.post.create({ data: parsed.data });
-  return NextResponse.json(post, { status: 201 });
+  try {
+    const post = await prisma.post.create({ data: parsed.data });
+    return NextResponse.json(post, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: "글을 저장하지 못했어요. 잠시 후 다시 시도해 주세요." },
+      { status: 503 },
+    );
+  }
 }

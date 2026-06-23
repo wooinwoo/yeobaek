@@ -109,13 +109,17 @@ export default function FamilyGuide() {
         setDeathDate(s.deathDate ?? "");
         /* eslint-enable react-hooks/set-state-in-effect */
       }
-    } catch {}
+    } catch {
+      // localStorage 접근 실패(시크릿 모드·차단 등)나 손상된 JSON은 무시하고 기본값 유지
+    }
   }, []);
   // 저장
   useEffect(() => {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify({ place, recipient, checked, deathDate }));
-    } catch {}
+    } catch {
+      // 저장 실패(용량 초과·차단 등)는 진행에 지장이 없으므로 무시
+    }
   }, [place, recipient, checked, deathDate]);
 
   const visible = (t: Task) =>
