@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { Printer, RotateCcw } from "lucide-react";
 import { ddayBadge } from "@/lib/dday";
 
 type Task = {
@@ -132,8 +133,20 @@ export default function FamilyGuide() {
   const C = 2 * Math.PI * 44;
   const dash = useMemo(() => C - (pct / 100) * C, [pct, C]);
 
+  // 현재 체크 상태를 인쇄/PDF로 저장. 인쇄용 CSS가 화면 전용 요소를 숨긴다.
+  const handlePrint = () => window.print();
+
+  // 진행 상황 초기화: 되돌릴 수 없으므로 한 번 확인한다.
+  const handleReset = () => {
+    if (doneCount === 0) return;
+    const ok = window.confirm(
+      "지금까지 체크한 진행 상황을 모두 지울까요? 한 번 지우면 되돌릴 수 없어요."
+    );
+    if (ok) setChecked({});
+  };
+
   return (
-    <div className="pt-24 pb-20 px-5 md:px-8">
+    <div className="print-area pt-24 pb-20 px-5 md:px-8">
       <div className="max-w-[1120px] mx-auto">
         {/* 헤더 */}
         <div className="mb-2 text-sm text-on-surface-variant">홈 · 유족 길잡이</div>
@@ -224,6 +237,31 @@ export default function FamilyGuide() {
           <Link href="/debt-simulator" className="ml-auto hidden sm:inline-flex text-sm font-semibold text-primary border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-container">
             빚이 걱정되세요? →
           </Link>
+        </div>
+
+        {/* 진행 상황 공유/관리 (화면 전용, 인쇄 시 숨김) */}
+        <div className="no-print flex flex-wrap items-center gap-3 mb-9">
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="inline-flex items-center gap-2 min-h-[44px] px-4 py-2.5 rounded-full text-sm font-semibold bg-surface-container text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors"
+          >
+            <Printer className="w-4 h-4 shrink-0" aria-hidden="true" />
+            진행 상황 인쇄·PDF 저장
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            disabled={doneCount === 0}
+            aria-label="체크한 진행 상황 모두 지우기"
+            className="inline-flex items-center gap-2 min-h-[44px] px-4 py-2.5 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-default disabled:hover:bg-transparent"
+          >
+            <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
+            진행 상황 초기화
+          </button>
+          <p className="basis-full text-sm text-on-surface-variant">
+            인쇄 화면에서 PDF로 저장하면 가족과 나눠 보거나 출력해 둘 수 있어요.
+          </p>
         </div>
 
         {/* 단계별 체크리스트 */}

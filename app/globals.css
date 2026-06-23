@@ -105,3 +105,29 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; animation: none; }
 }
+
+/* 인쇄/PDF 저장: 유족 길잡이 진행 상황을 출력해 가족과 공유하거나 보관할 수 있게.
+   화면 전용 요소(헤더/푸터/조작 버튼)는 숨기고 본문만 깔끔하게 남긴다. */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  /* 인쇄 시 상단 여백을 줄여 첫 줄부터 본문이 시작되게 한다. */
+  .print-area {
+    padding-top: 0 !important;
+  }
+
+  /* 배경/강조색을 그대로 인쇄(브라우저 기본은 배경 생략) */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* 단계 섹션이 페이지 중간에서 어색하게 잘리지 않도록 */
+  section {
+    break-inside: avoid;
+  }
+}
