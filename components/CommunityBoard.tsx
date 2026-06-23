@@ -79,6 +79,8 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
 
   async function comfort(id: string) {
     if (liked[id]) return;
+    // 롤백을 위해 원래 값을 캡처(증가/감소 누적으로 인한 언더플로우 방지)
+    const prevComfort = posts.find((p) => p.id === id)?.comfort;
     // 낙관적 업데이트
     setLiked((l) => ({ ...l, [id]: true }));
     setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, comfort: p.comfort + 1 } : p)));
@@ -86,16 +88,25 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       const res = await fetch(`/api/posts/${id}/comfort`, { method: "POST" });
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, comfort: data.comfort } : p)));
+      // 200이지만 카운트 필드가 없을 때를 방어
+      setPosts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, comfort: data.comfort ?? p.comfort } : p)),
+      );
     } catch {
-      // 롤백
+      // 롤백: 원래 값으로 복원(없으면 0 미만으로 내려가지 않게)
       setLiked((l) => ({ ...l, [id]: false }));
-      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, comfort: p.comfort - 1 } : p)));
+      setPosts((prev) =>
+        prev.map((p) =>
+          p.id === id ? { ...p, comfort: prevComfort ?? Math.max(0, p.comfort - 1) } : p,
+        ),
+      );
     }
   }
 
   async function report(id: string) {
     if (reported[id]) return;
+    // 롤백을 위해 원래 값을 캡처
+    const prevReported = posts.find((p) => p.id === id)?.reported;
     // 낙관적 업데이트: 즉시 신고 처리된 것으로 표시
     setReported((r) => ({ ...r, [id]: true }));
     setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: p.reported + 1 } : p)));
@@ -103,11 +114,18 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       const res = await fetch(`/api/posts/${id}/report`, { method: "POST" });
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: data.reported } : p)));
+      // 200이지만 카운트 필드가 없을 때를 방어
+      setPosts((prev) =>
+        prev.map((p) => (p.id === id ? { ...p, reported: data.reported ?? p.reported } : p)),
+      );
     } catch {
-      // 롤백
+      // 롤백: 원래 값으로 복원(없으면 0 미만으로 내려가지 않게)
       setReported((r) => ({ ...r, [id]: false }));
-      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reported: p.reported - 1 } : p)));
+      setPosts((prev) =>
+        prev.map((p) =>
+          p.id === id ? { ...p, reported: prevReported ?? Math.max(0, p.reported - 1) } : p,
+        ),
+      );
     }
   }
 
@@ -117,6 +135,8 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
     // 처음 펼칠 때만 목록을 불러온다.
     if (next && comments[id] === undefined && !loadingComments[id]) {
       setLoadingComments((s) => ({ ...s, [id]: true }));
+      // 재시도 시 이전 에러 메시지를 비운다.
+      setCommentError((s) => ({ ...s, [id]: "" }));
       try {
         const res = await fetch(`/api/posts/${id}/comments`);
         if (!res.ok) throw new Error();
@@ -132,9 +152,9 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
 
   async function submitComment(e: React.FormEvent, id: string) {
     e.preventDefault();
-    const body = (commentDrafts[id] ?? "").trim();
+    const commentBody = (commentDrafts[id] ?? "").trim();
     setCommentError((s) => ({ ...s, [id]: "" }));
-    if (body.length < 2) {
+    if (commentBody.length < 2) {
       setCommentError((s) => ({ ...s, [id]: "댓글을 2자 이상 적어주세요." }));
       return;
     }
@@ -144,7 +164,7 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
     const optimistic: CommentDTO = {
       id: tempId,
       postId: id,
-      body,
+      body: commentBody,
       createdAt: new Date().toISOString(),
     };
     setComments((s) => ({ ...s, [id]: [...(s[id] ?? []), optimistic] }));
@@ -156,7 +176,7 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       const res = await fetch(`/api/posts/${id}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body }),
+        body: JSON.stringify({ body: commentBody }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "등록에 실패했어요.");
@@ -168,8 +188,8 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
     } catch (err) {
       // 롤백
       setComments((s) => ({ ...s, [id]: (s[id] ?? []).filter((c) => c.id !== tempId) }));
-      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reply: p.reply - 1 } : p)));
-      setCommentDrafts((s) => ({ ...s, [id]: body }));
+      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reply: Math.max(0, p.reply - 1) } : p)));
+      setCommentDrafts((s) => ({ ...s, [id]: commentBody }));
       setCommentError((s) => ({
         ...s,
         [id]: err instanceof Error ? err.message : "등록에 실패했어요. 잠시 후 다시 시도해 주세요.",

@@ -176,6 +176,59 @@ describe("CommunityBoard - 위로(낙관적 업데이트/롤백)", () => {
       expect(btn).not.toBeDisabled();
     });
   });
+
+  it("위로 0인 글이 실패해도 음수로 내려가지 않고 0으로 복원된다", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(global, "fetch").mockImplementation(() => jsonResponse({}, false, 500));
+
+    // comfort=0 글 하나만
+    render(<CommunityBoard initialPosts={[makePost({ id: "zero", title: "위로 0", comfort: 0 })]} />);
+    await user.click(screen.getByRole("button", { name: /^위로 0$/ }));
+
+    // 낙관적 1 → 실패 롤백. 원래 값(0)으로 복원되어야 한다(언더플로우 방지)
+    await waitFor(() => {
+      const btn = screen.getByRole("button", { name: /^위로 0$/ });
+      expect(btn).not.toBeDisabled();
+    });
+  });
+
+  it("200 응답에 comfort 필드가 없으면 낙관적 값을 유지한다", async () => {
+    const user = userEvent.setup();
+    // ok=true지만 카운트 필드 없음
+    vi.spyOn(global, "fetch").mockImplementation(() => jsonResponse({}, true, 200));
+
+    render(<CommunityBoard initialPosts={POSTS} />);
+    await user.click(screen.getByRole("button", { name: /^위로 1$/ }));
+
+    // 필드가 없으니 낙관적으로 올린 2를 유지하고, 버튼은 비활성(중복 방지)
+    await waitFor(() => expect(screen.getByRole("button", { name: /^위로 2$/ })).toBeDisabled());
+  });
+});
+
+describe("CommunityBoard - 신고(낙관적 업데이트/롤백)", () => {
+  it("신고 실패 시 원래 값으로 복원하고 다시 신고 가능해진다", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(global, "fetch").mockImplementation(() => jsonResponse({}, false, 500));
+
+    render(<CommunityBoard initialPosts={[makePost({ id: "rep", title: "신고 대상", reported: 0 })]} />);
+    await user.click(screen.getByRole("button", { name: /이 글 신고하기/ }));
+
+    // 실패 롤백 후 다시 신고 버튼이 활성(중복 방지 해제)
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: /이 글 신고하기/ })).not.toBeDisabled(),
+    );
+  });
+
+  it("200 응답에 reported 필드가 없으면 낙관적 값을 유지한다", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(global, "fetch").mockImplementation(() => jsonResponse({}, true, 200));
+
+    render(<CommunityBoard initialPosts={[makePost({ id: "rep2", title: "신고", reported: 0 })]} />);
+    await user.click(screen.getByRole("button", { name: /이 글 신고하기/ }));
+
+    // 신고 완료 표시(중복 방지)로 비활성 유지
+    await waitFor(() => expect(screen.getByRole("button", { name: /신고 접수됨/ })).toBeDisabled());
+  });
 });
 
 describe("CommunityBoard - 댓글 토글/작성", () => {
