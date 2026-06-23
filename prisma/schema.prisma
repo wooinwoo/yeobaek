@@ -13,14 +13,26 @@ datasource db {
 
 /// 익명 커뮤니티 글
 model Post {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   tag       String // 상속고민 | 마음위로 | 절차질문 | 일상공유
   title     String
   body      String
-  comfort   Int      @default(0) // '위로' 공감 수
-  reply     Int      @default(0) // 답변 수(추후 댓글 모델 확장 여지)
-  createdAt DateTime @default(now())
+  comfort   Int       @default(0) // '위로' 공감 수
+  reply     Int       @default(0) // 답변(댓글) 수. 댓글 작성 시 함께 증가
+  createdAt DateTime  @default(now())
+  comments  Comment[]
 
   @@index([createdAt])
   @@index([tag])
+}
+
+/// 글에 달린 익명 댓글
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([postId, createdAt])
 }
