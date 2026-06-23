@@ -14,7 +14,8 @@ export const SORT_OPTIONS = [
 export type SortValue = (typeof SORT_OPTIONS)[number]["value"];
 
 // 신고 누적이 이 값 이상이면 목록에서 흐리게 처리(운영 검토 대상)
-export const REPORT_HIDE_THRESHOLD = 5;
+// 소수의 악의적 신고로 정상 글이 가려지지 않도록 임계치를 충분히 높게 둔다.
+export const REPORT_HIDE_THRESHOLD = 15;
 
 // 글 작성 입력 검증
 export const createPostSchema = z.object({
