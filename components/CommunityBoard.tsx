@@ -13,9 +13,6 @@ import {
   type SortValue,
 } from "@/lib/posts";
 
-// 클라이언트에서 임시로 만든 낙관적 댓글 식별(롤백/치환용)
-let tempSeq = 0;
-
 function ago(iso: string) {
   const diff = Date.now() - new Date(iso).getTime();
   const m = Math.floor(diff / 60000);
@@ -142,8 +139,8 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       return;
     }
 
-    // 낙관적 추가
-    const tempId = `temp-${++tempSeq}`;
+    // 낙관적 추가 (충돌 없는 임시 id로 롤백/치환 식별)
+    const tempId = `temp-${crypto.randomUUID()}`;
     const optimistic: CommentDTO = {
       id: tempId,
       postId: id,
@@ -261,20 +258,30 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
               </button>
             ))}
           </div>
+          <label htmlFor="post-title" className="sr-only">
+            제목
+          </label>
           <input
+            id="post-title"
+            name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="제목"
             maxLength={80}
-            className="w-full px-4 py-2.5 bg-surface border border-outline-variant rounded-xl outline-none focus:border-primary transition-colors"
+            className="w-full px-4 py-2.5 text-base bg-surface border border-outline-variant rounded-xl outline-none focus:border-primary transition-colors"
           />
+          <label htmlFor="post-body" className="sr-only">
+            내용
+          </label>
           <textarea
+            id="post-body"
+            name="body"
             value={body}
             onChange={(e) => setBody(e.target.value)}
             placeholder="어떤 이야기든 편하게 남겨주세요. 판단하지 않고 듣겠습니다."
             rows={4}
             maxLength={2000}
-            className="w-full px-4 py-2.5 bg-surface border border-outline-variant rounded-xl outline-none focus:border-primary transition-colors resize-none leading-relaxed"
+            className="w-full px-4 py-2.5 text-base bg-surface border border-outline-variant rounded-xl outline-none focus:border-primary transition-colors resize-none leading-relaxed"
           />
           {error && <p className="text-sm text-error">{error}</p>}
           <div className="flex justify-end">
