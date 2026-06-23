@@ -1,9 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.vercel.app";
+const DESCRIPTION =
+  "상속 순위·법정상속분·유류분·등기와 세금까지, 누가 얼마나 받는지 분쟁 없이 정리했어요.";
 
 export const metadata: Metadata = {
   title: "상속 가이드",
-  description: "상속 순위·법정상속분·유류분·등기와 세금까지, 누가 얼마나 받는지 분쟁 없이 정리했어요.",
+  description: DESCRIPTION,
+};
+
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "상속, 누가 얼마나 받나요",
+  description: DESCRIPTION,
+  inLanguage: "ko-KR",
+  url: `${SITE_URL}/inheritance`,
+  about: ["상속 순위", "법정상속분", "유류분", "상속 등기", "상속세"],
+  author: { "@type": "Organization", name: "여백" },
+  publisher: {
+    "@type": "Organization",
+    name: "여백",
+    logo: { "@type": "ImageObject", url: `${SITE_URL}/icon.svg` },
+  },
 };
 
 const card = "bg-surface-container-lowest rounded-3xl p-7 md:p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]";
@@ -20,12 +41,13 @@ const TOC = [
 export default function Inheritance() {
   return (
     <div className="pt-24 pb-20 px-5 md:px-8">
+      <JsonLd data={articleJsonLd} />
       <div className="max-w-[820px] mx-auto">
         <div className="text-center mb-8">
           <div className="text-sm text-on-surface-variant mb-2">홈 · 상속 가이드</div>
           <h1 className="font-serif text-[26px] md:text-5xl font-semibold text-on-surface mb-4">상속, 누가 얼마나 받나요</h1>
           <p className="text-lg text-on-surface-variant">
-            상속 순위부터 나누는 법, 최소한의 몫(유류분), 등기·세금까지 — 분쟁 없이 정리하도록 차근차근 안내합니다.
+            상속 순위부터 나누는 법, 최소한의 몫(유류분), 등기·세금까지 분쟁 없이 정리하도록 차근차근 안내합니다.
           </p>
         </div>
 

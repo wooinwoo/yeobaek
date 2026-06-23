@@ -2,15 +2,16 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.vercel.app";
 const DESCRIPTION =
-  "사랑하는 사람을 떠나보낸 뒤, 무엇을 언제까지 해야 하는지 — 당신의 상황에 맞춰 한 걸음씩 안내하는 유족 길잡이. 장례·행정·보험·연금·상속·세금·조문예절까지.";
+  "사랑하는 사람을 떠나보낸 뒤, 무엇을 언제까지 해야 하는지 당신의 상황에 맞춰 한 걸음씩 안내하는 유족 길잡이. 장례·행정·보험·연금·상속·세금·조문예절까지.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "여백 — 혼자 감당하지 않아도 됩니다",
+    default: "여백, 혼자 감당하지 않아도 됩니다",
     template: "%s · 여백",
   },
   description: DESCRIPTION,
@@ -26,12 +27,12 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     url: SITE_URL,
     siteName: "여백",
-    title: "여백 — 혼자 감당하지 않아도 됩니다",
+    title: "여백, 혼자 감당하지 않아도 됩니다",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "여백 — 혼자 감당하지 않아도 됩니다",
+    title: "여백, 혼자 감당하지 않아도 됩니다",
     description: DESCRIPTION,
   },
   robots: {
@@ -47,12 +48,29 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "여백",
+  alternateName: "여백 유족 길잡이",
+  url: SITE_URL,
+  inLanguage: "ko-KR",
+  description: DESCRIPTION,
+  publisher: {
+    "@type": "Organization",
+    name: "여백",
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon.svg`,
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-surface text-on-surface">
+        <JsonLd data={websiteJsonLd} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
