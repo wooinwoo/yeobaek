@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import {
   ClipboardCheck,
@@ -31,8 +32,14 @@ export default function Home() {
       {/* 히어로 */}
       <section className="relative min-h-[82vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/hero.jpg" alt="동틀 녘 고요한 호수" className="w-full h-full object-cover opacity-65" />
+          <Image
+            src="/hero.jpg"
+            alt="동틀 녘 고요한 호수"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-65"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-surface/75 via-surface/55 to-surface" />
           <div className="absolute inset-0 bg-surface/25" />
         </div>
@@ -45,7 +52,7 @@ export default function Home() {
           </p>
           <Link
             href="/family-guide"
-            className="group inline-flex items-center gap-2 bg-primary-container text-on-primary px-8 py-4 rounded-full font-semibold text-sm shadow-[0_10px_30px_rgba(120,82,60,0.25)] hover:bg-primary hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(120,82,60,0.32)] active:translate-y-0 active:scale-[0.98] transition-all duration-200"
+            className="group inline-flex items-center gap-2 bg-primary-container text-on-primary px-8 py-4 rounded-full font-semibold text-sm shadow-[0_10px_30px_rgba(120,82,60,0.25)] transition-colors duration-200 hover:bg-primary hover:shadow-[0_16px_36px_rgba(120,82,60,0.32)] motion-safe:transition-all motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.98]"
           >
             지금 필요한 도움 받기
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -82,7 +89,7 @@ export default function Home() {
               <Reveal key={f.href} delay={(i % 3) * 80}>
                 <Link
                   href={f.href}
-                  className="group block h-full bg-surface-container-lowest rounded-3xl p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)] hover:shadow-[0_18px_40px_-14px_rgba(120,82,60,0.22)] hover:-translate-y-1 transition-all"
+                  className="group block h-full bg-surface-container-lowest rounded-3xl p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)] transition-shadow hover:shadow-[0_18px_40px_-14px_rgba(120,82,60,0.22)] motion-safe:transition-all motion-safe:hover:-translate-y-1 motion-reduce:transition-shadow"
                 >
                   <f.icon className="w-8 h-8 text-primary mb-4" strokeWidth={1.6} />
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-2">{f.title}</h3>
@@ -136,13 +143,13 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               href="/family-guide"
-              className="bg-primary-container text-on-primary px-8 py-4 rounded-full font-semibold text-sm hover:bg-primary hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+              className="bg-primary-container text-on-primary px-8 py-4 rounded-full font-semibold text-sm transition-colors duration-200 hover:bg-primary motion-safe:transition-all motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]"
             >
               유족 길잡이 보기
             </Link>
             <Link
               href="/etiquette"
-              className="border border-outline text-primary px-8 py-4 rounded-full font-semibold text-sm hover:bg-surface-container hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+              className="border border-outline text-primary px-8 py-4 rounded-full font-semibold text-sm transition-colors duration-200 hover:bg-surface-container motion-safe:transition-all motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]"
             >
               조문 예절 알아보기
             </Link>
