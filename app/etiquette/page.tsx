@@ -4,7 +4,7 @@ import { X, ChevronDown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "조문 예절",
-  description: "빈소에 들어서는 순간부터 나오는 순간까지 — 분향·절·부의금·종교별 예절을 빠짐없이 안내합니다.",
+  description: "빈소에 들어서는 순간부터 나오는 순간까지, 분향·절·부의금·종교별 예절을 빠짐없이 안내합니다.",
 };
 
 const card = "bg-surface-container-lowest rounded-3xl p-7 md:p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]";

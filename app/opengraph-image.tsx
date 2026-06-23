@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "여백 — 혼자 감당하지 않아도 됩니다";
+export const alt = "여백, 혼자 감당하지 않아도 됩니다";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
