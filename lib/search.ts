@@ -5,6 +5,7 @@ export type SearchCategory =
   | "도구"
   | "예절"
   | "지원금"
+  | "FAQ"
   | "용어"
   | "커뮤니티";
 
@@ -204,6 +205,60 @@ const PAGE_ENTRIES: SearchEntry[] = [
     category: "가이드",
   },
   {
+    id: "page-faq",
+    title: "자주 묻는 질문",
+    summary:
+      "장례 직후부터 행정 신고, 상속과 빚, 세금, 지원금까지 유족이 가장 많이 묻는 질문을 모았어요.",
+    keywords: [
+      "FAQ",
+      "자주 묻는 질문",
+      "질문",
+      "궁금",
+      "Q&A",
+      "문답",
+      "사후 절차",
+      "사망 후",
+    ],
+    href: "/faq",
+    category: "FAQ",
+  },
+  {
+    id: "faq-debt-3months",
+    title: "한정승인·상속포기는 언제까지 하나요",
+    summary:
+      "상속개시를 안 날부터 3개월 이내에 가정법원에 신고해야 합니다. 넘기면 단순승인으로 봅니다.",
+    keywords: ["한정승인", "상속포기", "3개월", "기한", "빚", "단순승인", "특별한정승인"],
+    href: "/faq#debt",
+    category: "FAQ",
+  },
+  {
+    id: "faq-death-report",
+    title: "사망신고는 언제까지 해야 하나요",
+    summary:
+      "사망 사실을 안 날부터 1개월 이내에 사망진단서를 첨부해 주민센터에 신고합니다.",
+    keywords: ["사망신고", "1개월", "기한", "주민센터", "사망진단서", "안심상속"],
+    href: "/faq#admin",
+    category: "FAQ",
+  },
+  {
+    id: "faq-tax-deadline",
+    title: "상속세는 언제까지 신고하나요",
+    summary:
+      "사망일이 속한 달 말일부터 6개월 이내 신고·납부. 공제가 커서 0원인 경우도 많습니다.",
+    keywords: ["상속세", "6개월", "신고", "납부", "가산세", "공제", "세금"],
+    href: "/faq#tax",
+    category: "FAQ",
+  },
+  {
+    id: "faq-support-claim",
+    title: "유족이 받을 수 있는 지원금이 뭔가요",
+    summary:
+      "유족연금·장제급여·산재·보훈 등. 대부분 직접 신청해야 받고, 보험금 시효는 3년입니다.",
+    keywords: ["지원금", "유족연금", "장제급여", "사망보험금", "시효", "산재", "보훈"],
+    href: "/faq#support",
+    category: "FAQ",
+  },
+  {
     id: "page-community",
     title: "커뮤니티",
     summary:
@@ -308,6 +363,7 @@ export const CATEGORY_ORDER: SearchCategory[] = [
   "도구",
   "예절",
   "지원금",
+  "FAQ",
   "용어",
   "커뮤니티",
 ];
