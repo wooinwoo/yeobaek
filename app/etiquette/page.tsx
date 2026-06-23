@@ -119,7 +119,7 @@ export default function Etiquette() {
               </div>
               <div className={`${card} bg-error-container/40`}>
                 <h3 className="font-semibold mb-2 text-error">꼭 피할 것</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed"><b>맨발은 금물</b> — 신발을 벗고 빈소에 들어가니 반드시 양말·스타킹을 신으세요. 흰색·원색 정장, 모자, 짙은 화장도 피합니다.</p>
+                <p className="text-on-surface-variant text-sm leading-relaxed"><b>맨발은 금물</b>. 신발을 벗고 빈소에 들어가니 반드시 양말·스타킹을 신으세요. 흰색·원색 정장, 모자, 짙은 화장도 피합니다.</p>
               </div>
             </div>
           </section>
@@ -130,21 +130,21 @@ export default function Etiquette() {
             <p className="text-on-surface-variant text-sm mb-4 -mt-2">※ 아래는 <b>성복(입관) 후 정식 조문</b> 기준입니다. 성복 전이라면 위 ‘입관 전·후’ 안내를 참고하세요.</p>
             <div className={card}>
               <ol>
-                <Step n={1} title="도착 — 외투·모자를 벗습니다">입구에서 코트·모자·목도리를 벗어 손에 들거나 맡깁니다. 휴대폰은 무음으로.</Step>
+                <Step n={1} title="도착, 외투·모자를 벗습니다">입구에서 코트·모자·목도리를 벗어 손에 들거나 맡깁니다. 휴대폰은 무음으로.</Step>
                 <Step n={2} title="부의금 전달 · 방명록 작성">호상소(접수대)나 부의함에 봉투를 넣고, 방명록(부의록)에 이름을 적습니다. 부의금은 보통 이때 전합니다.</Step>
                 <Step n={3} title="상주에게 가벼운 목례">빈소에 들어서며 상주와 눈이 마주치면 가볍게 목례합니다. 아직 길게 말하지 않습니다.</Step>
                 <Step n={4} title="분향 또는 헌화">영정 앞으로 가 향을 피우거나(분향) 국화를 올립니다(헌화). 무엇을 할지는 빈소 안내와 종교를 따릅니다.</Step>
                 <Step n={5} title="영정에 절(재배) 또는 묵념">영정·위패를 향해 두 번 절(재배)하거나, 종교에 따라 잠시 묵념·기도합니다.</Step>
                 <Step n={6} title="상주와 맞절(한 번) · 위로의 말">돌아서서 상주와 한 번 맞절(또는 목례)하고, 짧게 위로를 건넵니다.</Step>
                 <Step n={7} title="물러나기">두세 걸음 뒤로 물러난 뒤 돌아섭니다. (영정에 등을 곧장 보이지 않습니다)</Step>
-                <Step n={8} title="접객실에서 — 권하면 잠시">유족이 식사를 권하면 사양 말고 잠시 자리합니다. 오래 머물지 않고 조용히 일어납니다.</Step>
+                <Step n={8} title="접객실에서, 권하면 잠시">유족이 식사를 권하면 사양 말고 잠시 자리합니다. 오래 머물지 않고 조용히 일어납니다.</Step>
               </ol>
             </div>
           </section>
 
           {/* 분향 · 헌화 */}
           <section id="incense">
-            <h2 className={h2}>분향 · 헌화 — 동작 하나하나</h2>
+            <h2 className={h2}>분향 · 헌화, 동작 하나하나</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div className={card}>
                 <h3 className="font-semibold text-primary mb-3">분향(焚香)하는 법</h3>
@@ -173,7 +173,7 @@ export default function Etiquette() {
 
           {/* 절하는 법 */}
           <section id="bow">
-            <h2 className={h2}>절하는 법 — 공수부터 큰절까지</h2>
+            <h2 className={h2}>절하는 법, 공수부터 큰절까지</h2>
             <div className={`${card} mb-4`}>
               <p className="text-on-surface-variant mb-4">조문(흉사)에서는 손을 포개는 <b>공수(拱手)</b>가 <b>평소(좋은 일)와 반대</b>입니다.</p>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -227,7 +227,7 @@ export default function Etiquette() {
               <div className="border-2 border-dashed border-surface-variant rounded-2xl p-7 text-center bg-surface-container">
                 <div className="font-serif text-3xl tracking-[0.3em] text-on-surface">賻 儀</div>
                 <div className="text-sm text-on-surface-variant mt-2">부의(賻儀) · 근조(謹弔) · 조의(弔意) · 추모(追慕)</div>
-                <div className="text-xs text-outline mt-3">— 뒷면 왼쪽 아래에 소속과 이름을 세로로 적습니다 —</div>
+                <div className="text-xs text-outline mt-3">뒷면 왼쪽 아래에 소속과 이름을 세로로 적습니다</div>
               </div>
             </div>
             <div className={`${card} mb-4`}>

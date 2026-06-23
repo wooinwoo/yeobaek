@@ -117,7 +117,7 @@ export default function DebtSimulator() {
 
             {result.special && (
               <div className="text-sm bg-surface-container rounded-2xl px-4 py-3 mb-5 text-on-surface-variant">
-                <b>특별한정승인</b> — 빚이 더 많은 줄 ‘중대한 과실 없이’ 몰랐다가 뒤늦게 안 경우, 그 사실을 안 날부터 3개월 안에 한정승인을 할 수 있습니다.
+                <b>특별한정승인</b>. 빚이 더 많은 줄 ‘중대한 과실 없이’ 몰랐다가 뒤늦게 안 경우, 그 사실을 안 날부터 3개월 안에 한정승인을 할 수 있습니다.
               </div>
             )}
 
@@ -139,7 +139,7 @@ export default function DebtSimulator() {
             <h2 className="font-serif text-2xl font-semibold text-on-surface mb-4">세 가지 방법, 한눈에</h2>
             <div className="grid sm:grid-cols-3 gap-4">
               {[
-                { name: "단순승인", rows: [["뜻", "재산·빚 다 물려받음"], ["빚 책임", "전부 부담"], ["후순위로?", "—"], ["신청", "신고 불필요 (3개월 무대응 시 자동)"], ["추천 상황", "재산 > 빚"]] },
+                { name: "단순승인", rows: [["뜻", "재산·빚 다 물려받음"], ["빚 책임", "전부 부담"], ["후순위로?", "해당 없음"], ["신청", "신고 불필요 (3개월 무대응 시 자동)"], ["추천 상황", "재산 > 빚"]] },
                 { name: "한정승인", hl: true, rows: [["뜻", "재산 한도로만 빚 갚음"], ["빚 책임", "재산 한도까지만"], ["후순위로?", "안 넘어감"], ["신청", "가정법원 신고"], ["추천 상황", "빚 > 재산 / 불확실"]] },
                 { name: "상속포기", rows: [["뜻", "상속 자체를 포기"], ["빚 책임", "없음"], ["후순위로?", "넘어감"], ["신청", "가정법원 신고"], ["추천 상황", "다른 상속인이 한정승인할 때"]] },
               ].map((m) => (
@@ -181,19 +181,19 @@ export default function DebtSimulator() {
             <div className={card}>
               <h3 className="flex items-center gap-2 font-semibold mb-3"><FileText className="w-4 h-4 text-primary" /> 준비 서류 (예시)</h3>
               <div className="text-sm text-on-surface-variant space-y-2">
-                <div><b className="text-on-surface">고인</b> — 말소자 주민등록등(초)본, 제적등본, 폐쇄 가족관계·기본증명서</div>
-                <div><b className="text-on-surface">상속인</b> — 주민등록등(초)본, 가족관계증명서, 인감증명서·인감도장</div>
-                <div><b className="text-on-surface">한정승인</b> — 위 서류 + <b>상속재산 목록</b></div>
+                <div><b className="text-on-surface">고인</b>, 말소자 주민등록등(초)본, 제적등본, 폐쇄 가족관계·기본증명서</div>
+                <div><b className="text-on-surface">상속인</b>, 주민등록등(초)본, 가족관계증명서, 인감증명서·인감도장</div>
+                <div><b className="text-on-surface">한정승인</b>, 위 서류 + <b>상속재산 목록</b></div>
                 <p className="text-xs text-outline pt-1">※ 법원·상황에 따라 다를 수 있어 관할 가정법원에 확인하세요.</p>
               </div>
             </div>
             <div className={card}>
               <h3 className="flex items-center gap-2 font-semibold mb-3"><Clock className="w-4 h-4 text-primary" /> 기한 · 비용 · 기간</h3>
               <div className="text-sm text-on-surface-variant space-y-2">
-                <div><b className="text-on-surface">기한</b> — 상속개시를 안 날부터 <b>3개월</b> (엄수)</div>
-                <div><b className="text-on-surface">접수처</b> — 고인의 마지막 주소지 관할 가정법원</div>
-                <div><b className="text-on-surface">비용</b> — 인지·송달료(소액). 변호사·법무사 대행 시 별도</div>
-                <div><b className="text-on-surface">처리</b> — 보통 신고 후 1~2개월 내 심판(수리)</div>
+                <div><b className="text-on-surface">기한</b>, 상속개시를 안 날부터 <b>3개월</b> (엄수)</div>
+                <div><b className="text-on-surface">접수처</b>, 고인의 마지막 주소지 관할 가정법원</div>
+                <div><b className="text-on-surface">비용</b>, 인지·송달료(소액). 변호사·법무사 대행 시 별도</div>
+                <div><b className="text-on-surface">처리</b>, 보통 신고 후 1~2개월 내 심판(수리)</div>
               </div>
             </div>
           </section>

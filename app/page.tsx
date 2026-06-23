@@ -20,7 +20,7 @@ const FEATURES = [
   { href: "/inheritance", icon: Users, title: "상속 가이드", desc: "상속 순위·법정상속분·유류분·등기까지, 누가 얼마나 받는지 정리." },
   { href: "/inheritance-tax", icon: Calculator, title: "상속세 계산기", desc: "재산·가족 구성을 입력하면 예상 상속세를 바로 가늠해 드립니다." },
   { href: "/obituary", icon: FileText, title: "부고 문자 생성기", desc: "빈칸만 채우면 단정한 부고 문구를 만들어 바로 복사할 수 있어요." },
-  { href: "/etiquette", icon: HeartHandshake, title: "조문 예절", desc: "절은 몇 번, 봉투엔 뭐라 쓰는지 — 막상 가면 헷갈리는 것들을 정리했어요." },
+  { href: "/etiquette", icon: HeartHandshake, title: "조문 예절", desc: "절은 몇 번, 봉투엔 뭐라 쓰는지, 막상 가면 헷갈리는 것들을 정리했어요." },
   { href: "/terms", icon: BookOpen, title: "용어 사전", desc: "장지·봉안당·발인… 낯선 장례 용어를 쉽게 풀어드립니다." },
   { href: "/support", icon: Banknote, title: "지원금", desc: "국민연금 사망일시금·장제급여 등 받을 수 있는 지원을 안내합니다." },
   { href: "/community", icon: MessagesSquare, title: "커뮤니티", desc: "먼저 같은 길을 지나온 이들의 경험과 위로. 익명으로 조용히." },

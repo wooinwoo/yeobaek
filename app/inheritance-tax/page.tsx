@@ -102,17 +102,17 @@ export default function InheritanceTax() {
 
           <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
             <h3 className="font-semibold mb-2">무엇이 ‘상속재산’인가요</h3>
-            <p className="text-on-surface-variant text-sm leading-relaxed">부동산·예금·주식·자동차 등 고인의 모든 재산에 더해, <b className="text-on-surface">사망보험금·퇴직금(간주상속재산)</b>도 포함됩니다. 또 <b className="text-on-surface">사망 전 증여</b>도 합산돼요 — 상속인에게 준 건 10년, 그 외엔 5년 이내 증여분. 고인의 <b className="text-on-surface">빚·공과금·장례비</b>는 빼고(공제) 계산합니다.</p>
+            <p className="text-on-surface-variant text-sm leading-relaxed">부동산·예금·주식·자동차 등 고인의 모든 재산에 더해, <b className="text-on-surface">사망보험금·퇴직금(간주상속재산)</b>도 포함됩니다. 또 <b className="text-on-surface">사망 전 증여</b>도 합산돼요. 상속인에게 준 건 10년, 그 외엔 5년 이내 증여분. 고인의 <b className="text-on-surface">빚·공과금·장례비</b>는 빼고(공제) 계산합니다.</p>
           </div>
 
           <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
             <h3 className="font-semibold mb-3">주요 공제 (세금 줄여주는 항목)</h3>
             <ul className="text-on-surface-variant text-sm space-y-1.5 leading-relaxed">
-              <li>· <b className="text-on-surface">일괄공제 5억</b> — 대부분 기본 적용</li>
-              <li>· <b className="text-on-surface">배우자공제 5억~30억</b> — 배우자가 있으면 가장 크게 줄어듦</li>
-              <li>· <b className="text-on-surface">금융재산공제</b> — 순금융재산의 일부(한도 있음)</li>
-              <li>· <b className="text-on-surface">동거주택 상속공제</b> — 함께 살던 집을 자녀가 상속 시 요건 충족하면 공제</li>
-              <li>· <b className="text-on-surface">장례비·채무 공제</b> — 장례비(증빙)와 고인의 빚</li>
+              <li>· <b className="text-on-surface">일괄공제 5억</b>, 대부분 기본 적용</li>
+              <li>· <b className="text-on-surface">배우자공제 5억~30억</b>, 배우자가 있으면 가장 크게 줄어듦</li>
+              <li>· <b className="text-on-surface">금융재산공제</b>, 순금융재산의 일부(한도 있음)</li>
+              <li>· <b className="text-on-surface">동거주택 상속공제</b>, 함께 살던 집을 자녀가 상속 시 요건 충족하면 공제</li>
+              <li>· <b className="text-on-surface">장례비·채무 공제</b>, 장례비(증빙)와 고인의 빚</li>
             </ul>
           </div>
 

@@ -20,7 +20,7 @@ const PROGRAMS: Program[] = [
   {
     tag: "국민연금",
     name: "유족연금",
-    target: "가입기간 10년 이상인 가입자, 또는 노령·장애연금(2급↑) 수급자가 사망 시 — 생계를 함께한 유족(배우자→자녀→부모 순 최우선자)",
+    target: "가입기간 10년 이상인 가입자, 또는 노령·장애연금(2급↑) 수급자가 사망 시, 생계를 함께한 유족(배우자→자녀→부모 순 최우선자)",
     amount: "기본연금액의 40~60% + 부양가족연금액 (가입기간에 따라)",
     agency: "국민연금공단 (지사 방문·우편·일부 온라인)",
     docs: "사망진단서, 사망자·청구인 가족관계증명서, 청구인 신분증, 본인 통장",
@@ -30,7 +30,7 @@ const PROGRAMS: Program[] = [
   {
     tag: "국민연금",
     name: "사망일시금",
-    target: "국민연금 가입자(였던 자)가 사망했으나, 유족연금·반환일시금을 받을 유족이 없을 때 — 더 넓은 범위의 유족",
+    target: "국민연금 가입자(였던 자)가 사망했으나, 유족연금·반환일시금을 받을 유족이 없을 때. 더 넓은 범위의 유족",
     amount: "가입자의 반환일시금에 상당하는 금액 (장제부조 성격)",
     agency: "국민연금공단",
     docs: "사망진단서, 가족관계증명서, 신분증, 통장",
@@ -43,7 +43,7 @@ const PROGRAMS: Program[] = [
     amount: "사망자 1구당 80만 원",
     agency: "관할 읍·면·동 주민센터",
     docs: "사망진단서, 장제를 행한 사실 확인 서류, 신청인 신분증·통장",
-    deadline: "사망(장제) 후 신청 — 주민센터 확인",
+    deadline: "사망(장제) 후 신청, 주민센터 확인",
   },
   {
     tag: "긴급복지",
@@ -89,7 +89,7 @@ const PROGRAMS: Program[] = [
     amount: "고인의 산정액",
     agency: "국세청 홈택스 · 세무서",
     docs: "상속 사실 확인 서류 등",
-    deadline: "정산 신청 기한 있음 — 세무서 확인",
+    deadline: "정산 신청 기한 있음, 세무서 확인",
   },
 ];
 
@@ -154,7 +154,7 @@ export default function Support() {
 
         {/* 주요 기관 연락처 */}
         <section className="mt-14">
-          <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-2">바로 거는 곳 — 주요 기관 연락처</h2>
+          <h2 className="font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-2">바로 거는 곳, 주요 기관 연락처</h2>
           <p className="text-on-surface-variant mb-6">어디에 물어야 할지 막막할 때. 대표번호를 모아뒀어요. (국번 없이)</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
@@ -190,7 +190,7 @@ export default function Support() {
           <h2 className="font-serif text-xl font-semibold text-on-surface mb-3">신청 전 알아둘 것</h2>
           <ul className="text-on-surface-variant text-sm space-y-2 leading-relaxed">
             <li>· <b className="text-on-surface">대부분 신청해야 받습니다.</b> 자동으로 나오지 않으니 해당되는 건 꼭 직접 신청하세요.</li>
-            <li>· <b className="text-on-surface">기한(시효)이 있습니다.</b> 연금 5년, 보험 3년 등 — 늦으면 권리가 사라져요.</li>
+            <li>· <b className="text-on-surface">기한(시효)이 있습니다.</b> 연금 5년, 보험 3년 등, 늦으면 권리가 사라져요.</li>
             <li>· <b className="text-on-surface">사망진단서·가족관계증명서</b>는 거의 모든 신청에 필요하니 넉넉히 준비하세요.</li>
             <li>· 과거 건강보험 ‘장제비’는 2008년 폐지되었습니다.</li>
             <li>· 금액·요건은 해마다 바뀌니, 신청 전 각 기관(국민연금공단·주민센터·129 등)에 한 번 더 확인하세요.</li>

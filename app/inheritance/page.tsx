@@ -129,7 +129,7 @@ export default function Inheritance() {
 
           {/* 유류분 */}
           <section id="yuryu">
-            <h2 className={h2}>최소한의 몫 — 유류분</h2>
+            <h2 className={h2}>최소한의 몫, 유류분</h2>
             <div className={`${card} mb-4`}>
               <p className="text-on-surface-variant text-[15px] leading-relaxed mb-4">
                 특정인에게 재산이 쏠려도, 가까운 상속인은 <b className="text-on-surface">법으로 보장된 최소한의 몫(유류분)</b>을 돌려달라 청구할 수 있습니다.
@@ -161,9 +161,9 @@ export default function Inheritance() {
               <div className={card}>
                 <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">명의 이전</h3>
                 <ul className="text-on-surface-variant text-sm space-y-1.5 leading-relaxed">
-                  <li>· <b className="text-on-surface">부동산</b> — 상속등기로 명의 이전 + 취득세 신고·납부</li>
-                  <li>· <b className="text-on-surface">자동차</b> — 사망일이 속한 달 말일부터 6개월 내 이전·말소 (미이행 과태료)</li>
-                  <li>· <b className="text-on-surface">예금·주식</b> — 분할협의서로 각 기관에서 명의이전·인출</li>
+                  <li>· <b className="text-on-surface">부동산</b>, 상속등기로 명의 이전 + 취득세 신고·납부</li>
+                  <li>· <b className="text-on-surface">자동차</b>, 사망일이 속한 달 말일부터 6개월 내 이전·말소 (미이행 과태료)</li>
+                  <li>· <b className="text-on-surface">예금·주식</b>, 분할협의서로 각 기관에서 명의이전·인출</li>
                 </ul>
               </div>
               <div className={card}>
