@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { PencilLine, MessageCircle, Heart, Send, X, Loader2 } from "lucide-react";
-import { FILTER_TAGS, POST_TAGS, type PostDTO } from "@/lib/posts";
+import { FILTER_TAGS, POST_TAGS, type PostDTO, type CommentDTO } from "@/lib/posts";
+
+// 클라이언트에서 임시로 만든 낙관적 댓글 식별(롤백/치환용)
+let tempSeq = 0;
 
 function ago(iso: string) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -26,6 +29,13 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [liked, setLiked] = useState<Record<string, boolean>>({});
+  // 댓글: 글별 펼침 여부 / 목록 / 로딩 / 입력값 / 제출중 / 에러
+  const [openComments, setOpenComments] = useState<Record<string, boolean>>({});
+  const [comments, setComments] = useState<Record<string, CommentDTO[]>>({});
+  const [loadingComments, setLoadingComments] = useState<Record<string, boolean>>({});
+  const [commentDrafts, setCommentDrafts] = useState<Record<string, string>>({});
+  const [commentSubmitting, setCommentSubmitting] = useState<Record<string, boolean>>({});
+  const [commentError, setCommentError] = useState<Record<string, string>>({});
 
   const visible = useMemo(
     () => (filter === "전체" ? posts : posts.filter((p) => p.tag === filter)),
@@ -72,6 +82,74 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       // 롤백
       setLiked((l) => ({ ...l, [id]: false }));
       setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, comfort: p.comfort - 1 } : p)));
+    }
+  }
+
+  async function toggleComments(id: string) {
+    const next = !openComments[id];
+    setOpenComments((s) => ({ ...s, [id]: next }));
+    // 처음 펼칠 때만 목록을 불러온다.
+    if (next && comments[id] === undefined && !loadingComments[id]) {
+      setLoadingComments((s) => ({ ...s, [id]: true }));
+      try {
+        const res = await fetch(`/api/posts/${id}/comments`);
+        if (!res.ok) throw new Error();
+        const data: CommentDTO[] = await res.json();
+        setComments((s) => ({ ...s, [id]: data }));
+      } catch {
+        setCommentError((s) => ({ ...s, [id]: "댓글을 불러오지 못했어요. 잠시 후 다시 시도해 주세요." }));
+      } finally {
+        setLoadingComments((s) => ({ ...s, [id]: false }));
+      }
+    }
+  }
+
+  async function submitComment(e: React.FormEvent, id: string) {
+    e.preventDefault();
+    const body = (commentDrafts[id] ?? "").trim();
+    setCommentError((s) => ({ ...s, [id]: "" }));
+    if (body.length < 2) {
+      setCommentError((s) => ({ ...s, [id]: "댓글을 2자 이상 적어주세요." }));
+      return;
+    }
+
+    // 낙관적 추가
+    const tempId = `temp-${++tempSeq}`;
+    const optimistic: CommentDTO = {
+      id: tempId,
+      postId: id,
+      body,
+      createdAt: new Date().toISOString(),
+    };
+    setComments((s) => ({ ...s, [id]: [...(s[id] ?? []), optimistic] }));
+    setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reply: p.reply + 1 } : p)));
+    setCommentDrafts((s) => ({ ...s, [id]: "" }));
+    setCommentSubmitting((s) => ({ ...s, [id]: true }));
+
+    try {
+      const res = await fetch(`/api/posts/${id}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "등록에 실패했어요.");
+      // 임시 댓글을 서버 응답으로 치환
+      setComments((s) => ({
+        ...s,
+        [id]: (s[id] ?? []).map((c) => (c.id === tempId ? (data as CommentDTO) : c)),
+      }));
+    } catch (err) {
+      // 롤백
+      setComments((s) => ({ ...s, [id]: (s[id] ?? []).filter((c) => c.id !== tempId) }));
+      setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, reply: p.reply - 1 } : p)));
+      setCommentDrafts((s) => ({ ...s, [id]: body }));
+      setCommentError((s) => ({
+        ...s,
+        [id]: err instanceof Error ? err.message : "등록에 실패했어요. 잠시 후 다시 시도해 주세요.",
+      }));
+    } finally {
+      setCommentSubmitting((s) => ({ ...s, [id]: false }));
     }
   }
 
@@ -176,17 +254,89 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
             <h2 className="font-serif text-lg font-semibold mb-1.5">{p.title}</h2>
             <p className="text-on-surface-variant text-sm mb-4 leading-relaxed whitespace-pre-wrap">{p.body}</p>
             <div className="flex gap-5 text-sm text-outline">
-              <span className="inline-flex items-center gap-1.5"><MessageCircle className="w-4 h-4" /> 답변 {p.reply}</span>
               <button
+                type="button"
+                onClick={() => toggleComments(p.id)}
+                aria-expanded={!!openComments[p.id]}
+                aria-controls={`comments-${p.id}`}
+                className={`inline-flex items-center gap-1.5 transition-colors ${
+                  openComments[p.id] ? "text-primary" : "hover:text-primary"
+                }`}
+              >
+                <MessageCircle className="w-4 h-4" aria-hidden="true" /> 답변 {p.reply}
+              </button>
+              <button
+                type="button"
                 onClick={() => comfort(p.id)}
                 disabled={liked[p.id]}
+                aria-pressed={!!liked[p.id]}
                 className={`inline-flex items-center gap-1.5 transition-colors ${
                   liked[p.id] ? "text-primary" : "hover:text-primary"
                 }`}
               >
-                <Heart className="w-4 h-4" fill={liked[p.id] ? "currentColor" : "none"} /> 위로 {p.comfort}
+                <Heart className="w-4 h-4" aria-hidden="true" fill={liked[p.id] ? "currentColor" : "none"} /> 위로 {p.comfort}
               </button>
             </div>
+
+            {openComments[p.id] && (
+              <div id={`comments-${p.id}`} className="mt-5 pt-5 border-t border-surface-variant">
+                {loadingComments[p.id] && comments[p.id] === undefined ? (
+                  <p className="flex items-center gap-2 text-sm text-outline py-2">
+                    <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> 댓글을 불러오는 중…
+                  </p>
+                ) : (comments[p.id]?.length ?? 0) === 0 ? (
+                  <p className="text-sm text-outline py-2">아직 댓글이 없어요. 첫 위로를 건네주세요.</p>
+                ) : (
+                  <ul className="flex flex-col gap-3 mb-4">
+                    {comments[p.id]?.map((c) => (
+                      <li key={c.id} className="text-sm">
+                        <div className="flex items-center gap-2 text-on-surface-variant">
+                          <span className="font-semibold text-on-surface">익명</span>
+                          <span className="text-outline" suppressHydrationWarning>· {ago(c.createdAt)}</span>
+                        </div>
+                        <p className="text-on-surface-variant leading-relaxed whitespace-pre-wrap mt-1">{c.body}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <form onSubmit={(e) => submitComment(e, p.id)} className="flex flex-col gap-2">
+                  <label htmlFor={`comment-input-${p.id}`} className="sr-only">
+                    댓글 작성
+                  </label>
+                  <div className="flex items-end gap-2">
+                    <textarea
+                      id={`comment-input-${p.id}`}
+                      name="comment"
+                      value={commentDrafts[p.id] ?? ""}
+                      onChange={(e) => setCommentDrafts((s) => ({ ...s, [p.id]: e.target.value }))}
+                      placeholder="따뜻한 한마디를 남겨주세요."
+                      rows={2}
+                      maxLength={1000}
+                      aria-describedby={commentError[p.id] ? `comment-error-${p.id}` : undefined}
+                      className="flex-1 px-4 py-2.5 text-base bg-surface border border-outline-variant rounded-xl outline-none focus-visible:border-primary transition-colors resize-none leading-relaxed"
+                    />
+                    <button
+                      type="submit"
+                      disabled={commentSubmitting[p.id]}
+                      className="inline-flex items-center gap-1.5 min-h-[44px] bg-primary-container text-on-primary px-4 py-2.5 rounded-full font-semibold text-sm hover:bg-primary transition-colors disabled:opacity-60"
+                    >
+                      {commentSubmitting[p.id] ? (
+                        <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                      ) : (
+                        <Send className="w-4 h-4" aria-hidden="true" />
+                      )}
+                      {commentSubmitting[p.id] ? "등록 중…" : "등록"}
+                    </button>
+                  </div>
+                  {commentError[p.id] && (
+                    <p id={`comment-error-${p.id}`} role="alert" className="text-sm text-error">
+                      {commentError[p.id]}
+                    </p>
+                  )}
+                </form>
+              </div>
+            )}
           </article>
         ))}
       </div>
