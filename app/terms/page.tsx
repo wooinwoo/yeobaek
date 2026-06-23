@@ -31,8 +31,9 @@ export default function Terms() {
 
         {/* 검색 */}
         <div className="relative max-w-md mx-auto mb-7">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-outline" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-outline" aria-hidden="true" />
           <input
+            aria-label="용어 검색"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="궁금한 용어를 검색해보세요"

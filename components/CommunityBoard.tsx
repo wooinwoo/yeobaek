@@ -238,8 +238,8 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
         >
           <div className="flex items-center justify-between">
             <span className="font-semibold text-sm">익명으로 글쓰기</span>
-            <button type="button" onClick={() => setOpen(false)} className="text-outline hover:text-on-surface">
-              <X className="w-4 h-4" />
+            <button type="button" onClick={() => setOpen(false)} aria-label="글쓰기 닫기" className="text-outline hover:text-on-surface">
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
           <div className="flex flex-wrap gap-2">

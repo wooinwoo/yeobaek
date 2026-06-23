@@ -53,7 +53,7 @@ export default async function Community() {
 
           <aside className="flex flex-col gap-4">
             <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_8px_24px_-14px_rgba(120,82,60,0.12)]">
-              <h3 className="font-semibold mb-3">이곳의 약속</h3>
+              <h2 className="font-semibold mb-3">이곳의 약속</h2>
               <ul className="list-disc pl-5 text-sm text-on-surface-variant space-y-1.5">
                 <li>판단하지 않고 듣습니다</li>
                 <li>영업·홍보 글은 금지입니다</li>
@@ -61,7 +61,7 @@ export default async function Community() {
               </ul>
             </div>
             <div className="bg-error-container/50 border border-error/20 rounded-3xl p-6">
-              <h3 className="font-semibold mb-2">지금 힘드신가요?</h3>
+              <h2 className="font-semibold mb-2">지금 힘드신가요?</h2>
               <p className="text-sm text-on-surface-variant mb-3">혼자 감당하기 버겁다면, 전문 상담의 도움을 받으세요.</p>
               <div className="text-sm space-y-1">
                 <div><b>자살예방상담</b> · <a href="tel:109" className="text-primary font-semibold">109</a></div>

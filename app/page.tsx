@@ -55,7 +55,7 @@ export default function Home() {
             className="group inline-flex items-center gap-2 bg-primary-container text-on-primary px-8 py-4 rounded-full font-semibold text-sm shadow-[0_10px_30px_rgba(120,82,60,0.25)] transition-colors duration-200 hover:bg-primary hover:shadow-[0_16px_36px_rgba(120,82,60,0.32)] motion-safe:transition-all motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.98]"
           >
             지금 필요한 도움 받기
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
           </Link>
         </Reveal>
       </section>
@@ -95,7 +95,7 @@ export default function Home() {
                   <h3 className="font-serif text-xl font-semibold text-on-surface mb-2">{f.title}</h3>
                   <p className="text-on-surface-variant text-[15px] leading-relaxed mb-4">{f.desc}</p>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                    바로가기 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    바로가기 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                   </span>
                 </Link>
               </Reveal>
@@ -121,7 +121,7 @@ export default function Home() {
               href="/debt-simulator"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
             >
-              빚 상속 진단 시작하기 <ArrowRight className="w-4 h-4" />
+              빚 상속 진단 시작하기 <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
           </div>
           <div className="bg-surface-container-lowest rounded-3xl p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)]">
