@@ -96,6 +96,8 @@ export default function FamilyGuide() {
   const [recipient, setRecipient] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [deathDate, setDeathDate] = useState<string>("");
+  // 초기화 확인: window.confirm 대신 인라인 확인 UI(취소/지우기)로 처리
+  const [confirmingReset, setConfirmingReset] = useState(false);
 
   // 복원
   useEffect(() => {
@@ -136,13 +138,15 @@ export default function FamilyGuide() {
   // 현재 체크 상태를 인쇄/PDF로 저장. 인쇄용 CSS가 화면 전용 요소를 숨긴다.
   const handlePrint = () => window.print();
 
-  // 진행 상황 초기화: 되돌릴 수 없으므로 한 번 확인한다.
-  const handleReset = () => {
+  // 진행 상황 초기화: 되돌릴 수 없으므로 인라인 확인 단계를 거친다.
+  const requestReset = () => {
     if (doneCount === 0) return;
-    const ok = window.confirm(
-      "지금까지 체크한 진행 상황을 모두 지울까요? 한 번 지우면 되돌릴 수 없어요."
-    );
-    if (ok) setChecked({});
+    setConfirmingReset(true);
+  };
+  const cancelReset = () => setConfirmingReset(false);
+  const confirmReset = () => {
+    setChecked({});
+    setConfirmingReset(false);
   };
 
   return (
@@ -250,16 +254,45 @@ export default function FamilyGuide() {
             <Printer className="w-4 h-4 shrink-0" aria-hidden="true" />
             진행 상황 인쇄·PDF 저장
           </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            disabled={doneCount === 0}
-            aria-label="체크한 진행 상황 모두 지우기"
-            className="inline-flex items-center gap-2 min-h-[44px] px-4 py-2.5 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-default disabled:hover:bg-transparent"
-          >
-            <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
-            진행 상황 초기화
-          </button>
+          {!confirmingReset ? (
+            <button
+              type="button"
+              onClick={requestReset}
+              disabled={doneCount === 0}
+              aria-label="체크한 진행 상황 모두 지우기"
+              className="inline-flex items-center gap-2 min-h-[44px] px-4 py-2.5 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-default disabled:hover:bg-transparent"
+            >
+              <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
+              진행 상황 초기화
+            </button>
+          ) : (
+            <div
+              role="alertdialog"
+              aria-labelledby="reset-confirm-label"
+              className="inline-flex flex-wrap items-center gap-3 min-h-[44px] px-4 py-2 rounded-2xl bg-surface-container border border-outline-variant"
+            >
+              <span id="reset-confirm-label" className="text-sm text-on-surface">
+                체크한 진행 상황을 모두 지울까요? 되돌릴 수 없어요.
+              </span>
+              <span className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={cancelReset}
+                  className="inline-flex items-center min-h-[44px] px-4 py-2 rounded-full text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors"
+                >
+                  취소
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmReset}
+                  className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full text-sm font-semibold bg-error-container text-error hover:bg-error hover:text-on-error transition-colors"
+                >
+                  <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  지우기
+                </button>
+              </span>
+            </div>
+          )}
           <p className="basis-full text-sm text-on-surface-variant">
             인쇄 화면에서 PDF로 저장하면 가족과 나눠 보거나 출력해 둘 수 있어요.
           </p>

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FamilyGuide from "./page";
 
@@ -31,9 +31,8 @@ describe("FamilyGuide - 진행 상황 인쇄/초기화", () => {
     expect(screen.getByRole("button", { name: "체크한 진행 상황 모두 지우기" })).toBeDisabled();
   });
 
-  it("체크 후 초기화를 확인하면 진행률이 0%로 돌아가고 저장값도 비워진다", async () => {
+  it("체크 후 인라인 확인에서 '지우기'를 누르면 진행률이 0%로 돌아가고 저장값도 비워진다", async () => {
     const user = userEvent.setup();
-    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
 
     render(<FamilyGuide />);
     // 첫 체크박스를 켜면 진행률이 오른다
@@ -45,8 +44,13 @@ describe("FamilyGuide - 진행 상황 인쇄/초기화", () => {
     await waitFor(() => expect(resetBtn).toBeEnabled());
     await user.click(resetBtn);
 
-    expect(confirmSpy).toHaveBeenCalledOnce();
+    // 인라인 확인 UI가 뜨고, '지우기'를 눌러야 실제로 비워진다
+    const dialog = await screen.findByRole("alertdialog");
+    await user.click(within(dialog).getByRole("button", { name: "지우기" }));
+
     expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
+    // 확인 UI는 사라진다
+    expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     // localStorage에도 빈 체크 상태가 저장된다
     await waitFor(() => {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY) ?? "{}");
@@ -54,15 +58,22 @@ describe("FamilyGuide - 진행 상황 인쇄/초기화", () => {
     });
   });
 
-  it("초기화 확인을 취소하면 체크 상태가 유지된다", async () => {
+  it("인라인 확인에서 '취소'를 누르면 체크 상태가 유지된다", async () => {
     const user = userEvent.setup();
-    vi.spyOn(window, "confirm").mockReturnValue(false);
 
     render(<FamilyGuide />);
     const firstCheckbox = screen.getAllByRole("checkbox")[0];
     await user.click(firstCheckbox);
 
     await user.click(screen.getByRole("button", { name: "체크한 진행 상황 모두 지우기" }));
+    const dialog = await screen.findByRole("alertdialog");
+    await user.click(within(dialog).getByRole("button", { name: "취소" }));
+
     expect(firstCheckbox).toBeChecked();
+    // 확인 UI가 닫히고 초기화 버튼이 다시 보인다
+    expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "체크한 진행 상황 모두 지우기" }),
+    ).toBeInTheDocument();
   });
 });
