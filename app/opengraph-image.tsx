@@ -16,12 +16,13 @@ async function loadKoreanFont(text: string): Promise<ArrayBuffer | null> {
     const css = await (
       await fetch(api, {
         headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20110814 Firefox/6.0" },
+        signal: AbortSignal.timeout(3000),
       })
     ).text();
     const urls = [...css.matchAll(/url\((https:\/\/[^)]+)\)/g)].map((m) => m[1]);
     const fontUrl = urls.find((u) => u.endsWith(".ttf")) ?? urls.find((u) => u.endsWith(".woff")) ?? urls[0];
     if (!fontUrl) return null;
-    const buf = await (await fetch(fontUrl)).arrayBuffer();
+    const buf = await (await fetch(fontUrl, { signal: AbortSignal.timeout(3000) })).arrayBuffer();
     const s = new Uint8Array(buf.slice(0, 4));
     const tag = String.fromCharCode(s[0], s[1], s[2], s[3]);
     const valid =
