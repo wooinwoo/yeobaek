@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { createCommentSchema } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
@@ -47,7 +48,15 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
       prisma.post.update({ where: { id }, data: { reply: { increment: 1 } } }),
     ]);
     return NextResponse.json(comment, { status: 201 });
-  } catch {
+  } catch (e) {
+    // 존재하지 않는 글에 단 댓글: P2003(외래키 위반) 또는 P2025(글 update 대상 없음) → 404.
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      (e.code === "P2003" || e.code === "P2025")
+    ) {
+      return NextResponse.json({ error: "글을 찾을 수 없습니다." }, { status: 404 });
+    }
+    // 그 외(DB 장애 등) → 503.
     return NextResponse.json(
       { error: "댓글을 저장하지 못했어요. 잠시 후 다시 시도해 주세요." },
       { status: 503 },
