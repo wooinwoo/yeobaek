@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>빚 상속 진단 - 여백(Yeobaek)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&amp;family=Pretendard:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#474742",
+                    "tertiary": "#43423e",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b6cacb",
+                    "outline-variant": "#c2c8c7",
+                    "primary": "#334546",
+                    "primary-container": "#4a5d5e",
+                    "outline": "#727878",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#716252",
+                    "background": "#fff8f5",
+                    "on-secondary-fixed-variant": "#524436",
+                    "on-primary-fixed-variant": "#374a4b",
+                    "surface-variant": "#e9e1dc",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#5b5a55",
+                    "secondary-fixed": "#f4dfcb",
+                    "on-tertiary-container": "#d4d1ca",
+                    "secondary-container": "#f4dfcb",
+                    "surface-container-highest": "#e9e1dc",
+                    "primary-fixed": "#d2e6e7",
+                    "surface": "#fff8f5",
+                    "secondary": "#6b5c4c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#d7c3b0",
+                    "surface-container": "#f5ece7",
+                    "surface-dim": "#e1d8d4",
+                    "inverse-primary": "#b6cacb",
+                    "on-secondary-fixed": "#241a0e",
+                    "surface-tint": "#4f6263",
+                    "on-tertiary-fixed": "#1c1c18",
+                    "tertiary-fixed-dim": "#c9c6c0",
+                    "on-background": "#1e1b18",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#efe6e2",
+                    "surface-bright": "#fff8f5",
+                    "on-primary-fixed": "#0b1e1f",
+                    "on-primary-container": "#c0d5d6",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1e1b18",
+                    "tertiary-fixed": "#e5e2db",
+                    "on-surface-variant": "#424848",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#fbf2ed",
+                    "inverse-on-surface": "#f8efea",
+                    "inverse-surface": "#34302c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "container-max": "1120px",
+                    "section-gap": "80px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "label-sm": [
+                            "Pretendard"
+                    ],
+                    "display-lg-mobile": [
+                            "Noto Serif KR"
+                    ],
+                    "body-lg": [
+                            "Pretendard"
+                    ],
+                    "headline-md": [
+                            "Noto Serif KR"
+                    ],
+                    "display-lg": [
+                            "Noto Serif KR"
+                    ],
+                    "body-md": [
+                            "Pretendard"
+                    ]
+            },
+            "fontSize": {
+                    "label-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.25",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.7",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(51, 69, 70, 0.05); /* Soft ambient shadow */
+        }
+        
+        .progress-dot {
+            transition: all 0.5s ease;
+        }
+        
+        .question-transition-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .question-transition-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+    </style>
+<style>nav.fixed{max-width:100%!important}</style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto shadow-none">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed-dim" href="index.html">
+                여백
+            </a>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="family-guide.html">
+                    유족 길잡이
+                </a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 font-bold hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="debt-simulator.html">
+                    빚 상속 진단
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="etiquette.html">
+                    조문 예절
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="terms.html">
+                    용어 사전
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="support.html">
+                    지원금
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="community.html">
+                    커뮤니티
+                </a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors">
+                로그인
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center justify-center pt-32 pb-section-gap px-gutter max-w-container-max mx-auto w-full relative">
+<!-- Background Ambient Decor -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden flex justify-center items-center opacity-40">
+<div class="w-full max-w-[800px] h-[800px] rounded-full bg-surface-container blur-3xl absolute -top-[20%] -left-[10%] mix-blend-multiply"></div>
+<div class="w-full max-w-[600px] h-[600px] rounded-full bg-secondary-fixed/50 blur-3xl absolute bottom-[10%] -right-[10%] mix-blend-multiply"></div>
+</div>
+<!-- Questionnaire Container -->
+<div class="w-full max-w-2xl relative z-10 flex flex-col items-center" id="questionnaire-container">
+<!-- Header area -->
+<div class="text-center mb-12">
+<h1 class="font-headline-md text-headline-md text-primary mb-4">빚 상속, 어떻게 해야 할까요?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mx-auto">
+                    간단한 질문에 답하며 현재 상황에 가장 적합한 법적 절차(상속포기, 한정승인 등)를 확인해 보세요.
+                </p>
+</div>
+<!-- Progress Dots -->
+<div class="flex gap-3 mb-10" id="progress-indicator">
+<div class="w-2.5 h-2.5 rounded-full bg-primary progress-dot"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant progress-dot"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant progress-dot"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant progress-dot"></div>
+</div>
+<!-- Question Card 1 (Active) -->
+<div class="glass-card rounded-xl p-8 md:p-12 w-full flex flex-col items-center text-center question-transition-enter-active" id="q1">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 font-light">account_balance</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">고인(피상속인)의 재산보다 빚이 더 많나요?</h2>
+<div class="w-full flex flex-col gap-4">
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="nextStep(2)">
+<span>네, 빚이 확실히 더 많습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</button>
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="nextStep(2)">
+<span>아니요, 재산이 더 많습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</button>
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="nextStep(2)">
+<span>잘 모르겠습니다. 확인이 필요합니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Question Card 2 (Hidden) -->
+<div class="glass-card rounded-xl p-8 md:p-12 w-full flex flex-col items-center text-center hidden" id="q2">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 font-light">family_restroom</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">후순위 상속인(자녀의 자녀 등)이 있나요?</h2>
+<div class="w-full flex flex-col gap-4">
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="nextStep(3)">
+<span>네, 있습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</button>
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="nextStep(3)">
+<span>아니요, 없습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Question Card 3 (Hidden) -->
+<div class="glass-card rounded-xl p-8 md:p-12 w-full flex flex-col items-center text-center hidden" id="q3">
+<span class="material-symbols-outlined text-primary text-4xl mb-6 font-light">calendar_month</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">고인이 돌아가신 날로부터 3개월이 지났나요?</h2>
+<div class="w-full flex flex-col gap-4">
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="showResult()">
+<span>네, 3개월이 지났습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">check_circle</span>
+</button>
+<button class="w-full py-5 px-6 bg-surface hover:bg-primary-fixed/30 border border-outline-variant rounded-lg font-body-lg text-body-lg text-on-surface text-left flex justify-between items-center transition-all hover:scale-[0.99] group" onclick="showResult()">
+<span>아니요, 아직 3개월이 지나지 않았습니다.</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">check_circle</span>
+</button>
+</div>
+</div>
+<!-- Result Card (Hidden) -->
+<div class="glass-card rounded-xl p-8 md:p-12 w-full flex flex-col items-center text-center hidden" id="result">
+<div class="w-20 h-20 rounded-full bg-primary-fixed flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-4xl font-light">gavel</span>
+</div>
+<div class="inline-block px-4 py-1.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm mb-4">진단 결과</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">고객님께는 <span class="font-bold text-on-surface">한정승인</span>을 권장합니다.</h2>
+<div class="text-left w-full bg-surface/50 rounded-lg p-6 mb-8 border border-outline-variant/30">
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                        상속 재산의 한도 내에서만 빚을 갚는 제도입니다. 후순위 상속인(자녀 등)에게 빚이 대물림되는 것을 막으면서도 안전하게 상속 관계를 정리할 수 있습니다.
+                    </p>
+<ul class="list-disc pl-5 font-body-md text-body-md text-on-surface-variant space-y-2">
+<li>물려받은 재산 내에서만 채무 변제 책임 발생</li>
+<li>다음 순위 상속인에게 빚이 넘어가지 않음</li>
+<li><strong class="text-error">주의:</strong> 상속개시 있음을 안 날로부터 3개월 이내 청구 필수</li>
+</ul>
+</div>
+<div class="w-full flex flex-col sm:flex-row gap-4 justify-center">
+<button class="py-3 px-8 rounded border border-outline-variant text-on-surface font-label-sm text-label-sm hover:bg-surface-variant transition-colors hover:scale-[0.98] duration-200" onclick="location.reload()">
+                        다시 진단하기
+                    </button>
+<button class="py-3 px-8 rounded bg-primary-container text-on-primary font-label-sm text-label-sm hover:bg-primary transition-colors hover:scale-[0.98] duration-200 shadow-sm">
+                        한정승인 절차 자세히 보기
+                    </button>
+</div>
+<div class="mt-10 pt-6 border-t border-outline-variant/30 text-center w-full">
+<p class="font-label-sm text-label-sm text-outline flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                        본 진단은 참고용이며, 법적 효력을 갖지 않습니다. 정확한 판단은 법률 전문가와 상담하시기 바랍니다.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-gutter flex flex-col items-center gap-4 text-center bg-surface-container-low dark:bg-inverse-surface mt-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim mb-2">
+            여백
+        </div>
+<div class="flex gap-6 mb-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors opacity-80" href="tel:109">
+                자살예방상담 109
+            </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors opacity-80" href="#">
+                이용약관
+            </a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors opacity-80" href="#">
+                개인정보처리방침
+            </a>
+</div>
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">
+            © 2024 여백(Yeobaek). 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.
+        </p>
+</footer>
+<script>
+        function updateProgress(step) {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                if (index < step) {
+                    dot.classList.remove('bg-outline-variant');
+                    dot.classList.add('bg-primary');
+                } else {
+                    dot.classList.remove('bg-primary');
+                    dot.classList.add('bg-outline-variant');
+                }
+            });
+        }
+
+        function nextStep(step) {
+            const currentStep = step - 1;
+            const currentCard = document.getElementById(`q${currentStep}`);
+            const nextCard = document.getElementById(`q${step}`);
+            
+            if(currentCard && nextCard) {
+                currentCard.classList.add('hidden');
+                currentCard.classList.remove('question-transition-enter-active');
+                
+                nextCard.classList.remove('hidden');
+                // Trigger reflow
+                void nextCard.offsetWidth;
+                nextCard.classList.add('question-transition-enter-active');
+                
+                updateProgress(step);
+            }
+        }
+
+        function showResult() {
+            const q3 = document.getElementById('q3');
+            const result = document.getElementById('result');
+            const progress = document.getElementById('progress-indicator');
+            const header = document.querySelector('.text-center.mb-12');
+            
+            q3.classList.add('hidden');
+            progress.classList.add('hidden');
+            header.classList.add('hidden');
+            
+            result.classList.remove('hidden');
+            void result.offsetWidth;
+            result.classList.add('question-transition-enter-active');
+        }
+    </script>
+<script src="assets/enhance.js?v=6" defer></script>
+</body></html>

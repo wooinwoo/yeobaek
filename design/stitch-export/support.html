@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>여백 - 지원금</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&amp;family=Pretendard:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#474742",
+                        "tertiary": "#43423e",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b6cacb",
+                        "outline-variant": "#c2c8c7",
+                        "primary": "#334546",
+                        "primary-container": "#4a5d5e",
+                        "outline": "#727878",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#716252",
+                        "background": "#fff8f5",
+                        "on-secondary-fixed-variant": "#524436",
+                        "on-primary-fixed-variant": "#374a4b",
+                        "surface-variant": "#e9e1dc",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#5b5a55",
+                        "secondary-fixed": "#f4dfcb",
+                        "on-tertiary-container": "#d4d1ca",
+                        "secondary-container": "#f4dfcb",
+                        "surface-container-highest": "#e9e1dc",
+                        "primary-fixed": "#d2e6e7",
+                        "surface": "#fff8f5",
+                        "secondary": "#6b5c4c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "surface-container": "#f5ece7",
+                        "surface-dim": "#e1d8d4",
+                        "inverse-primary": "#b6cacb",
+                        "on-secondary-fixed": "#241a0e",
+                        "surface-tint": "#4f6263",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-background": "#1e1b18",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe6e2",
+                        "surface-bright": "#fff8f5",
+                        "on-primary-fixed": "#0b1e1f",
+                        "on-primary-container": "#c0d5d6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b18",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-surface-variant": "#424848",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2ed",
+                        "inverse-on-surface": "#f8efea",
+                        "inverse-surface": "#34302c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "container-max": "1120px",
+                        "section-gap": "80px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Pretendard"],
+                        "display-lg-mobile": ["Noto Serif KR"],
+                        "body-lg": ["Pretendard"],
+                        "headline-md": ["Noto Serif KR"],
+                        "display-lg": ["Noto Serif KR"],
+                        "body-md": ["Pretendard"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.25", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fff8f5; /* surface */
+            color: #1e1b18; /* on-surface */
+        }
+        
+        .ambient-shadow-level-1 {
+            box-shadow: 0 10px 30px -10px rgba(51, 69, 70, 0.2); /* primary color tint shadow */
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-24 font-body-md text-body-md">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed-dim">
+            여백
+        </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">유족 길잡이</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">빚 상속 진단</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">조문 예절</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">용어 사전</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 font-bold hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm scale-[0.98] transition-all duration-200" href="#">지원금</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">커뮤니티</a>
+</div>
+<button class="font-label-sm text-label-sm text-primary dark:text-primary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 px-4 py-2 rounded-lg border border-outline-variant">
+            로그인
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-gutter md:px-0 py-section-gap">
+<!-- Header Section -->
+<header class="mb-16 text-center max-w-2xl mx-auto">
+<h1 class="font-display-lg text-display-lg text-primary mb-6 hidden md:block">지원금 안내</h1>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary mb-4 md:hidden">지원금 안내</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                유가족의 경제적 부담을 덜어드릴 수 있는 다양한 국가 지원 제도와 신청 방법을 안내해 드립니다.
+            </p>
+</header>
+<!-- Filters / Tabs (Optional for Bento Layout enhancement) -->
+<div class="flex justify-center gap-4 mb-12">
+<button class="px-6 py-2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm transition-transform active:scale-[0.98]">전체보기</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-dim transition-colors">장제비/위로금</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-dim transition-colors">연금/급여</button>
+</div>
+<!-- Bento Grid Layout for Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="glass-card ambient-shadow-level-1 rounded-xl p-8 flex flex-col justify-between hover:translate-y-[-4px] transition-transform duration-300 group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<div class="inline-flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-primary font-label-sm text-label-sm">국민연금</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">사망일시금</h2>
+<ul class="space-y-4 mb-8">
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">대상</span>
+<span class="font-body-md text-body-md text-on-surface-variant">국민연금 가입자(였던 자)가 사망하였으나 유족연금 수급권자가 없는 경우</span>
+</li>
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">금액</span>
+<span class="font-body-md text-body-md text-on-surface-variant">가입자의 반환일시금에 상당하는 금액</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">신청 기관</span>
+<span class="font-body-md text-body-md text-primary font-medium">국민연금공단</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="glass-card ambient-shadow-level-1 rounded-xl p-8 flex flex-col justify-between hover:translate-y-[-4px] transition-transform duration-300 group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" data-icon="family_home">family_home</span>
+</div>
+<div>
+<div class="inline-flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-primary font-label-sm text-label-sm">국민연금</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">유족연금</h2>
+<ul class="space-y-4 mb-8">
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">대상</span>
+<span class="font-body-md text-body-md text-on-surface-variant">가입기간 10년 이상인 가입자, 노령연금/장애연금 수급권자가 사망 시 생계유지 유족</span>
+</li>
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">금액</span>
+<span class="font-body-md text-body-md text-on-surface-variant">기본연금액의 40~60% + 부양가족연금액</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">신청 기관</span>
+<span class="font-body-md text-body-md text-primary font-medium">국민연금공단</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="glass-card ambient-shadow-level-1 rounded-xl p-8 flex flex-col justify-between hover:translate-y-[-4px] transition-transform duration-300 group cursor-pointer relative overflow-hidden md:col-span-2 lg:col-span-1 bg-gradient-to-br from-surface to-surface-container-low">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary" data-icon="payments">payments</span>
+</div>
+<div>
+<div class="inline-flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-primary font-label-sm text-label-sm">기초생활보장</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">기초생활 장제급여</h2>
+<ul class="space-y-4 mb-8">
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">대상</span>
+<span class="font-body-md text-body-md text-on-surface-variant">생계·의료·주거급여 수급자가 사망한 경우, 장제를 실제로 행하는 자</span>
+</li>
+<li class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline mb-1">금액</span>
+<span class="font-body-md text-body-md text-on-surface-variant">사망자 1구당 80만 원</span>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">신청 기관</span>
+<span class="font-body-md text-body-md text-primary font-medium">관할 읍/면/동 주민센터</span>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</article>
+<!-- Add visual interest empty state / call to action block -->
+<div class="glass-card ambient-shadow-level-1 rounded-xl p-8 flex flex-col items-center justify-center text-center border-dashed border-2 border-outline-variant bg-surface-container-lowest/50 md:col-span-2 lg:col-span-3 min-h-[200px]">
+<span class="material-symbols-outlined text-4xl text-outline mb-4" data-icon="search">search</span>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-4">상황에 맞는 더 많은 지원 제도를 찾아보세요.</p>
+<button class="bg-primary-container text-on-primary font-label-sm text-label-sm px-6 py-3 rounded-lg shadow-sm hover:bg-primary transition-colors flex items-center gap-2 active:scale-[0.98]">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+                    맞춤형 지원금 찾기
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface w-full py-section-gap px-gutter flex flex-col items-center gap-4 text-center mt-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim mb-2">여백</div>
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim">
+            © 2024 여백(Yeobaek). 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.
+        </p>
+<div class="flex flex-wrap justify-center gap-6 mt-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">자살예방상담 109</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">이용약관</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">개인정보처리방침</a>
+</div>
+</footer>
+</body></html>

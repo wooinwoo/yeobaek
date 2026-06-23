@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빚 상속 진단 — 여백</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .sim-wrap { max-width: 680px; margin: 0 auto; }
+  .dots { display:flex; gap:8px; justify-content:center; margin-bottom:28px; }
+  .dots i { width:8px; height:8px; border-radius:50%; background:var(--line); transition:background .2s; }
+  .dots i.on { background:var(--accent); }
+  .qcard { background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:40px; box-shadow:var(--shadow); }
+  .qcard .qnum { font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--accent); text-transform:uppercase; }
+  .qcard .qt { font-family:"Gowun Batang",serif; font-size:25px; font-weight:700; margin:12px 0 26px; letter-spacing:-.02em; }
+  .opt { display:block; width:100%; text-align:left; background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:12px; font-size:16px; font-weight:600; color:var(--ink); cursor:pointer; transition:all .15s var(--ease); }
+  .opt:hover { border-color:var(--accent); background:var(--accent-tint); transform:translateY(-1px); }
+  .opt small { display:block; font-weight:400; color:var(--muted); font-size:13.5px; margin-top:3px; }
+  .back { background:none; border:0; color:var(--muted); font-size:14px; cursor:pointer; margin-top:18px; }
+  .back:hover { color:var(--ink); }
+  .result h2 { font-family:"Gowun Batang",serif; font-size:27px; margin:0 0 6px; }
+  .result .verdict { background:var(--accent-tint); border:1px solid var(--accent-soft); border-radius:16px; padding:24px; margin:20px 0; }
+  .result .verdict .lbl { font-size:13px; font-weight:700; color:var(--accent); letter-spacing:.04em; margin-bottom:8px; }
+  .result .verdict p { margin:0; font-size:16.5px; line-height:1.7; color:var(--ink); }
+  .result .verdict b { color:var(--accent-2); }
+  .why { font-size:14.5px; color:var(--muted); line-height:1.75; }
+  .why li { margin:6px 0; }
+  .legal { font-size:13px; color:var(--faint); background:var(--bg-soft); border-radius:12px; padding:14px 16px; margin-top:18px; }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="hd">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="mark"></span><span class="name">여백<small>YEOBAEK</small></span></a>
+    <nav class="nav-links">
+      <a href="family-guide.html">유족 길잡이</a>
+      <a href="debt-simulator.html" aria-current="page">빚 상속 진단</a>
+      <a href="etiquette.html">조문 예절</a>
+      <a href="terms.html">용어 사전</a>
+      <a href="support.html">지원금</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="family-guide.html">유족 길잡이</a>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <div class="crumb">홈 · 빚 상속 진단</div>
+  <h1>빚, 우리 가족은 어떻게 해야 하나요</h1>
+  <p>상속포기를 잘못하면 빚이 형제·조카까지 넘어갑니다. 몇 가지만 답하면 우리 가족에게 맞는 방법을 안내해 드려요.</p>
+</div>
+
+<main class="wrap" style="padding-bottom:60px">
+  <div class="sim-wrap">
+    <div class="dots" id="dots"></div>
+    <div id="stage"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer" style="border:0;margin:0">본 진단은 일반적인 정보 제공이며 법률 자문이 아닙니다. 실제 신고(한정승인·상속포기) 전 반드시 법률 전문가와 상담하세요. 상속 방식은 가족 상황에 따라 달라질 수 있습니다. · 시안 v0.4</p>
+  </div>
+</footer>
+
+<script>
+  const hd=document.getElementById('hd'); const os=()=>hd.classList.toggle('scrolled',scrollY>8);
+  addEventListener('scroll',os,{passive:true}); os();
+
+  const Q=[
+    { key:'debt', q:'고인의 빚이 재산보다 많나요?',
+      opts:[
+        {v:'more', t:'네, 빚이 더 많아요', s:'대출·보증·체납 등이 재산보다 큼'},
+        {v:'less', t:'아니요, 재산이 더 많아요', s:'물려받을 게 남는 상황'},
+        {v:'unknown', t:'잘 모르겠어요', s:'아직 파악이 안 됨'},
+      ]},
+    { key:'heirs', q:'같은 순위 상속인이 여러 명인가요?',
+      opts:[
+        {v:'multi', t:'여러 명이에요', s:'예: 자녀가 둘 이상, 또는 배우자와 자녀'},
+        {v:'single', t:'한 명뿐이에요', s:'상속인이 저 혼자'},
+        {v:'unknown', t:'잘 모르겠어요', s:''},
+      ]},
+  ];
+  const A={};
+  let step=0; // 0..Q.length-1, then result
+  const dots=document.getElementById('dots'), stageEl=document.getElementById('stage');
+
+  function renderDots(){
+    dots.innerHTML=''; for(let i=0;i<=Q.length;i++){ const d=document.createElement('i'); if(i<=step)d.className='on'; dots.appendChild(d);} }
+
+  function renderQ(){
+    renderDots();
+    const item=Q[step];
+    stageEl.innerHTML=`<div class="qcard">
+      <div class="qnum">질문 ${step+1} / ${Q.length}</div>
+      <div class="qt">${item.q}</div>
+      <div>${item.opts.map(o=>`<button class="opt" data-v="${o.v}">${o.t}${o.s?`<small>${o.s}</small>`:''}</button>`).join('')}</div>
+      ${step>0?'<button class="back">← 이전</button>':''}
+    </div>`;
+    stageEl.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ A[item.key]=b.dataset.v; step++; step<Q.length?renderQ():renderResult(); });
+    const bk=stageEl.querySelector('.back'); if(bk)bk.onclick=()=>{ step--; renderQ(); };
+  }
+
+  function decide(){
+    if(A.debt==='less') return {
+      title:'단순승인을 검토하세요',
+      verdict:'재산이 빚보다 많다면 <b>단순승인</b>(그대로 상속)이 일반적입니다. 다만 숨은 빚이 있을 수 있으니, <b>안심상속 원스톱</b>으로 재산·부채를 먼저 확인하세요.',
+      why:['3개월 안에 아무것도 하지 않으면 자동으로 단순승인됩니다.','나중에 몰랐던 빚이 드러나면 <b>특별한정승인</b>(안 날부터 3개월)을 검토할 수 있어요.']
+    };
+    if(A.debt==='unknown') return {
+      title:'먼저 재산·부채부터 확인하세요',
+      verdict:'빚 규모를 모를 땐 섣불리 결정하지 마세요. <b>안심상속 원스톱</b>으로 금융·세금·연금을 한 번에 조회한 뒤 판단하는 게 안전합니다.',
+      why:['결정 기한은 <b>상속 개시를 안 날부터 3개월</b>입니다.','기한이 촉박하면 한정승인을 먼저 신청해 두는 방법도 있습니다. (전문가 상담)']
+    };
+    // debt === 'more'
+    if(A.heirs==='multi') return {
+      title:'한 명은 한정승인, 나머지는 포기',
+      verdict:'상속인 중 <b>한 명만 ‘한정승인’</b>, 나머지는 <b>‘상속포기’</b>를 하세요. 이렇게 하면 빚이 후순위(형제·조카 등)로 넘어가지 않고 깔끔하게 마무리됩니다.',
+      why:['모두가 ‘상속포기’를 하면 빚이 다음 순위로 줄줄이 내려갑니다 (손주→부모→형제자매→조카).','한정승인한 사람이 ‘방어막’ 역할을 해, 후순위에는 빚이 가지 않습니다.','각각 <b>3개월 이내</b>에 가정법원에 신고해야 합니다.']
+    };
+    return { // more + single/unknown
+      title:'한정승인이 안전합니다',
+      verdict:'빚이 많고 상속인이 사실상 혼자라면 <b>‘한정승인’</b>이 안전합니다. 단순 ‘포기’를 하면 빚이 후순위 친족에게 넘어갈 수 있어요.',
+      why:['포기 시 빚은 다음 순위(부모·형제자매·조카)로 승계됩니다.','한정승인은 물려받은 재산 한도 내에서만 빚을 갚으면 되고, 후순위로 넘어가지 않습니다.','<b>3개월 이내</b> 가정법원 신고가 필요합니다.']
+    };
+  }
+
+  function renderResult(){
+    renderDots();
+    const r=decide();
+    stageEl.innerHTML=`<div class="qcard result">
+      <div class="qnum">진단 결과</div>
+      <h2>${r.title}</h2>
+      <div class="verdict"><div class="lbl">우리 가족에게 권하는 방법</div><p>${r.verdict}</p></div>
+      <h3 style="font-size:16px;margin:0 0 8px">왜 그런가요?</h3>
+      <ul class="why">${r.why.map(w=>`<li>${w}</li>`).join('')}</ul>
+      <div class="legal">⚖️ 이 결과는 일반적인 안내입니다. 가족 상황(보증·공동명의·기여분 등)에 따라 달라질 수 있으니, <b>신고 전 반드시 법률 전문가와 상담</b>하세요.</div>
+      <div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap">
+        <button class="btn btn-ghost btn-sm" id="again">다시 진단</button>
+        <a class="btn btn-primary btn-sm" href="family-guide.html">유족 길잡이로 돌아가기</a>
+      </div>
+    </div>`;
+    document.getElementById('again').onclick=()=>{ step=0; for(const k in A)delete A[k]; renderQ(); };
+  }
+
+  renderQ();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>조문 예절 - 여백</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#474742",
+                      "tertiary": "#43423e",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#b6cacb",
+                      "outline-variant": "#c2c8c7",
+                      "primary": "#334546",
+                      "primary-container": "#4a5d5e",
+                      "outline": "#727878",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-container": "#716252",
+                      "background": "#fff8f5",
+                      "on-secondary-fixed-variant": "#524436",
+                      "on-primary-fixed-variant": "#374a4b",
+                      "surface-variant": "#e9e1dc",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#5b5a55",
+                      "secondary-fixed": "#f4dfcb",
+                      "on-tertiary-container": "#d4d1ca",
+                      "secondary-container": "#f4dfcb",
+                      "surface-container-highest": "#e9e1dc",
+                      "primary-fixed": "#d2e6e7",
+                      "surface": "#fff8f5",
+                      "secondary": "#6b5c4c",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#d7c3b0",
+                      "surface-container": "#f5ece7",
+                      "surface-dim": "#e1d8d4",
+                      "inverse-primary": "#b6cacb",
+                      "on-secondary-fixed": "#241a0e",
+                      "surface-tint": "#4f6263",
+                      "on-tertiary-fixed": "#1c1c18",
+                      "tertiary-fixed-dim": "#c9c6c0",
+                      "on-background": "#1e1b18",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#efe6e2",
+                      "surface-bright": "#fff8f5",
+                      "on-primary-fixed": "#0b1e1f",
+                      "on-primary-container": "#c0d5d6",
+                      "error": "#ba1a1a",
+                      "on-surface": "#1e1b18",
+                      "tertiary-fixed": "#e5e2db",
+                      "on-surface-variant": "#424848",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#fbf2ed",
+                      "inverse-on-surface": "#f8efea",
+                      "inverse-surface": "#34302c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "container-max": "1120px",
+                      "section-gap": "80px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Pretendard"
+                      ],
+                      "display-lg-mobile": [
+                              "Noto Serif KR"
+                      ],
+                      "body-lg": [
+                              "Pretendard"
+                      ],
+                      "headline-md": [
+                              "Noto Serif KR"
+                      ],
+                      "display-lg": [
+                              "Noto Serif KR"
+                      ],
+                      "body-md": [
+                              "Pretendard"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.25",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.7",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&amp;family=Pretendard:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-24">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto bg-surface/80 dark:bg-surface/80 backdrop-blur-md">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed-dim">
+            여백
+        </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">유족 길잡이</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">빚 상속 진단</a>
+<a class="font-label-sm text-label-sm text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 font-bold hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">조문 예절</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">용어 사전</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">지원금</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">커뮤니티</a>
+</div>
+<div class="font-label-sm text-label-sm text-primary dark:text-primary-fixed-dim cursor-pointer hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300">
+            로그인
+        </div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-gutter py-section-gap flex flex-col gap-section-gap">
+<!-- Header -->
+<header class="text-center flex flex-col gap-4 max-w-2xl mx-auto">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">조문 예절</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">마음을 전하는 따뜻한 방법. 당황하지 않고 차분하게 위로를 건넬 수 있도록 기본 예절을 안내합니다.</p>
+</header>
+<!-- Sequence Section -->
+<section class="flex flex-col gap-12">
+<h2 class="font-headline-md text-headline-md text-primary text-center">빈소에서, 이 순서로</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Step 1 -->
+<div class="flex flex-col gap-4 items-center text-center p-6 bg-surface-container-low rounded-xl relative">
+<div class="w-12 h-12 rounded-full border border-primary text-primary flex items-center justify-center font-headline-md text-headline-md bg-surface-container-lowest shadow-sm z-10">1</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">조객록 서명</div>
+<p class="font-body-md text-body-md text-on-surface-variant">외투나 모자는 미리 벗고 빈소 밖에서 조객록에 서명합니다.</p>
+<div class="hidden md:block absolute top-1/4 -right-3 w-6 h-px bg-outline-variant"></div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col gap-4 items-center text-center p-6 bg-surface-container-low rounded-xl relative">
+<div class="w-12 h-12 rounded-full border border-primary text-primary flex items-center justify-center font-headline-md text-headline-md bg-surface-container-lowest shadow-sm z-10">2</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">분향 및 헌화</div>
+<p class="font-body-md text-body-md text-on-surface-variant">영정 앞에 무릎을 꿇고 향을 피우거나 헌화합니다.</p>
+<div class="hidden md:block absolute top-1/4 -right-3 w-6 h-px bg-outline-variant"></div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col gap-4 items-center text-center p-6 bg-surface-container-low rounded-xl relative">
+<div class="w-12 h-12 rounded-full border border-primary text-primary flex items-center justify-center font-headline-md text-headline-md bg-surface-container-lowest shadow-sm z-10">3</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">재배 (절하기)</div>
+<p class="font-body-md text-body-md text-on-surface-variant">고인에게 두 번 반 절을 합니다. (기독교식은 묵념)</p>
+<div class="hidden md:block absolute top-1/4 -right-3 w-6 h-px bg-outline-variant"></div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col gap-4 items-center text-center p-6 bg-surface-container-low rounded-xl">
+<div class="w-12 h-12 rounded-full border border-primary text-primary flex items-center justify-center font-headline-md text-headline-md bg-surface-container-lowest shadow-sm z-10">4</div>
+<div class="font-body-lg text-body-lg text-primary font-medium">조문 및 부의금</div>
+<p class="font-body-md text-body-md text-on-surface-variant">상주와 맞절을 하고 위로의 말을 전한 뒤, 퇴장하며 부의금을 냅니다.</p>
+</div>
+</div>
+</section>
+<!-- Visual Cards Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Incense -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col gap-6 shadow-[0_10px_30px_rgba(51,69,70,0.05)]">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mx-auto text-primary">
+<span class="material-symbols-outlined text-3xl">air</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-center text-primary">분향 (Incense)</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">오른손으로 향을 집고 왼손으로 오른손목을 받칩니다.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">불은 입으로 불어서 끄지 않고, 가볍게 흔들거나 손가락으로 잡아서 끕니다.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">향로에 하나씩 꽂습니다.</span>
+</li>
+</ul>
+</div>
+<!-- Flowers -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col gap-6 shadow-[0_10px_30px_rgba(51,69,70,0.05)]">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mx-auto text-primary">
+<span class="material-symbols-outlined text-3xl">local_florist</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-center text-primary">헌화 (Flowers)</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">오른손으로 꽃줄기 하단을 가볍게 잡고 왼손으로 받칩니다.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">꽃봉오리가 영정 사진을 향하도록 제단에 올립니다.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">기독교식 등 헌화 시에는 묵념을 올립니다.</span>
+</li>
+</ul>
+</div>
+<!-- Bowing -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col gap-6 shadow-[0_10px_30px_rgba(51,69,70,0.05)]">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mx-auto text-primary">
+<span class="material-symbols-outlined text-3xl">emoji_people</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-center text-primary">절하는 법 (Bowing)</h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">남자는 오른손이 위로, 여자는 왼손이 위로 가게 포갭니다. (평상시와 반대)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">고인에게 두 번 반 절합니다.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">상주와는 한 번 맞절합니다.</span>
+</li>
+</ul>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-gutter flex flex-col items-center gap-4 text-center bg-surface-container-low dark:bg-inverse-surface mt-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">
+            여백
+        </div>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors opacity-80" href="#">자살예방상담 109</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">이용약관</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">개인정보처리방침</a>
+</div>
+<p class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim mt-4">
+            © 2024 여백(Yeobaek). 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.
+        </p>
+</footer>
+</body></html>

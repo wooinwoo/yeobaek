@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기획 — 여백 유족 길잡이</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .doc h2 { font-size: 26px; margin: 0 0 16px; padding-top: 8px; }
+  .doc h3 { font-size: 18px; margin: 28px 0 10px; }
+  .doc p, .doc li { color: var(--muted); font-size: 15.5px; }
+  .doc section { padding: 30px 0; border-top: 1px solid var(--line); scroll-margin-top: 90px; }
+  .doc section:first-of-type { border-top: 0; }
+  .doc ul { padding-left: 20px; } .doc li { margin: 5px 0; }
+  .doc table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14.5px; }
+  .doc th, .doc td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .doc th { color: var(--ink); font-weight: 700; background: var(--bg-soft); }
+  .doc td { color: var(--muted); }
+  .tag-s { display:inline-block; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--accent-soft); color:var(--accent); }
+  .tag-s.later { background:var(--bg-soft); color:var(--faint); }
+  .codeblock { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; color: var(--ink); white-space: pre; overflow-x: auto; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="hd">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="mark"></span><span class="name">여백<small>YEOBAEK</small></span></a>
+    <nav class="nav-links">
+      <a href="family-guide.html">유족 길잡이</a>
+      <a href="debt-simulator.html">빚 상속 진단</a>
+      <a href="etiquette.html">조문 예절</a>
+      <a href="terms.html">용어 사전</a>
+      <a href="support.html">지원금</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="family-guide.html">시작하기</a>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <div class="crumb">내부 문서 · 기획</div>
+  <h1>여백 — 제품 기획서</h1>
+  <p>유족을 위한 사후 절차 길잡이. 무엇을, 누구를 위해, 어떻게 만드는가. <span class="faint">(v0.4 · 2026-06-16)</span></p>
+</div>
+
+<main class="wrap" style="padding-bottom:50px">
+  <div class="with-side">
+    <nav class="side-nav">
+      <a href="#problem" class="active">1. 문제</a>
+      <a href="#users">2. 타깃 유저</a>
+      <a href="#value">3. 핵심 가치·차별점</a>
+      <a href="#market">4. 경쟁 환경</a>
+      <a href="#scope">5. 범위 (MVP)</a>
+      <a href="#ia">6. 정보구조</a>
+      <a href="#flows">7. 핵심 플로우</a>
+      <a href="#data">8. 데이터 모델</a>
+      <a href="#sim">9. 빚 진단 로직</a>
+      <a href="#roadmap">10. 로드맵</a>
+      <a href="#risk">11. 리스크·원칙</a>
+    </nav>
+
+    <div class="doc">
+      <section id="problem">
+        <h2>1. 문제</h2>
+        <p>가족을 잃은 직후의 한 달은 <b>가장 슬픈 동시에 가장 복잡한 시기</b>다. 유족은 슬퍼할 겨를도 없이 장례·행정·상속·디지털 정리를 한꺼번에 처리해야 하고, 정보는 블로그·상조사·정부24에 흩어져 있다.</p>
+        <h3>특히 놓치기 쉬운 지점 (실제 경험 기반)</h3>
+        <ul>
+          <li><b>자택 사망</b> 시 경찰 검시가 먼저 — 시신 인도 전엔 장례 시작 불가인데 이를 모름</li>
+          <li><b>휴대폰 지문·얼굴 잠금</b>은 생전에만 해제 가능 — 사후엔 사진·연락처·금융앱 접근 불가</li>
+          <li><b>계좌 동결</b> — 사망 인지 시 동결되며, 미리 인출은 상속인 분쟁·법적 위험</li>
+          <li><b>상속포기의 함정</b> — 잘못하면 빚이 형제·조카까지 줄줄이 승계</li>
+          <li><b>기한</b> — 사망신고 1개월, 상속 결정 3개월, 상속세 6개월을 놓침</li>
+          <li>받을 수 있는 <b>지원금</b>(국민연금 사망일시금 등)을 몰라서 못 받음</li>
+        </ul>
+      </section>
+
+      <section id="users">
+        <h2>2. 타깃 유저</h2>
+        <table>
+          <tr><th>구분</th><th>상황</th><th>핵심 니즈</th></tr>
+          <tr><td>1차 · 핵심</td><td>방금 가족(부모 등)을 잃은 상주·유족 (30~60대)</td><td>"지금 당장 뭘 해야 하지?" 순서·기한·서류</td></tr>
+          <tr><td>2차</td><td>상속·빚 문제로 막막한 유족</td><td>한정승인/포기 판단, 분쟁 예방</td></tr>
+          <tr><td>3차</td><td>부모의 노년을 준비하는 자녀</td><td>미리 알아두기, 체크리스트 저장</td></tr>
+        </table>
+        <p>핵심 인사이트: 유족은 <b>평생 한두 번</b> 쓰고, 쓰는 순간 <b>극도로 정신없고 검색할 여력이 없다.</b> → "찾게" 하지 말고 "떠먹여" 줘야 한다.</p>
+      </section>
+
+      <section id="value">
+        <h2>3. 핵심 가치·차별점</h2>
+        <ul>
+          <li><b>내 상황에 맞춘 안내</b> — 자택/병원, 수급자 여부, 가족 구성에 따라 필요한 일만 노출</li>
+          <li><b>중립성</b> — 상조 상품을 팔지 않는다. 광고·영업 없는 객관 정보 (고이 등과의 결정적 차이)</li>
+          <li><b>도구화</b> — 정적 글이 아니라 진행상황 추적·기한 알림·빚 진단 시뮬레이터</li>
+          <li><b>위험한 속설 교정</b> — "계좌 미리 빼라" 같은 통념의 위험을 짚어줌</li>
+          <li><b>위로</b> — 같은 길을 지난 이들의 익명 커뮤니티</li>
+        </ul>
+      </section>
+
+      <section id="market">
+        <h2>4. 경쟁 환경</h2>
+        <table>
+          <tr><th>주체</th><th>정체</th><th>한계</th></tr>
+          <tr><td>정부24 안심상속</td><td>재산 통합조회 도구</td><td>조회만, 절차 안내 아님</td></tr>
+          <tr><td>고이(Goi)</td><td>장례 가이드북·체크리스트</td><td>장례상품 판매가 본체, 정적 콘텐츠</td></tr>
+          <tr><td>브이힐즈</td><td>생전 자산 입력→사후 전달</td><td>사전 준비형, 유족 길잡이 아님</td></tr>
+          <tr><td>법무법인 블로그</td><td>SEO 콘텐츠</td><td>산재, 영업 깔때기</td></tr>
+        </table>
+        <p>해외 검증 모델: <b>Cake·Empathy·Lantern</b> (사후 체크리스트+추모+커뮤니티, 인수까지 됨). 한국 현지화가 비어있음. → <b>인터랙티브 중립 유족 길잡이 = 국내 공백.</b></p>
+      </section>
+
+      <section id="scope">
+        <h2>5. 범위 (MVP)</h2>
+        <table>
+          <tr><th>기능</th><th>설명</th><th>우선순위</th></tr>
+          <tr><td>유족 체크리스트</td><td>상황 맞춤 + 기한 + 진행상황 저장</td><td><span class="tag-s">MVP</span></td></tr>
+          <tr><td>빚 상속 진단</td><td>가족 구성 → 한정승인/포기 조합 안내</td><td><span class="tag-s">MVP</span></td></tr>
+          <tr><td>용어 사전</td><td>장지·봉안당·자연장 등 쉬운 설명</td><td><span class="tag-s">MVP</span></td></tr>
+          <tr><td>서류 가이드</td><td>사망진단서 부수·제출처</td><td><span class="tag-s">MVP</span></td></tr>
+          <tr><td>지원금 진단</td><td>받을 수 있는 지원 찾기</td><td><span class="tag-s later">v1.1</span></td></tr>
+          <tr><td>커뮤니티</td><td>익명 Q&A·위로 (인증·DB 필요)</td><td><span class="tag-s later">v1.1</span></td></tr>
+          <tr><td>디지털 유산 정리</td><td>계정·구독 정리 안내</td><td><span class="tag-s later">v2</span></td></tr>
+        </table>
+        <p>MVP는 <b>로그인 없이</b> 동작(진행상황은 로컬 저장). 커뮤니티부터 인증·DB 도입.</p>
+      </section>
+
+      <section id="ia">
+        <h2>6. 정보구조 (IA)</h2>
+        <div class="codeblock">여백 (홈 / 랜딩)
+├─ 유족 길잡이        ← 상황 맞춤 체크리스트 (핵심)
+│   ├─ 임종 직후
+│   ├─ 장례
+│   ├─ 행정·상속
+│   └─ 마무리·디지털
+├─ 빚 상속 진단        ← 시뮬레이터
+├─ 용어 사전
+├─ 서류 가이드
+├─ 지원금 진단
+└─ 커뮤니티           ← 익명 Q&A·위로</div>
+      </section>
+
+      <section id="flows">
+        <h2>7. 핵심 플로우</h2>
+        <h3>① 첫 진입 (위기 상태)</h3>
+        <p>랜딩 → "지금 필요한 도움" → 상황 3문항(자택/병원·수급자·가족) → 맞춤 체크리스트가 즉시 생성 → "오늘 할 일"이 맨 위.</p>
+        <h3>② 빚 진단</h3>
+        <p>빚&gt;재산? → 상속인 구성 → 결과(누가 한정승인/포기) + 다음 행동(법원 신청 안내·전문가 연결).</p>
+        <h3>③ 재방문</h3>
+        <p>로컬 저장된 진행상황 복원 → 다음 기한 D-day 표시.</p>
+      </section>
+
+      <section id="data">
+        <h2>8. 데이터 모델 (스케치)</h2>
+        <div class="codeblock">GuideTask
+  id, stage(임종|장례|행정|마무리), title, desc
+  deadlineRule  // 예: 사망+1개월
+  showIf        // 조건: {death:'home', recipient:true} 등
+  sourceUrl     // 근거(정부24 등)
+
+UserProgress (로컬 or DB)
+  deathDate, situation{death, recipient, religion}
+  checked: [taskId...]
+
+GlossaryTerm  { term, short, body, related[] }
+SupportProgram { name, eligibility, amount, deadline, applyUrl }
+Post / Comment  (커뮤니티, v1.1~)</div>
+        <p>스택(무료 티어): Next.js + Supabase(인증·DB·스토리지) + Vercel. 콘텐츠는 정적(MDX/JSON)으로 시작.</p>
+      </section>
+
+      <section id="sim">
+        <h2>9. 빚 진단 로직</h2>
+        <ul>
+          <li>재산 ≥ 빚 → <b>단순승인</b> 안내 (3개월 내 무대응 시 자동 단순승인 경고)</li>
+          <li>빚 &gt; 재산 → <b>상속인 중 1명 한정승인 + 나머지 포기</b> 권장 (후순위 차단)</li>
+          <li>모름 → <b>전원 신중</b> + 안심상속으로 재산·부채 먼저 조회 권장</li>
+          <li>공통: 상속순위(직계비속→직계존속→형제자매→4촌), 배우자 공동상속, 특별한정승인(안 날부터 3개월) 설명</li>
+          <li>모든 결과에 <b>"일반 안내 · 신고 전 전문가 상담" 고지</b> 고정</li>
+        </ul>
+      </section>
+
+      <section id="roadmap">
+        <h2>10. 로드맵</h2>
+        <table>
+          <tr><th>단계</th><th>내용</th></tr>
+          <tr><td>v0 (현재)</td><td>정적 HTML 시안 — 기획·디자인·핵심 화면</td></tr>
+          <tr><td>v1 (MVP)</td><td>Next.js 이관, 체크리스트·빚 진단·용어·서류 (로그인 없음)</td></tr>
+          <tr><td>v1.1</td><td>지원금 진단, 커뮤니티(인증·DB)</td></tr>
+          <tr><td>v2</td><td>디지털 유산 정리, 기한 알림(이메일), 지역별 정보</td></tr>
+        </table>
+      </section>
+
+      <section id="risk">
+        <h2>11. 리스크 · 운영 원칙</h2>
+        <ul>
+          <li><b>정확성</b>: 법·제도는 변한다. 모든 콘텐츠에 근거 출처 + "전문가 상담 권장" 고지. 정기 검수.</li>
+          <li><b>법적 책임</b>: 정보 제공 서비스 — 법률·세무 자문 대체 아님 명시.</li>
+          <li><b>수익화 약함</b>: 평생 1회성 사용. 포트폴리오/공익 목적이므로 OK. (장기: 비영업 제휴·후원)</li>
+          <li><b>민감성</b>: 광고·자극 배제. 위기 상담 번호 상시 노출. 데이터 최소 수집.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer" style="border:0;margin:0">내부 기획 문서 · 시안 v0.4 · 본 문서의 제도·기한 정보는 작성 시점 기준이며 변동될 수 있습니다.</p>
+  </div>
+</footer>
+
+<script>
+  const hd=document.getElementById('hd'); const os=()=>hd.classList.toggle('scrolled',scrollY>8);
+  addEventListener('scroll',os,{passive:true}); os();
+  const links=[...document.querySelectorAll('.side-nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));
+    const i=secs.indexOf(e.target); if(i>=0)links[i].classList.add('active');}})},{rootMargin:'-40% 0px -55% 0px'});
+  secs.forEach(s=>s&&io.observe(s));
+</script>
+
+</body>
+</html>

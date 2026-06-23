@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>여백 - 용어 사전</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&amp;family=Pretendard:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#474742",
+                        "tertiary": "#43423e",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b6cacb",
+                        "outline-variant": "#c2c8c7",
+                        "primary": "#334546",
+                        "primary-container": "#4a5d5e",
+                        "outline": "#727878",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#716252",
+                        "background": "#fff8f5",
+                        "on-secondary-fixed-variant": "#524436",
+                        "on-primary-fixed-variant": "#374a4b",
+                        "surface-variant": "#e9e1dc",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#5b5a55",
+                        "secondary-fixed": "#f4dfcb",
+                        "on-tertiary-container": "#d4d1ca",
+                        "secondary-container": "#f4dfcb",
+                        "surface-container-highest": "#e9e1dc",
+                        "primary-fixed": "#d2e6e7",
+                        "surface": "#fff8f5",
+                        "secondary": "#6b5c4c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "surface-container": "#f5ece7",
+                        "surface-dim": "#e1d8d4",
+                        "inverse-primary": "#b6cacb",
+                        "on-secondary-fixed": "#241a0e",
+                        "surface-tint": "#4f6263",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-background": "#1e1b18",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe6e2",
+                        "surface-bright": "#fff8f5",
+                        "on-primary-fixed": "#0b1e1f",
+                        "on-primary-container": "#c0d5d6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b18",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-surface-variant": "#424848",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2ed",
+                        "inverse-on-surface": "#f8efea",
+                        "inverse-surface": "#34302c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "container-max": "1120px",
+                        "section-gap": "80px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Pretendard"],
+                        "display-lg-mobile": ["Noto Serif KR"],
+                        "body-lg": ["Pretendard"],
+                        "headline-md": ["Noto Serif KR"],
+                        "display-lg": ["Noto Serif KR"],
+                        "body-md": ["Pretendard"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-panel {
+            background: rgba(255, 248, 245, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .ambient-shadow {
+            box-shadow: 0 10px 30px -10px rgba(51, 69, 70, 0.1);
+        }
+    </style>
+<style>nav.fixed{max-width:100%!important}</style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md pt-[72px]">
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md full-width top-0 flat no shadows fixed left-0 w-full z-50 flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-semibold text-primary dark:text-primary-fixed-dim" href="index.html">여백</a>
+<ul class="hidden md:flex items-center gap-8">
+<li><a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="family-guide.html">유족 길잡이</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="debt-simulator.html">빚 상속 진단</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="etiquette.html">조문 예절</a></li>
+<li><a aria-current="page" class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 font-bold hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="terms.html">용어 사전</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="support.html">지원금</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant/70 pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="community.html">커뮤니티</a></li>
+</ul>
+<div class="flex items-center gap-4">
+<button class="hidden md:inline-flex font-label-sm text-label-sm text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity">로그인</button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter py-section-gap flex flex-col gap-12">
+<!-- Header Section -->
+<header class="text-center max-w-2xl mx-auto space-y-6">
+<h1 class="font-display-lg text-display-lg text-primary">어려운 장례 용어,<br/>쉽게 풀어드립니다</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">갑작스러운 상황에서 마주하는 낯선 단어들. 여백이 알기 쉽게 설명해 드릴게요.</p>
+<!-- Search Bar -->
+<div class="relative w-full max-w-md mx-auto mt-8 group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest border-b border-outline-variant focus:border-primary focus:ring-0 transition-colors bg-transparent font-body-md text-body-md text-on-surface placeholder-outline rounded-t-lg" placeholder="궁금한 용어를 검색해보세요" type="text"/>
+</div>
+</header>
+<!-- Filter Chips -->
+<section aria-label="Category Filters" class="flex flex-wrap justify-center gap-3">
+<button class="px-6 py-2 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:opacity-90">전체</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">장례</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">안치</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">예절</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">의례</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">서류</button>
+<button class="px-6 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm transition-transform active:scale-[0.98] hover:bg-surface-variant">상속</button>
+</section>
+<!-- Glossary Grid (Bento/Card Style) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant">
+<div class="flex justify-between items-start">
+<h2 class="font-headline-md text-headline-md text-primary">발인</h2>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">장례</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">장례를 마치고 영구가 장례식장을 떠나 장지(묘지나 화장장)로 향하는 절차를 말합니다.</p>
+<div class="pt-4 border-t border-surface-variant mt-auto">
+<p class="font-label-sm text-label-sm text-outline">유의어: 출상</p>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant">
+<div class="flex justify-between items-start">
+<h2 class="font-headline-md text-headline-md text-primary">수의</h2>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">장례</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">고인에게 입히는 옷입니다. 주로 삼베, 명주 등으로 만들며, 생전에 미리 준비해 두기도 합니다.</p>
+<div class="pt-4 border-t border-surface-variant mt-auto">
+<p class="font-label-sm text-label-sm text-outline">관련어: 염습</p>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant">
+<div class="flex justify-between items-start">
+<h2 class="font-headline-md text-headline-md text-primary">안치</h2>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">안치</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">고인의 시신을 장례식장의 영안실(안치실)에 모시는 것을 뜻합니다. 부패를 막기 위해 냉장 시설에 보관합니다.</p>
+<div class="pt-4 border-t border-surface-variant mt-auto">
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-1 hover:underline">자세히 보기 <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant">
+<div class="flex justify-between items-start">
+<h2 class="font-headline-md text-headline-md text-primary">조의금</h2>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">예절</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">남의 죽음을 슬퍼하는 뜻으로 내는 돈입니다. 보통 홀수 금액(3, 5, 7만 원)이나 10만 원 단위로 준비합니다.</p>
+<div class="pt-4 border-t border-surface-variant mt-auto">
+<p class="font-label-sm text-label-sm text-outline">유의어: 부의금, 조제금</p>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant">
+<div class="flex justify-between items-start">
+<h2 class="font-headline-md text-headline-md text-primary">한정승인</h2>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">상속</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">상속받은 재산의 한도 내에서만 고인의 빚을 갚겠다는 조건으로 상속을 승인하는 제도입니다.</p>
+<div class="pt-4 border-t border-surface-variant mt-auto">
+<button class="text-primary font-label-sm text-label-sm flex items-center gap-1 hover:underline">관련 절차 보기 <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</article>
+<!-- 추가 용어 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">장지</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">장례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">고인을 모실 장소를 통틀어 이르는 말. 봉안당·자연장지·묘지 등이 모두 포함됩니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">빈소</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">장례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">조문객을 맞이하고 고인을 모시는 장례식장 내 공간입니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">입관 · 염습</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">장례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">고인의 몸을 깨끗이 씻기고 수의를 입혀(염습) 관에 모시는(입관) 의례입니다. 가족이 마지막 인사를 하는 시간이기도 합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">봉안당</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">안치</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">화장한 유골을 항아리(봉안함)에 담아 실내 시설에 모시는 곳. 예전엔 ‘납골당’이라 불렀습니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">자연장</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">안치</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">화장한 유골을 잔디·화초·나무 밑에 묻는 방식. 나무 밑에 묻으면 ‘수목장’이라고 합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">수목장</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">안치</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">자연장의 한 종류로, 화장한 유골을 나무 아래 묻어 그 나무를 추모목으로 삼는 방식입니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">매장</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">안치</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">시신이나 유골을 땅에 묻는 전통적인 방식. 묘지 조성이 필요합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">영정</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">의례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">빈소에 모시는 고인의 사진(초상)입니다. 위패와 함께 둡니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">분향</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">의례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">향을 피워 고인을 추모하는 것. 불은 입으로 불지 않고 손으로 끕니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">헌화</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">의례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">국화 등 꽃을 영정 앞에 올려 추모하는 것. 절 대신 헌화로 예를 표하기도 합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">삼우제</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">의례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">장례를 치른 뒤 셋째 날 지내는 제사. 흔히 이날 산소를 다시 찾습니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">49재</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">의례</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">불교에서 사망 후 49일째 고인의 명복을 비는 의식입니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">공수</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">예절</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">두 손을 모아 포개는 예법. 조문(흉사)에서는 평소와 반대로, 남성은 오른손을, 여성은 왼손을 위로 포갭니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">재배</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">예절</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">두 번 절하는 것. 영정 앞에서는 재배(두 번), 상주와는 한 번 맞절합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">부의 · 근조</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">예절</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">부의금 봉투에 쓰는 말. 앞면 가운데 세로로 ‘賻儀(부의)’ ‘謹弔(근조)’ 등을 적고 뒷면에 이름을 씁니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">상주</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">예절</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">장례를 주관하는 사람. 보통 고인의 맏자녀나 배우자가 맡습니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">단순승인</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">상속</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">재산과 빚을 모두 물려받는 것. 3개월 안에 아무 신고도 하지 않으면 자동으로 단순승인이 됩니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">상속포기</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">상속</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">상속을 전부 포기하는 것. 다만 내가 포기하면 빚이 다음 순위 상속인(형제·조카 등)에게 넘어갈 수 있습니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">특별한정승인</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">상속</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">빚이 있는 줄 몰랐다가 뒤늦게 알게 된 경우, 그 사실을 안 날부터 3개월 안에 하는 한정승인입니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">사망진단서</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">서류</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">의사가 사망 사실·원인을 증명하는 문서. 병원 밖 사망은 검안의의 ‘사체검안서’. 행정·금융 처리에 여러 부(보통 7~10부) 필요합니다.</p></article>
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant"><div class="flex justify-between items-start"><h2 class="font-headline-md text-headline-md text-primary">안심상속 원스톱</h2><span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full font-label-sm text-label-sm text-xs">서류</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed flex-grow">고인의 금융·토지·자동차·세금·연금을 한 번에 조회하는 정부24 서비스. 사망신고와 함께 신청할 수 있습니다.</p></article>
+<!-- Card 6 -->
+<article class="bg-surface-container-lowest p-8 rounded-2xl ambient-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col gap-4 border border-transparent hover:border-surface-variant flex justify-center items-center text-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant mb-2">library_add</span>
+<p class="font-body-md text-body-md text-on-surface-variant">찾으시는 용어가 없나요?</p>
+<button class="mt-2 px-4 py-2 bg-transparent border border-primary text-primary rounded-lg font-label-sm text-label-sm hover:bg-surface-variant transition-colors">용어 추가 요청</button>
+</article>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface full-width flat no shadows w-full py-section-gap px-gutter flex flex-col items-center gap-4 text-center mt-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim mb-4">여백</div>
+<div class="flex gap-6 mb-4">
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="tel:109">자살예방상담 109</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">이용약관</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">개인정보처리방침</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant/80 max-w-lg mx-auto">© 2024 여백(Yeobaek). 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.</p>
+</footer>
+<script src="assets/enhance.js?v=6" defer></script>
+</body></html>

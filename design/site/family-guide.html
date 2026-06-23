@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>유족 길잡이 - 여백</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600&amp;family=Noto+Serif+KR:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#474742",
+                        "tertiary": "#43423e",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b6cacb",
+                        "outline-variant": "#c2c8c7",
+                        "primary": "#334546",
+                        "primary-container": "#4a5d5e",
+                        "outline": "#727878",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#716252",
+                        "background": "#fff8f5",
+                        "on-secondary-fixed-variant": "#524436",
+                        "on-primary-fixed-variant": "#374a4b",
+                        "surface-variant": "#e9e1dc",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#5b5a55",
+                        "secondary-fixed": "#f4dfcb",
+                        "on-tertiary-container": "#d4d1ca",
+                        "secondary-container": "#f4dfcb",
+                        "surface-container-highest": "#e9e1dc",
+                        "primary-fixed": "#d2e6e7",
+                        "surface": "#fff8f5",
+                        "secondary": "#6b5c4c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "surface-container": "#f5ece7",
+                        "surface-dim": "#e1d8d4",
+                        "inverse-primary": "#b6cacb",
+                        "on-secondary-fixed": "#241a0e",
+                        "surface-tint": "#4f6263",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-background": "#1e1b18",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe6e2",
+                        "surface-bright": "#fff8f5",
+                        "on-primary-fixed": "#0b1e1f",
+                        "on-primary-container": "#c0d5d6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b18",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-surface-variant": "#424848",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2ed",
+                        "inverse-on-surface": "#f8efea",
+                        "inverse-surface": "#34302c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "container-max": "1120px",
+                        "section-gap": "80px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Pretendard"],
+                        "display-lg-mobile": ["Noto Serif KR"],
+                        "body-lg": ["Pretendard"],
+                        "headline-md": ["Noto Serif KR"],
+                        "display-lg": ["Noto Serif KR"],
+                        "body-md": ["Pretendard"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .circular-progress {
+            transform: rotate(-90deg);
+        }
+        .circular-progress circle {
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+    </style>
+<style>nav.fixed{max-width:100%!important}</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto bg-surface/80 backdrop-blur-md">
+<a class="font-headline-md text-headline-md font-semibold text-primary" href="index.html">여백</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-sm text-label-sm text-primary border-b-2 border-primary pb-1 font-bold" href="family-guide.html">유족 길잡이</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant pb-1 hover:text-primary transition-colors duration-300" href="debt-simulator.html">빚 상속 진단</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant pb-1 hover:text-primary transition-colors duration-300" href="etiquette.html">조문 예절</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant pb-1 hover:text-primary transition-colors duration-300" href="terms.html">용어 사전</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant pb-1 hover:text-primary transition-colors duration-300" href="support.html">지원금</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant pb-1 hover:text-primary transition-colors duration-300" href="community.html">커뮤니티</a>
+</div>
+<button class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 hidden md:block">로그인</button>
+<!-- Mobile Menu Icon (Placeholder) -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[100px] pb-section-gap px-gutter md:px-0 max-w-container-max mx-auto w-full flex flex-col gap-12">
+<!-- Header & Progress Section -->
+<section class="flex flex-col md:flex-row gap-8 items-start justify-between bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_30px_rgba(74,93,94,0.05)] border border-surface-variant/50 relative overflow-hidden">
+<!-- Ambient Background Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex-1 flex flex-col gap-6 z-10">
+<div>
+<h1 class="font-display-lg md:font-display-lg text-primary mb-2">유족 길잡이</h1>
+<p class="font-body-lg text-on-surface-variant">상황에 맞는 맞춤형 절차를 안내해 드립니다. 필요한 항목을 확인하고 차분히 준비하세요.</p>
+</div>
+<!-- Situation Chips -->
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-full border border-primary text-primary font-label-sm text-label-sm bg-primary/5 hover:bg-primary/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">local_hospital</span> 병원에서 임종
+                    </button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-sm text-label-sm bg-surface hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">home</span> 자택에서 임종
+                    </button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-sm text-label-sm bg-surface hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">account_balance</span> 기초생활수급자
+                    </button>
+</div>
+</div>
+<!-- Progress Ring -->
+<div class="flex flex-col items-center justify-center min-w-[160px] z-10">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full circular-progress" viewbox="0 0 100 100">
+<circle class="text-surface-variant stroke-current" cx="50" cy="50" fill="transparent" r="44" stroke-width="6"></circle>
+<circle class="text-primary stroke-current" cx="50" cy="50" fill="transparent" id="progress-circle" r="44" stroke-dasharray="276.46" stroke-dashoffset="200" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md text-primary">28%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">진행률</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Checklist Stages Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Stage 1 -->
+<article class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_30px_rgba(74,93,94,0.05)] border border-surface-variant/50 flex flex-col gap-6">
+<div class="flex items-center gap-3 border-b border-surface-variant pb-4">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md text-sm">1</div>
+<h2 class="font-headline-md text-headline-md text-primary flex-1">임종 직후</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-variant px-3 py-1 rounded-full">3개 남음</span>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface line-through opacity-60">사망진단서(시체검안서) 발급</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-error-container text-on-error-container opacity-60">오늘</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">병원 원무과 또는 검안의에게 7~10부 이상 여유 있게 발급받으세요.</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer bg-surface/50 border border-primary/10">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">장례식장 결정 및 안치</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-error-container text-on-error-container">오늘</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">원하는 장례식장에 연락하여 빈소 및 안치실 유무를 확인하세요.</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">가족 및 친지 연락</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-error-container text-on-error-container">오늘</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">부고 문자를 작성하고 가까운 친인척에게 먼저 연락을 취하세요.</p>
+</div>
+</li>
+</ul>
+</article>
+<!-- Stage 2 -->
+<article class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_30px_rgba(74,93,94,0.05)] border border-surface-variant/50 flex flex-col gap-6 opacity-90">
+<div class="flex items-center gap-3 border-b border-surface-variant pb-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-headline-md text-sm">2</div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex-1">장례</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-variant px-3 py-1 rounded-full">대기중</span>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">화장장 예약</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant">e하늘</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">e하늘 장사정보시스템을 통해 최대한 빨리 화장장을 예약하세요.</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">매장/납골당/수목장 결정</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant">장례중</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">고인을 모실 장소를 결정하고 필요 서류를 준비하세요.</p>
+</div>
+</li>
+</ul>
+</article>
+<!-- Stage 3 -->
+<article class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_30px_rgba(74,93,94,0.05)] border border-surface-variant/50 flex flex-col gap-6 opacity-70">
+<div class="flex items-center gap-3 border-b border-surface-variant pb-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-headline-md text-sm">3</div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex-1">행정·상속</h2>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">사망신고</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container">1개월 내</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">관할 주민센터에 방문하여 사망신고를 완료하세요.</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">안심상속 원스톱 서비스 신청</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed">6개월 내</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">고인의 재산 및 채무 내역을 한 번에 조회 신청하세요.</p>
+</div>
+</li>
+</ul>
+</article>
+<!-- Stage 4 -->
+<article class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_30px_rgba(74,93,94,0.05)] border border-surface-variant/50 flex flex-col gap-6 opacity-60">
+<div class="flex items-center gap-3 border-b border-surface-variant pb-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-headline-md text-sm">4</div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex-1">마무리·디지털</h2>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-4 p-4 rounded-lg hover:bg-surface-container-low transition-colors group cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary accent-primary" type="checkbox"/>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-md text-body-md font-medium text-on-surface">SNS 및 디지털 계정 정리</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant">기한없음</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">고인의 소셜 미디어 계정을 추모 계정으로 전환하거나 삭제 요청하세요.</p>
+</div>
+</li>
+</ul>
+</article>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-gutter flex flex-col items-center gap-4 text-center bg-surface-container-low mt-auto">
+<a class="font-headline-md text-headline-md text-primary" href="index.html">여백</a>
+<div class="flex gap-6 font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="tel:109">자살예방상담 109</a>
+<a class="hover:text-primary transition-colors" href="#">이용약관</a>
+<a class="hover:text-primary transition-colors" href="#">개인정보처리방침</a>
+</div>
+<p class="font-body-md text-body-md text-secondary mt-4">© 2024 여백(Yeobaek). 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.</p>
+</footer>
+<script>
+        // Simple script to animate the progress ring on load
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const circle = document.getElementById('progress-circle');
+                if(circle) {
+                    // 28% completion
+                    const circumference = 276.46; // 2 * pi * 44
+                    const percent = 28;
+                    const offset = circumference - (percent / 100) * circumference;
+                    circle.style.strokeDashoffset = offset;
+                }
+            }, 300);
+        });
+    </script>
+<script src="assets/enhance.js?v=6" defer></script>
+</body></html>

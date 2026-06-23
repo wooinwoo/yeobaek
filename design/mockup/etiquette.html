@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>조문 예절 — 여백</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .order { background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px;box-shadow:var(--shadow);margin-bottom:34px; }
+  .ostep { display:grid;grid-template-columns:34px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line-2);align-items:start; }
+  .ostep:first-child{border-top:0;}
+  .ostep .n{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;}
+  .ostep h4{margin:0 0 2px;font-size:16px;} .ostep p{margin:0;color:var(--muted);font-size:14px;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .say{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .say .col{border-radius:14px;padding:20px 22px;}
+  .say .ok{background:var(--accent-tint);border:1px solid var(--accent-soft);}
+  .say .no{background:var(--warn-soft);border:1px solid #f0d6cc;}
+  .say h4{margin:0 0 10px;font-size:15px;} .say .ok h4{color:var(--accent-2);} .say .no h4{color:var(--warn);}
+  .say ul{margin:0;padding-left:18px;} .say li{margin:6px 0;font-size:14.5px;color:var(--muted);}
+  .envelope{border:2px dashed var(--line);border-radius:14px;padding:26px;text-align:center;background:var(--bg-soft);margin:6px 0 4px;}
+  .envelope .front{font-family:"Gowun Batang",serif;font-size:30px;letter-spacing:.3em;color:var(--ink);}
+  .envelope .back{font-size:13px;color:var(--faint);margin-top:14px;}
+  @media(max-width:760px){.two,.say{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="hd">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="mark"></span><span class="name">여백<small>YEOBAEK</small></span></a>
+    <nav class="nav-links">
+      <a href="family-guide.html">유족 길잡이</a>
+      <a href="debt-simulator.html">빚 상속 진단</a>
+      <a href="etiquette.html" aria-current="page">조문 예절</a>
+      <a href="terms.html">용어 사전</a>
+      <a href="support.html">지원금</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="family-guide.html">시작하기</a>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <div class="crumb">홈 · 조문 예절</div>
+  <h1>장례식장, 어떻게 행동해야 할까요</h1>
+  <p>절은 몇 번 하는지, 봉투엔 뭐라고 쓰는지, 무슨 말을 건네야 할지 — 막상 가면 헷갈리는 것들을 한 곳에 정리했어요.</p>
+</div>
+
+<main class="wrap" style="padding-bottom:50px">
+
+  <!-- 한눈에 순서 -->
+  <div class="order">
+    <h3 style="margin:0 0 16px;font-size:19px">빈소에서, 이 순서로</h3>
+    <div class="ostep"><span class="n">1</span><div><h4>도착 · 외투와 모자를 벗습니다</h4><p>방명록(부의록)이 있으면 이름을 적습니다.</p></div></div>
+    <div class="ostep"><span class="n">2</span><div><h4>상주에게 가볍게 목례</h4><p>들어서며 상주와 눈이 마주치면 가볍게 목례합니다.</p></div></div>
+    <div class="ostep"><span class="n">3</span><div><h4>분향 또는 헌화</h4><p>향을 피우거나(분향) 국화를 올립니다(헌화). 빈소 안내를 따르세요.</p></div></div>
+    <div class="ostep"><span class="n">4</span><div><h4>영정 앞에 절(재배) 또는 묵념</h4><p>영정·위패를 향해 두 번 절합니다. 종교에 따라 묵념으로 대신합니다.</p></div></div>
+    <div class="ostep"><span class="n">5</span><div><h4>상주와 맞절(한 번)</h4><p>돌아서서 상주와 한 번 맞절하거나 가볍게 목례합니다.</p></div></div>
+    <div class="ostep"><span class="n">6</span><div><h4>짧은 위로의 말</h4><p>“삼가 고인의 명복을 빕니다.” 길게 말하지 않아도 됩니다.</p></div></div>
+    <div class="ostep"><span class="n">7</span><div><h4>부의금 전달 · 물러나기</h4><p>부의함에 봉투를 넣고 조용히 물러납니다.</p></div></div>
+  </div>
+
+  <!-- 분향 / 헌화 -->
+  <div class="two">
+    <div class="card">
+      <div class="ico">🕯️</div>
+      <h3>분향하는 법</h3>
+      <p style="margin-bottom:10px">오른손으로 향을 한 개(또는 세 개) 집어 촛불에 불을 붙입니다.</p>
+      <p style="margin-bottom:10px"><b>입으로 불어 끄지 않습니다.</b> 왼손으로 가볍게 흔들거나 손바람으로 끕니다.</p>
+      <p style="margin:0">두 손으로 향로에 정중히 꽂은 뒤, 한 걸음 물러나 절합니다.</p>
+    </div>
+    <div class="card">
+      <div class="ico">🤍</div>
+      <h3>헌화하는 법</h3>
+      <p style="margin-bottom:10px">국화를 오른손으로 줄기를 잡고 왼손으로 받쳐 듭니다.</p>
+      <p style="margin-bottom:10px">꽃봉오리가 <b>영정(제단) 쪽</b>을 향하도록 헌화대에 올리는 것이 일반적입니다. (빈소 안내를 따르세요)</p>
+      <p style="margin:0">올린 뒤 잠시 묵념하고 물러납니다.</p>
+    </div>
+  </div>
+
+  <!-- 절하는 법 -->
+  <div class="card" style="margin-top:14px">
+    <div class="ico">🙇</div>
+    <h3>절하는 법 — 손 모으기(공수)가 평소와 반대</h3>
+    <p>조문(흉사)에서는 손을 포개는 방향이 <b>평소(좋은 일)와 반대</b>입니다.</p>
+    <div class="two" style="margin-top:6px">
+      <div style="background:var(--bg-soft);border-radius:12px;padding:18px 20px">
+        <h4 style="margin:0 0 6px;font-size:15px">남성</h4>
+        <p class="muted" style="margin:0;font-size:14.5px"><b>오른손을 위로</b> 포갭니다. 영정에 큰절 <b>두 번</b>, 상주와 맞절 <b>한 번</b>.</p>
+      </div>
+      <div style="background:var(--bg-soft);border-radius:12px;padding:18px 20px">
+        <h4 style="margin:0 0 6px;font-size:15px">여성</h4>
+        <p class="muted" style="margin:0;font-size:14.5px"><b>왼손을 위로</b> 포갭니다. 절하는 횟수는 남성과 같습니다.</p>
+      </div>
+    </div>
+    <p class="muted" style="margin:14px 0 0;font-size:14px">※ 기독교·천주교식에서는 절 대신 <b>묵념·기도·헌화</b>로 예를 표하기도 합니다. 빈소의 종교를 따르세요.</p>
+  </div>
+
+  <!-- 부의금 봉투 -->
+  <div class="card" style="margin-top:14px">
+    <div class="ico">✉️</div>
+    <h3>부의금(조의금) 봉투 쓰는 법</h3>
+    <p>봉투 <b>앞면 가운데에 세로로</b> 아래 중 하나를 씁니다.</p>
+    <div class="envelope">
+      <div class="front">賻 儀</div>
+      <div class="muted" style="font-size:13px;margin-top:8px">부의(賻儀) · 근조(謹弔) · 조의(弔意) · 추모(追慕) 중 하나</div>
+      <div class="back">— 뒷면 왼쪽 아래에 이름과 소속을 적습니다 —</div>
+    </div>
+    <p class="muted" style="margin:12px 0 0;font-size:14px">금액은 보통 홀수(3·5·7만 원)로 하는 관례가 있으나 10만 원은 예외입니다. 새 지폐가 아니어도 괜찮습니다.</p>
+  </div>
+
+  <!-- 위로 인사말 -->
+  <h3 style="margin:30px 0 14px;font-size:19px">무슨 말을 건네야 할까요</h3>
+  <div class="say">
+    <div class="col ok">
+      <h4>이렇게 말해요</h4>
+      <ul>
+        <li>“삼가 고인의 명복을 빕니다.”</li>
+        <li>“얼마나 상심이 크십니까.”</li>
+        <li>“뭐라 위로의 말씀을 드려야 할지….”</li>
+        <li>말이 떠오르지 않으면, 말없이 손을 잡아드려도 됩니다.</li>
+      </ul>
+    </div>
+    <div class="col no">
+      <h4>피해야 할 것</h4>
+      <ul>
+        <li>사망 경위·원인을 캐묻기</li>
+        <li>“호상이네요” 같은 표현</li>
+        <li>큰 소리로 웃거나 떠들기</li>
+        <li>과한 위로, 종교 권유, 부담스러운 조언</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 복장 -->
+  <div class="card" style="margin-top:14px">
+    <div class="ico">👔</div>
+    <h3>복장</h3>
+    <p style="margin:0">검정·무채색이 기본입니다. 남성은 검정 양복에 흰 셔츠·검정 넥타이, 여성은 검정·짙은 무채색 옷차림이 무난합니다. 화려한 액세서리와 짙은 화장은 피하고, 맨발은 삼가고 양말·스타킹을 착용합니다. 급하면 단정한 어두운 평상복도 괜찮습니다.</p>
+  </div>
+
+  <div class="card" style="margin-top:18px;background:var(--bg-soft)">
+    <p style="margin:0;color:var(--muted);font-size:14.5px">💡 예절은 지역·가풍·종교에 따라 조금씩 다릅니다. 핵심은 <b>정중함과 조용함</b>이에요. 형식이 헷갈리면 빈소 도우미나 다른 조문객을 따라 하셔도 충분합니다.</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="helpline">관련 용어가 궁금하면 <a href="terms.html" style="color:var(--accent);font-weight:600">용어 사전</a>에서 찾아보세요. (분향·헌화·재배·공수 등)</div>
+    <p class="disclaimer">예절은 일반적인 안내이며 지역·종교·가풍에 따라 다를 수 있습니다. · 시안 v0.4</p>
+  </div>
+</footer>
+
+<script>const hd=document.getElementById('hd');const os=()=>hd.classList.toggle('scrolled',scrollY>8);addEventListener('scroll',os,{passive:true});os();</script>
+</body>
+</html>

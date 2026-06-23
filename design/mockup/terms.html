@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쉬운 용어 사전 — 여백</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .search { width:100%; max-width:480px; padding:14px 18px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; font-family:inherit; outline:none; transition:border-color .15s; margin-bottom:30px; }
+  .search:focus { border-color:var(--accent); }
+  .term { background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px; margin-bottom:14px; }
+  .term h3 { font-family:"Gowun Batang",serif; font-size:20px; margin:0 0 4px; }
+  .term .cat { font-size:12px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:3px 10px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+  .term p { color:var(--muted); font-size:15px; margin:8px 0 0; line-height:1.7; }
+  .empty { color:var(--faint); text-align:center; padding:40px; }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="hd">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="mark"></span><span class="name">여백<small>YEOBAEK</small></span></a>
+    <nav class="nav-links">
+      <a href="family-guide.html">유족 길잡이</a>
+      <a href="debt-simulator.html">빚 상속 진단</a>
+      <a href="etiquette.html">조문 예절</a>
+      <a href="terms.html" aria-current="page">용어 사전</a>
+      <a href="support.html">지원금</a>
+      <a href="community.html">커뮤니티</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="family-guide.html">시작하기</a>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <div class="crumb">홈 · 용어 사전</div>
+  <h1>헷갈리는 말, 쉽게 풀어드려요</h1>
+  <p>장례·상속 절차에서 마주치는 낯선 용어들. 정신없을 때 한 번에 찾아보세요.</p>
+</div>
+
+<main class="wrap" style="padding-bottom:50px">
+  <input class="search" id="q" placeholder="🔍  용어 검색 (예: 봉안당, 부의, 한정승인)" autocomplete="off">
+  <div class="topic-tags" id="cats"></div>
+  <div id="list"></div>
+  <div class="empty" id="empty" style="display:none">검색 결과가 없어요.</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p class="disclaimer" style="border:0;margin:0">용어 설명은 이해를 돕기 위한 것이며, 법적 정의와 다를 수 있습니다. · 시안 v0.4</p></div>
+</footer>
+
+<script>
+  const hd=document.getElementById('hd'); const os=()=>hd.classList.toggle('scrolled',scrollY>8);
+  addEventListener('scroll',os,{passive:true}); os();
+
+  const TERMS=[
+    // 장례·안치
+    {t:'장지(葬地)', c:'장례', d:'고인을 모실 장소를 통틀어 이르는 말. 봉안당·자연장지·묘지 등이 모두 포함됩니다.'},
+    {t:'빈소(殯所)', c:'장례', d:'조문객을 맞이하고 고인을 모시는 장례식장 내 공간입니다.'},
+    {t:'입관(入棺) / 염습(殮襲)', c:'장례', d:'고인의 몸을 깨끗이 씻기고 수의를 입혀(염습) 관에 모시는(입관) 의례입니다. 가족이 마지막으로 인사하는 시간이기도 합니다.'},
+    {t:'수의(壽衣)', c:'장례', d:'고인에게 입혀 드리는 옷입니다.'},
+    {t:'발인(發靷) / 영결식', c:'장례', d:'장례를 마치고 시신을 빈소에서 화장장·장지로 옮기기 위해 떠나는 절차. 떠나기 전 치르는 의식을 영결식이라 합니다.'},
+    {t:'직장(直葬) / 무빈소', c:'장례', d:'빈소를 차리지 않고 안치 후 곧바로 화장하는 간소한 장례. 고인 뜻이나 비용을 고려해 선택합니다.'},
+    {t:'봉안당(納骨堂)', c:'안치', d:'화장한 유골을 항아리(봉안함)에 담아 실내 시설에 모시는 곳. 예전엔 ‘납골당’이라 불렀습니다.'},
+    {t:'봉안묘 / 봉안담', c:'안치', d:'화장한 유골을 야외의 작은 묘(봉안묘)나 담장 형태 구조물(봉안담)에 모시는 방식입니다.'},
+    {t:'자연장(自然葬)', c:'안치', d:'화장한 유골을 잔디·화초·나무 밑에 묻는 방식. 나무 밑에 묻으면 ‘수목장’이라고 합니다.'},
+    {t:'수목장(樹木葬)', c:'안치', d:'자연장의 한 종류로, 화장한 유골을 나무 아래에 묻어 그 나무를 추모목으로 삼는 방식입니다.'},
+    {t:'매장(埋葬)', c:'안치', d:'시신이나 유골을 땅에 묻는 전통적인 방식. 묘지 조성이 필요합니다.'},
+    // 예절
+    {t:'부의(賻儀) / 조의(弔意) / 근조(謹弔)', c:'예절', d:'문상 때 내는 돈(부의금) 봉투에 쓰는 말. 봉투 앞면 가운데 세로로 ‘賻儀’ 등을 적고, 뒷면에 이름·소속을 씁니다.'},
+    {t:'상주(喪主)', c:'예절', d:'장례를 주관하는 사람. 보통 고인의 맏자녀나 배우자가 맡습니다.'},
+    {t:'공수(拱手)', c:'예절', d:'두 손을 모아 포개는 예법. 조문(흉사)에서는 평소와 반대로, 남성은 오른손을, 여성은 왼손을 위로 포갭니다.'},
+    {t:'재배(再拜)', c:'예절', d:'두 번 절하는 것. 영정·위패 앞에서는 재배(두 번), 상주와는 한 번 맞절합니다.'},
+    {t:'미망인(未亡人)', c:'예절', d:'남편을 여읜 아내를 이르던 말이나, ‘아직 죽지 못한 사람’이라는 어원 때문에 요즘은 쓰지 않기를 권합니다.'},
+    {t:'호상(好喪)', c:'예절', d:'복을 누리고 오래 산 사람의 상(喪)을 이르는 말이나, 유족 앞에서 쓰면 실례가 될 수 있어 조심해야 합니다.'},
+    {t:'부고(訃告)', c:'예절', d:'사람의 죽음을 알리는 통지입니다. 요즘은 문자·모바일 부고장으로 전하기도 합니다.'},
+    {t:'조화(弔花)', c:'예절', d:'문상의 뜻으로 보내는 꽃(주로 흰 국화 화환)입니다.'},
+    // 의례
+    {t:'영정(影幀)', c:'의례', d:'빈소에 모시는 고인의 사진(초상)입니다.'},
+    {t:'위패(位牌)', c:'의례', d:'고인의 이름을 적어 모시는 나무패. 영정과 함께 빈소에 둡니다.'},
+    {t:'분향(焚香)', c:'의례', d:'향을 피워 고인을 추모하는 것. 입으로 불어 끄지 않고 손으로 끕니다.'},
+    {t:'헌화(獻花)', c:'의례', d:'국화 등 꽃을 영정 앞에 올려 추모하는 것. 절 대신 헌화로 예를 표하기도 합니다.'},
+    {t:'삼우제(三虞祭)', c:'의례', d:'장례를 치른 뒤 셋째 날 지내는 제사. 흔히 이날 산소를 다시 찾습니다.'},
+    {t:'49재(四十九齋)', c:'의례', d:'불교에서 사망 후 49일째 고인의 명복을 비는 의식입니다.'},
+    {t:'종교별 예식', c:'의례', d:'불교는 분향·절, 기독교·천주교는 묵념·기도·헌화로 예를 표하는 등 빈소의 종교에 따라 방식이 다릅니다.'},
+    // 서류·행정·상속
+    {t:'사망진단서 / 사체검안서', c:'서류', d:'의사가 사망 사실·원인을 증명하는 문서. 병원 사망은 사망진단서, 그 외는 검안의의 사체검안서. 행정·금융 처리에 여러 부 필요합니다.'},
+    {t:'안심상속 원스톱', c:'행정', d:'고인의 금융·토지·자동차·세금·연금을 한 번에 조회하는 정부24 서비스. 사망신고와 함께 신청할 수 있습니다.'},
+    {t:'단순승인', c:'상속', d:'재산과 빚을 모두 물려받는 것. 3개월 안에 아무 신고도 하지 않으면 자동으로 단순승인이 됩니다.'},
+    {t:'한정승인', c:'상속', d:'물려받은 재산 한도 내에서만 빚을 갚는 조건으로 상속받는 것. 후순위 친족에게 빚이 넘어가지 않습니다.'},
+    {t:'상속포기', c:'상속', d:'상속을 전부 포기하는 것. 다만 내가 포기하면 빚이 다음 순위 상속인(형제·조카 등)에게 넘어갈 수 있습니다.'},
+    {t:'특별한정승인', c:'상속', d:'빚이 있는 줄 몰랐다가 뒤늦게 알게 된 경우, 그 사실을 안 날부터 3개월 안에 하는 한정승인입니다.'},
+    {t:'상속 순위', c:'상속', d:'① 직계비속(자녀·손주) ② 직계존속(부모) ③ 형제자매 ④ 4촌 이내 방계. 배우자는 1·2순위와 공동상속하며, 없으면 단독 상속합니다.'},
+  ];
+  const CATS=['전체','장례','안치','예절','의례','서류','행정','상속'];
+  const list=document.getElementById('list'), empty=document.getElementById('empty'), q=document.getElementById('q'), cats=document.getElementById('cats');
+  let cat='전체';
+  cats.innerHTML=CATS.map(c=>`<a href="#" data-c="${c}" class="${c==='전체'?'on':''}">${c}</a>`).join('');
+  cats.querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();cat=a.dataset.c;
+    cats.querySelectorAll('a').forEach(x=>x.classList.toggle('on',x===a));render(q.value);});
+  function render(f=''){
+    const k=f.trim().toLowerCase();
+    const r=TERMS.filter(x=>(cat==='전체'||x.c===cat) &&
+      (!k || x.t.toLowerCase().includes(k) || x.d.toLowerCase().includes(k) || x.c.includes(k)));
+    list.innerHTML=r.map(x=>`<div class="term"><h3>${x.t}<span class="cat">${x.c}</span></h3><p>${x.d}</p></div>`).join('');
+    empty.style.display=r.length?'none':'block';
+  }
+  q.addEventListener('input',e=>render(e.target.value));
+  render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+// 여백 커뮤니티 — Prisma 7 + libSQL(SQLite/Turso) 스키마
+// 로컬: DATABASE_URL="file:./prisma/dev.db"
+// 배포(Vercel): Turso libsql:// URL + TURSO_AUTH_TOKEN
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// 익명 커뮤니티 글
+model Post {
+  id        String   @id @default(cuid())
+  tag       String // 상속고민 | 마음위로 | 절차질문 | 일상공유
+  title     String
+  body      String
+  comfort   Int      @default(0) // '위로' 공감 수
+  reply     Int      @default(0) // 답변 수(추후 댓글 모델 확장 여지)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([tag])
+}
