@@ -32,10 +32,13 @@ export function ddayBadge(
   if (!deathDate || !rule) return null;
   const base = new Date(deathDate);
   if (isNaN(base.getTime())) return null;
+  // eom(말일 기준): 기준월 + months 이후 '그 달의 말일'을 잡는다.
+  //   day=0 + (month +1) → 해당 월의 말일이 되어, setMonth가 31일 등에서
+  //   다음 달로 넘어가던 오버플로우 버그를 피한다.
+  // eom 아님: 사망일 그대로 month만 더한다(연/월 캐리는 Date가 처리).
   const t = rule.eom
-    ? new Date(base.getFullYear(), base.getMonth() + 1, 0)
-    : new Date(base);
-  t.setMonth(t.getMonth() + rule.months);
+    ? new Date(base.getFullYear(), base.getMonth() + rule.months + 1, 0)
+    : new Date(base.getFullYear(), base.getMonth() + rule.months, base.getDate());
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
   const dd = Math.ceil((t.getTime() - today.getTime()) / MS_PER_DAY);

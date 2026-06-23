@@ -8,11 +8,9 @@ const DAY = 86_400_000;
 function deadlineOf(deathDate: string, id: string): Date {
   const rule = DEADLINES[id];
   const base = new Date(deathDate);
-  const t = rule.eom
-    ? new Date(base.getFullYear(), base.getMonth() + 1, 0)
-    : new Date(base);
-  t.setMonth(t.getMonth() + rule.months);
-  return t;
+  return rule.eom
+    ? new Date(base.getFullYear(), base.getMonth() + rule.months + 1, 0)
+    : new Date(base.getFullYear(), base.getMonth() + rule.months, base.getDate());
 }
 
 // 마감일의 '캘린더 날짜'에서 offsetDays 만큼 앞선 '오늘'을 로컬 자정으로 만든다.
@@ -99,10 +97,46 @@ describe("ddayBadge", () => {
   });
 
   it("eom 항목(상속세, 6개월)은 사망월 말일을 기준으로 6개월을 더한다", () => {
-    // 사망 2026-01-15 → 1월 말일(31일) 기준 +6개월 = 2026-07-31
+    // 사망 2026-01-15 → 1월 +6개월 = 7월, 그 달의 말일 = 2026-07-31
     const dl = deadlineOf("2026-01-15", "t-tax");
+    expect(dl.getFullYear()).toBe(2026);
     expect(dl.getMonth()).toBe(6); // 0-indexed, 7월
     expect(dl.getDate()).toBe(31);
+  });
+
+  it("[회귀] eom 월말 오버플로우: 31일 사망월에서도 결과는 '그 달의 말일'이어야 한다", () => {
+    // 사망 2025-08-15(8월=31일) → 8월 +6개월 = 2026년 2월, 그 달의 말일 = 2026-02-28
+    // 구버전 버그: 8월 말일(8/31)에 setMonth(+6) → 2/31 오버플로우 → 2026-03-03 으로 잘못 계산
+    const dl = deadlineOf("2025-08-15", "t-tax");
+    expect(dl.getFullYear()).toBe(2026);
+    expect(dl.getMonth()).toBe(1); // 2월
+    expect(dl.getDate()).toBe(28); // 윤년 아님 → 28일
+  });
+
+  it("[회귀] eom 윤년 2월 말일 처리: 2027-08 사망 → 2028-02-29", () => {
+    // 2028은 윤년 → 2월 말일은 29일이어야 한다
+    const dl = deadlineOf("2027-08-10", "t-tax");
+    expect(dl.getFullYear()).toBe(2028);
+    expect(dl.getMonth()).toBe(1); // 2월
+    expect(dl.getDate()).toBe(29); // 윤년
+  });
+
+  it("[회귀] eom 연도 캐리: 12개월(안심상속)은 다음 해 같은 달 말일", () => {
+    // 사망 2025-08-15 → 8월 +12개월 = 2026년 8월 말일 = 2026-08-31
+    const dl = deadlineOf("2025-08-15", "t-onestop");
+    expect(dl.getFullYear()).toBe(2026);
+    expect(dl.getMonth()).toBe(7); // 8월
+    expect(dl.getDate()).toBe(31);
+  });
+
+  it("[회귀] ddayBadge가 eom 월말 케이스에서 올바른 마감일로 D-day를 낸다", () => {
+    // 사망 2025-08-15, t-tax → 마감 2026-02-28. 그 전날(2/27)은 D-1.
+    const r = ddayBadge("2025-08-15", "t-tax", new Date(2026, 1, 27));
+    expect(r?.text).toBe("D-1");
+    // 마감 당일은 D-DAY
+    const onDay = ddayBadge("2025-08-15", "t-tax", new Date(2026, 1, 28));
+    expect(onDay?.text).toBe("D-DAY");
+    // 잘못된 구버전이라면 마감이 3/3이라 2/28에 D-DAY가 아님(회귀 방지)
   });
 
   it("eom이 아닌 항목은 사망일 그대로를 기준으로 월을 더한다", () => {
