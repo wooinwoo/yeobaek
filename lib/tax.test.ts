@@ -1,13 +1,16 @@
 import { describe, it, expect } from "vitest";
 import {
   estimateTax,
+  estimateTaxBreakdown,
   findBracket,
   won,
+  wonExact,
   LUMP_SUM_DEDUCTION,
   SPOUSE_DEDUCTION,
 } from "./tax";
 
 const EOK = 100_000_000;
+const CHEONMAN = 10_000_000;
 
 describe("won", () => {
   it("1억 이상은 억 단위로 표기", () => {
@@ -78,5 +81,83 @@ describe("estimateTax", () => {
     const r = estimateTax({ asset: 40 * EOK, debt: 0, spouse: false });
     expect(r.rate).toBe(0.5);
     expect(r.tax).toBe(35 * EOK * 0.5 - 460_000_000);
+  });
+});
+
+describe("wonExact", () => {
+  it("정확한 원 단위에 자릿수 콤마를 병기", () => {
+    expect(wonExact(123_456_789)).toBe("123,456,789원");
+    expect(wonExact(0)).toBe("0원");
+    expect(wonExact(5 * EOK)).toBe("500,000,000원");
+  });
+
+  it("소수는 반올림해 정수 원으로 표기", () => {
+    expect(wonExact(1000.4)).toBe("1,000원");
+    expect(wonExact(1000.5)).toBe("1,001원");
+  });
+});
+
+describe("estimateTaxBreakdown", () => {
+  const input = { asset: 40 * EOK, debt: 0, spouse: false };
+
+  it("estimateTax와 동일한 핵심 결과를 회귀 없이 유지한다", () => {
+    const base = estimateTax(input);
+    const bd = estimateTaxBreakdown(input);
+    expect(bd.net).toBe(base.net);
+    expect(bd.deduction).toBe(base.deduction);
+    expect(bd.base).toBe(base.base);
+    expect(bd.rate).toBe(base.rate);
+    expect(bd.tax).toBe(base.tax);
+  });
+
+  it("입력값(asset/debt)을 그대로 노출한다", () => {
+    const bd = estimateTaxBreakdown({ asset: 20 * EOK, debt: 5 * EOK, spouse: true });
+    expect(bd.asset).toBe(20 * EOK);
+    expect(bd.debt).toBe(5 * EOK);
+  });
+
+  it("배우자 없으면 공제 항목은 일괄공제 하나", () => {
+    const bd = estimateTaxBreakdown({ asset: 10 * EOK, debt: 0, spouse: false });
+    expect(bd.deductions).toEqual([{ label: "일괄공제", amount: LUMP_SUM_DEDUCTION }]);
+  });
+
+  it("배우자 있으면 공제 항목에 배우자공제가 추가된다", () => {
+    const bd = estimateTaxBreakdown({ asset: 10 * EOK, debt: 0, spouse: true });
+    expect(bd.deductions).toEqual([
+      { label: "일괄공제", amount: LUMP_SUM_DEDUCTION },
+      { label: "배우자공제(최소)", amount: SPOUSE_DEDUCTION },
+    ]);
+    // 공제 항목 합계는 deduction과 일치
+    const sum = bd.deductions.reduce((acc, d) => acc + d.amount, 0);
+    expect(sum).toBe(bd.deduction);
+  });
+
+  it("적용 구간의 누진공제(prog)를 노출한다", () => {
+    // 과세표준 35억(>30억) → 누진공제 4.6억
+    const bd = estimateTaxBreakdown({ asset: 40 * EOK, debt: 0, spouse: false });
+    expect(bd.prog).toBe(460_000_000);
+  });
+
+  it("taxRatio = 산출세액 / 과세표준", () => {
+    // 배우자 없음, 재산 10억 → 과세표준 5억, 세율 20%, 누진공제 1천만 → 세액 9천만
+    const bd = estimateTaxBreakdown({ asset: 10 * EOK, debt: 0, spouse: false });
+    expect(bd.base).toBe(5 * EOK);
+    expect(bd.tax).toBe(9 * CHEONMAN);
+    expect(bd.taxRatio).toBeCloseTo((9 * CHEONMAN) / (5 * EOK), 10);
+  });
+
+  it("과세표준이 0이면 taxRatio는 0 (0으로 나눔 방지)", () => {
+    const bd = estimateTaxBreakdown({ asset: 10 * EOK, debt: 0, spouse: true });
+    expect(bd.base).toBe(0);
+    expect(bd.taxRatio).toBe(0);
+  });
+
+  it("단계 산식이 일관된다: 순재산 = asset - debt, 과세표준 = 순재산 - 공제합계", () => {
+    const bd = estimateTaxBreakdown({ asset: 20 * EOK, debt: 3 * EOK, spouse: true });
+    expect(bd.net).toBe(bd.asset - bd.debt);
+    const dedSum = bd.deductions.reduce((acc, d) => acc + d.amount, 0);
+    expect(bd.base).toBe(Math.max(0, bd.net - dedSum));
+    // 산출세액 = 과세표준 × 세율 − 누진공제
+    expect(bd.tax).toBe(Math.max(0, bd.base * bd.rate - bd.prog));
   });
 });

@@ -37,6 +37,21 @@ export type TaxResult = {
   tax: number; // 예상 상속세
 };
 
+// 계산 단계별 내역 — 결과를 표/리스트로 시각화하기 위한 중간값 모음.
+export type DeductionItem = {
+  label: string; // 공제 항목 이름
+  amount: number; // 공제액 (원)
+};
+
+export type TaxBreakdown = TaxResult & {
+  asset: number; // 입력한 상속재산 총액
+  debt: number; // 입력한 채무
+  deductions: DeductionItem[]; // 적용된 공제 항목 목록
+  prog: number; // 적용 구간의 누진공제액
+  // 시각화용: 과세표준 대비 산출세액 비율(0~1). 과세표준이 0이면 0.
+  taxRatio: number;
+};
+
 const MAN = 10_000; // 1만 원
 
 /** 한국 원화 표기. 1억 이상은 '억', 미만은 '만' 단위. */
@@ -44,6 +59,11 @@ export function won(n: number): string {
   return n >= EOK
     ? `${(n / EOK).toLocaleString("ko-KR", { maximumFractionDigits: 2 })}억 원`
     : `${Math.round(n / MAN).toLocaleString("ko-KR")}만 원`;
+}
+
+/** 정확한 원 단위 표기. 자릿수 콤마 병기. 예: 123,456,789원 */
+export function wonExact(n: number): string {
+  return `${Math.round(n).toLocaleString("ko-KR")}원`;
 }
 
 /** 과세표준에 해당하는 누진세율 구간을 찾는다. */
@@ -64,4 +84,24 @@ export function estimateTax({ asset, debt, spouse }: TaxInput): TaxResult {
   const { rate, prog } = findBracket(base);
   const tax = base > 0 ? Math.max(0, base * rate - prog) : 0;
   return { net, deduction, base, rate, tax };
+}
+
+/**
+ * 상속세 간이 추정 + 단계별 내역.
+ * estimateTax 와 동일한 결과(net/deduction/base/rate/tax)에, 시각화에 필요한
+ * 입력값·공제 항목 목록·누진공제·세액 비율을 더해 반환한다.
+ */
+export function estimateTaxBreakdown(input: TaxInput): TaxBreakdown {
+  const { asset, debt, spouse } = input;
+  const result = estimateTax(input);
+  const { prog } = findBracket(result.base);
+
+  const deductions: DeductionItem[] = [
+    { label: "일괄공제", amount: LUMP_SUM_DEDUCTION },
+  ];
+  if (spouse) deductions.push({ label: "배우자공제(최소)", amount: SPOUSE_DEDUCTION });
+
+  const taxRatio = result.base > 0 ? result.tax / result.base : 0;
+
+  return { ...result, asset, debt, deductions, prog, taxRatio };
 }
