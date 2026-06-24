@@ -46,7 +46,7 @@ test.describe("통합 검색", () => {
 
   test("검색창에 입력해 제출하면 결과 페이지로 이동한다", async ({ page }) => {
     await page.goto("/search");
-    const input = page.getByRole("searchbox", { name: "사이트 통합 검색" });
+    const input = page.getByRole("combobox", { name: "사이트 통합 검색" });
     await input.fill("상속포기");
     await page.getByRole("button", { name: "검색" }).click();
 
