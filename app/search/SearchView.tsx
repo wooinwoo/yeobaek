@@ -1,15 +1,15 @@
 "use client";
 
-import { use, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { use, useMemo } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
 import {
   searchSite,
   CATEGORY_ORDER,
   type SearchCategory,
   type SearchResult,
 } from "@/lib/search";
+import SearchAutocomplete from "@/components/SearchAutocomplete";
+import Highlight from "@/components/Highlight";
 
 type SearchViewProps = {
   searchParams: Promise<{ q?: string }>;
@@ -18,8 +18,6 @@ type SearchViewProps = {
 export default function SearchView({ searchParams }: SearchViewProps) {
   const { q: queryParam } = use(searchParams);
   const query = (queryParam ?? "").trim();
-  const router = useRouter();
-  const [input, setInput] = useState(query);
 
   const results = useMemo(() => searchSite(query), [query]);
 
@@ -36,45 +34,11 @@ export default function SearchView({ searchParams }: SearchViewProps) {
     }));
   }, [results]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const next = input.trim();
-    if (next) {
-      router.push(`/search?q=${encodeURIComponent(next)}`);
-    } else {
-      router.push("/search");
-    }
-  }
-
   return (
     <>
-      <form onSubmit={handleSubmit} role="search" className="mb-10">
-        <label htmlFor="site-search" className="sr-only">
-          사이트 통합 검색
-        </label>
-        <div className="relative max-w-xl mx-auto">
-          <Search
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-outline"
-            aria-hidden="true"
-          />
-          <input
-            id="site-search"
-            type="search"
-            name="q"
-            autoComplete="off"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="예: 상속포기, 부의금, 상속세, 안심상속"
-            className="w-full min-h-[44px] pl-12 pr-24 py-3.5 text-base bg-surface-container-lowest border border-outline-variant rounded-2xl outline-none focus:border-primary transition-colors"
-          />
-          <button
-            type="submit"
-            className="absolute right-2 top-1/2 -translate-y-1/2 min-h-[40px] px-4 rounded-xl bg-primary text-on-primary text-sm font-medium transition-colors hover:bg-primary/90"
-          >
-            검색
-          </button>
-        </div>
-      </form>
+      <div className="relative max-w-xl mx-auto mb-10">
+        <SearchAutocomplete defaultValue={query} inputId="site-search" />
+      </div>
 
       {query ? (
         <div
@@ -147,10 +111,10 @@ export default function SearchView({ searchParams }: SearchViewProps) {
                       className="block p-5 rounded-2xl bg-surface-container-lowest border border-transparent transition-colors hover:border-outline-variant focus-visible:border-primary"
                     >
                       <span className="block font-serif text-lg font-semibold text-on-surface">
-                        {item.title}
+                        <Highlight text={item.title} query={query} />
                       </span>
                       <span className="block mt-1.5 text-[15px] leading-relaxed text-on-surface-variant">
-                        {item.summary}
+                        <Highlight text={item.summary} query={query} />
                       </span>
                     </Link>
                   </li>
