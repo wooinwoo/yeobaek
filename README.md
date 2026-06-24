@@ -12,7 +12,8 @@
 ![libSQL](https://img.shields.io/badge/libSQL%2FTurso-4FF8D2?logo=turso&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-4-3E67B1?logo=zod&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-45_passing-6E9F18?logo=vitest&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-92_passing-6E9F18?logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
 
 ---
 
@@ -28,18 +29,20 @@
 
 ## 주요 기능
 
-실제 구현된 9개 페이지로 구성되어 있습니다.
+11개 페이지로 구성되어 있습니다.
 
 | 기능 | 설명 |
 |---|---|
-| **유족 길잡이** (`/family-guide`) | 6단계 할 일을 체크리스트로 제공. 사망일을 입력하면 사망신고·상속·상속세 등 법정 기한을 **D-day**로 계산. 임종 장소·수급자 여부에 따라 필요한 항목만 노출하고, 진행률은 `localStorage`에 저장 |
+| **유족 길잡이** (`/family-guide`) | 6단계 할 일을 체크리스트로 제공. 사망일을 입력하면 사망신고·상속·상속세·자동차 이전·안심상속 등 법정 기한을 **D-day**로 계산(남은 일수 7일 이하면 긴급 표시). 임종 장소·수급자 여부에 따라 필요한 항목만 노출하고, 진행률은 `localStorage`에 저장. 인쇄·PDF 저장과 진행 초기화(인라인 확인 단계 포함)를 지원 |
 | **빚 상속 진단** (`/debt-simulator`) | 3개 질문(재산/빚 비중, 파악 여부, 상속인 수)에 답하면 단순승인·한정승인·상속포기 조합을 자동 판정. 실제 신청 절차·준비 서류·기한까지 안내 |
 | **상속 가이드** (`/inheritance`) | 상속 순위·법정상속분·재산 분할·유류분·등기/세금을 목차 기반으로 정리. Article 구조화 데이터(JSON-LD) 포함 |
-| **상속세 계산기** (`/inheritance-tax`) | 재산·부채·배우자 유무를 입력하면 누진세율표 기반으로 예상 상속세를 간이 추정 |
+| **상속세 계산기** (`/inheritance-tax`) | 재산·부채·배우자 유무를 입력하면 누진세율표 기반으로 예상 상속세를 간이 추정. 순재산·공제·과세표준·세율·산출세액의 **단계별 내역(breakdown)**을 표·막대로 시각화 |
 | **부고 생성기** (`/obituary`) | 빈칸만 채우면 단정한 부고 문구를 만들어 클립보드로 복사 |
 | **조문 예절** (`/etiquette`) | 입관 전후, 분향·헌화·절, 부의금, 종교별 예절, FAQ까지 여러 섹션 |
 | **용어 사전** (`/terms`) | 장례·안치·상속·보험 등 카테고리별 용어를 검색·필터 |
 | **지원금** (`/support`) | 국민연금 유족연금/사망일시금, 장제급여, 산재·보훈 등 지원 제도와 신청처·기한 |
+| **자주 묻는 질문** (`/faq`) | 장례 직후부터 행정·상속·빚·세금·지원금·마음까지 8개 분류의 Q&A를 아코디언으로 제공. FAQPage 구조화 데이터(JSON-LD)로 검색 노출 |
+| **통합 검색** (`/search`) | 페이지·도구·FAQ·용어를 한 곳에서 검색. 제목 > 키워드 > 본문 가중치와 토큰 분리(공백 분리 후 합산) 채점. 헤더 검색 아이콘으로 진입 |
 | **커뮤니티** (`/community`) | 익명으로 고민과 위로를 나누는 게시판. 댓글·공감·신고·정렬이 동작하는 **실제 백엔드** (아래 참고) |
 
 ### 커뮤니티에서 동작하는 것
@@ -49,9 +52,10 @@
 - **글 작성**: 태그·제목·본문을 Zod로 검증한 뒤 저장
 - **위로(공감)**: 글마다 공감 수를 누적. 한 번만 누를 수 있게 클라이언트에서 막음
 - **댓글**: 글을 펼치면 댓글을 지연 로드하고, 작성 시 글의 답변 수를 트랜잭션으로 함께 증가
-- **신고**: 글마다 신고 수를 누적. 임계치(`REPORT_HIDE_THRESHOLD = 5`) 이상이면 목록에서 흐리게 처리하고 "운영진 검토 중" 안내 표시
+- **신고**: 글마다 신고 수를 누적. 임계치(`REPORT_HIDE_THRESHOLD = 15`) 이상이면 목록에서 흐리게 처리하고 "운영진이 검토 중인 글" 안내 표시
 - **정렬**: 최신순 / 공감순 전환 (`sortPosts` 순수 함수, 단위테스트 대상)
 - **빈 상태**: 글이 없거나 필터 결과가 없을 때, 댓글이 없을 때 각각 안내 문구 제공
+- **에러 폴백**: 세그먼트 전용 `error.tsx`로 목록 로드 실패 시 다정한 재시도 안내와 상담 연락처를 제공
 
 ## 기술 스택
 
@@ -61,7 +65,8 @@
 | **데이터베이스 / ORM** | Prisma 7 + `@prisma/adapter-libsql` · libSQL (로컬 SQLite 파일 / 프로덕션 Turso) |
 | **스타일링** | Tailwind CSS v4 (`@theme` 디자인 토큰) · Noto Serif KR + Pretendard |
 | **검증** | Zod 4 (API 입력 런타임 검증) |
-| **테스트** | Vitest (순수 로직 단위테스트 45개) |
+| **테스트** | Vitest 4 (단위/컴포넌트 테스트 92개) · Playwright (E2E smoke) |
+| **CI** | GitHub Actions (lint · test · build + Playwright E2E) |
 | **아이콘** | lucide-react |
 
 ## 아키텍처
@@ -116,14 +121,17 @@ flowchart LR
 3. **Zod 런타임 입력 검증**
    `lib/posts.ts`에 글 작성 스키마(`createPostSchema`)와 댓글 스키마(`createCommentSchema`)를 정의하고 API에서 `safeParse`로 검증합니다. 실패 시 사람이 읽을 수 있는 메시지와 함께 `422`를, JSON 파싱 실패엔 `400`을 반환합니다. 스키마에서 `z.infer`로 입력 타입을 도출해 검증 규칙과 타입이 한 곳에서 일치합니다.
 
-4. **순수 로직 분리 + 단위테스트(Vitest 45개)**
-   UI에 섞이기 쉬운 계산·판정 로직을 순수 함수로 떼어 내 테스트했습니다. D-day 계산(`lib/dday.ts`), 빚 상속 판정(`lib/debt.ts`), 상속세 추정(`lib/tax.ts`), 게시글 정렬·입력 검증(`lib/posts.ts`)을 각각 검증하며, 세율 구간 경계·공제 적용·정렬 타이브레이크·검증 경계값 같은 까다로운 케이스를 다룹니다.
+4. **법정 기한 D-day 계산의 정확성**
+   `lib/dday.ts`는 사망일과 항목별 규칙(월 오프셋, 말일 기준 여부)으로 남은 기한을 계산합니다. 상속세·자동차 이전·안심상속처럼 '사망일이 속한 달 말일' 기준 항목은 `new Date(year, month + n + 1, 0)`으로 그 달 말일을 직접 잡아, 31일 등에서 `setMonth`가 다음 달로 넘어가던 오버플로우를 피합니다. 남은 일수가 7일 이하면 긴급으로 표시하고, 기준 '오늘'을 주입할 수 있어 단위테스트가 시각에 흔들리지 않습니다.
 
-5. **SEO / 공유 메타데이터**
-   `app/sitemap.ts`(우선순위·갱신주기 부여), `app/robots.ts`(`/api/` 차단), 동적 OG 이미지(`app/opengraph-image.tsx`, Google Fonts에서 한글 폰트를 받아 시그니처를 검증하고 실패 시 영문 폴백)를 갖췄습니다. 구조화 데이터는 `components/JsonLd.tsx`로 `<script type="application/ld+json">`을 안전하게 렌더하며, 루트 레이아웃에 WebSite, 상속 가이드에 Article 스키마를 적용했습니다.
+5. **순수 로직 분리 + 자동 테스트(Vitest 92개 + Playwright E2E)**
+   UI에 섞이기 쉬운 계산·판정 로직을 순수 함수로 떼어 내 테스트했습니다. D-day 계산(`lib/dday.ts`), 빚 상속 판정(`lib/debt.ts`), 상속세 추정·단계별 내역(`lib/tax.ts`), 게시글 정렬·입력 검증(`lib/posts.ts`), 통합 검색 채점(`lib/search.ts`)에 더해 커뮤니티 게시판·유족 길잡이 등 컴포넌트 테스트(Testing Library)까지 포함합니다. 세율 구간 경계·공제 적용·정렬 타이브레이크·검증 경계값·검색 가중치 같은 까다로운 케이스를 다룹니다. 커뮤니티 글 작성·공감 흐름은 Playwright E2E smoke로 실제 빌드·기동 환경에서 확인합니다.
 
-6. **Tailwind v4 `@theme` 디자인 토큰**
-   `app/globals.css`의 `@theme` 블록에 색·폰트를 토큰으로 중앙화해 "Warm & Soft"(한지 크림 + 클레이 톤) 일관성을 유지하고, `:focus-visible` 포커스 링과 `prefers-reduced-motion` 분기로 접근성을 고려했습니다.
+6. **SEO / 공유 메타데이터**
+   `app/sitemap.ts`(우선순위·갱신주기 부여, `lastModified`는 빌드 시점 고정), `app/robots.ts`(`/api/` 차단), 동적 OG 이미지(`app/opengraph-image.tsx`, Google Fonts에서 한글 폰트를 받아 시그니처를 검증하고 실패 시 영문 폴백)를 갖췄습니다. 구조화 데이터는 `components/JsonLd.tsx`로 `<script type="application/ld+json">`을 안전하게 렌더하며, 루트 레이아웃에 WebSite, 상속 가이드에 Article, FAQ 페이지에 FAQPage 스키마를 적용했습니다.
+
+7. **Tailwind v4 `@theme` 디자인 토큰**
+   `app/globals.css`의 `@theme` 블록에 색·폰트를 토큰으로 중앙화해 "Warm & Soft"(한지 크림 + 클레이 톤) 일관성을 유지하고, `:focus-visible` 포커스 링과 `prefers-reduced-motion` 분기로 접근성을 고려했습니다. 유족 길잡이의 인쇄·PDF 저장은 인쇄용 CSS로 화면 전용 요소(`no-print`)를 숨겨 체크 상태만 깔끔하게 출력합니다.
 
 ## 로컬 실행
 
@@ -141,7 +149,8 @@ pnpm dev                     # http://localhost:3000
 |---|---|
 | `pnpm dev` | 개발 서버 |
 | `pnpm build` | `prisma generate && next build` |
-| `pnpm test` | Vitest 단위테스트 실행 (45개) |
+| `pnpm test` | Vitest 단위/컴포넌트 테스트 실행 (92개) |
+| `pnpm e2e` | Playwright E2E (smoke) |
 | `pnpm lint` | ESLint |
 | `pnpm db:push` | 스키마를 DB에 반영 |
 | `pnpm db:migrate` | 마이그레이션 생성·적용 |
@@ -155,19 +164,25 @@ yeobaek/
 ├── app/
 │   ├── page.tsx                 # 홈 (히어로 + 기능 그리드)
 │   ├── layout.tsx               # 루트 레이아웃 + 메타데이터 + WebSite JSON-LD
-│   ├── globals.css              # Tailwind v4 @theme 디자인 토큰
+│   ├── globals.css              # Tailwind v4 @theme 디자인 토큰 (+ 인쇄용 CSS)
 │   ├── sitemap.ts               # 동적 사이트맵
 │   ├── robots.ts                # robots.txt (/api/ 차단)
 │   ├── opengraph-image.tsx      # 동적 OG 이미지 (한글 폰트 + 영문 폴백)
-│   ├── family-guide/            # 유족 길잡이 (체크리스트 + D-day)
+│   ├── icon.svg                 # 파비콘 / 로고
+│   ├── family-guide/            # 유족 길잡이 (체크리스트 + D-day + 인쇄/초기화)
+│   │   ├── page.tsx · page.test.tsx · layout.tsx
 │   ├── debt-simulator/          # 빚 상속 진단
 │   ├── inheritance/             # 상속 가이드 (+ Article JSON-LD)
-│   ├── inheritance-tax/         # 상속세 계산기
+│   ├── inheritance-tax/         # 상속세 계산기 (+ breakdown 시각화)
 │   ├── obituary/                # 부고 생성기
 │   ├── etiquette/               # 조문 예절
-│   ├── terms/                   # 용어 사전
+│   ├── terms/                   # 용어 사전 (page.tsx + TermsView.tsx)
 │   ├── support/                 # 지원금
-│   ├── community/page.tsx       # 커뮤니티 (SSR)
+│   ├── faq/                     # 자주 묻는 질문 (+ FAQPage JSON-LD)
+│   ├── search/                  # 통합 검색 (page.tsx + SearchView.tsx)
+│   ├── community/
+│   │   ├── page.tsx             # 커뮤니티 (SSR)
+│   │   └── error.tsx            # 세그먼트 에러 폴백
 │   └── api/
 │       └── posts/
 │           ├── route.ts                 # GET 목록(태그·정렬) / POST 작성
@@ -176,23 +191,28 @@ yeobaek/
 │               ├── comments/route.ts    # GET 댓글 목록 / POST 댓글 작성
 │               └── report/route.ts      # POST 신고 +1
 ├── components/
-│   ├── Header.tsx · Footer.tsx
+│   ├── Header.tsx               # 내비게이션 + 통합 검색 진입점
+│   ├── Footer.tsx
 │   ├── CommunityBoard.tsx       # 작성·필터·정렬·공감·댓글·신고 (낙관적 업데이트)
 │   ├── JsonLd.tsx               # 구조화 데이터 렌더러
-│   └── Reveal.tsx               # 스크롤 등장 애니메이션
+│   ├── Reveal.tsx               # 스크롤 등장 애니메이션
+│   └── *.test.tsx               # CommunityBoard · Reveal 컴포넌트 테스트
 ├── lib/
 │   ├── db.ts                    # Prisma + libSQL 싱글톤
-│   ├── posts.ts                 # Zod 스키마 · PostDTO/CommentDTO · sortPosts
+│   ├── posts.ts                 # Zod 스키마 · PostDTO/CommentDTO · sortPosts · 신고 임계치
 │   ├── dday.ts                  # 법정 기한 D-day 계산 (순수 로직)
 │   ├── debt.ts                  # 빚 상속 판정 (순수 로직)
-│   ├── tax.ts                   # 상속세 간이 계산 (순수 로직)
-│   ├── *.test.ts                # Vitest 단위테스트 (dday·debt·tax·posts)
+│   ├── tax.ts                   # 상속세 간이 계산 + 단계별 내역 (순수 로직)
+│   ├── search.ts                # 통합 검색 인덱스·채점 (순수 로직)
+│   ├── *.test.ts                # Vitest 단위테스트 (dday·debt·tax·posts·search)
 │   ├── terms.ts · nav.ts        # 용어 데이터 · 내비게이션
 │   └── generated/prisma/        # Prisma Client (생성물)
-└── prisma/
-    ├── schema.prisma            # Post · Comment 모델
-    ├── seed.ts                  # 시드 스크립트 (글 + 댓글)
-    └── migrations/
+├── e2e/                         # Playwright (smoke·community + global-setup)
+├── prisma/
+│   ├── schema.prisma            # Post · Comment 모델
+│   ├── seed.ts                  # 시드 스크립트 (글 + 댓글)
+│   └── migrations/
+└── .github/workflows/ci.yml     # GitHub Actions (lint·test·build + E2E)
 ```
 
 ## 데이터 모델
