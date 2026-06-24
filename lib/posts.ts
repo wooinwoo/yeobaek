@@ -3,8 +3,6 @@ import { z } from "zod";
 export const POST_TAGS = ["상속고민", "마음위로", "절차질문", "일상공유"] as const;
 export const FILTER_TAGS = ["전체", ...POST_TAGS] as const;
 
-export type PostTag = (typeof POST_TAGS)[number];
-
 // 게시글 정렬 기준
 export const SORT_OPTIONS = [
   { value: "latest", label: "최신순" },
@@ -23,8 +21,6 @@ export const createPostSchema = z.object({
   title: z.string().trim().min(2, "제목을 2자 이상 적어주세요.").max(80),
   body: z.string().trim().min(5, "내용을 5자 이상 적어주세요.").max(2000),
 });
-
-export type CreatePostInput = z.infer<typeof createPostSchema>;
 
 // 클라이언트로 내려보내는 직렬화된 글(Date → ISO 문자열)
 export type PostDTO = {
@@ -53,8 +49,6 @@ export function sortPosts(posts: PostDTO[], sort: SortValue): PostDTO[] {
 export const createCommentSchema = z.object({
   body: z.string().trim().min(2, "댓글을 2자 이상 적어주세요.").max(1000, "댓글은 1000자 이내로 적어주세요."),
 });
-
-export type CreateCommentInput = z.infer<typeof createCommentSchema>;
 
 // 클라이언트로 내려보내는 직렬화된 댓글(Date → ISO 문자열)
 export type CommentDTO = {
