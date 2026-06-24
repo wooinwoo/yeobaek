@@ -367,6 +367,144 @@ export function searchSite(query: string): SearchResult[] {
   return results;
 }
 
+/** 하이라이트용 텍스트 조각. matched가 true면 검색어와 일치한 부분이다. */
+export type HighlightSegment = {
+  text: string;
+  matched: boolean;
+};
+
+/**
+ * 텍스트를 검색어(토큰)와 일치하는/하지 않는 조각으로 분리한다.
+ * - dangerouslySetInnerHTML 없이 안전하게 <mark> 렌더링하기 위한 순수 함수.
+ * - 멀티토큰: 공백으로 나뉜 각 토큰을 모두 강조 대상으로 본다.
+ * - 대소문자/유니코드 정규화(NFC)를 무시하고 매칭하되, 원본 텍스트는 그대로 보존한다.
+ * - 겹치거나 인접한 매칭 구간은 하나로 병합한다.
+ * - 일치가 없으면 전체를 단일 비매칭 조각으로 반환한다.
+ */
+export function highlight(text: string, query: string): HighlightSegment[] {
+  if (!text) return [];
+
+  const tokens = Array.from(
+    new Set(
+      normalize(query ?? "")
+        .split(/\s+/)
+        .filter(Boolean)
+    )
+  );
+  if (tokens.length === 0) return [{ text, matched: false }];
+
+  // 원본과 같은 길이의 정규화 문자열로 인덱스를 맞춰 매칭 위치를 찾는다.
+  // (NFC + 소문자는 길이를 보존하므로 인덱스가 1:1로 대응된다.)
+  const haystack = normalize(text);
+
+  // [start, end) 구간 수집
+  const ranges: Array<[number, number]> = [];
+  for (const token of tokens) {
+    let from = 0;
+    let idx = haystack.indexOf(token, from);
+    while (idx !== -1) {
+      ranges.push([idx, idx + token.length]);
+      from = idx + token.length;
+      idx = haystack.indexOf(token, from);
+    }
+  }
+
+  if (ranges.length === 0) return [{ text, matched: false }];
+
+  // 시작 위치 기준 정렬 후 겹치는/인접한 구간 병합
+  ranges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const merged: Array<[number, number]> = [];
+  for (const [start, end] of ranges) {
+    const last = merged[merged.length - 1];
+    if (last && start <= last[1]) {
+      last[1] = Math.max(last[1], end);
+    } else {
+      merged.push([start, end]);
+    }
+  }
+
+  // 원본 텍스트를 매칭/비매칭 조각으로 분할
+  const segments: HighlightSegment[] = [];
+  let cursor = 0;
+  for (const [start, end] of merged) {
+    if (start > cursor) {
+      segments.push({ text: text.slice(cursor, start), matched: false });
+    }
+    segments.push({ text: text.slice(start, end), matched: true });
+    cursor = end;
+  }
+  if (cursor < text.length) {
+    segments.push({ text: text.slice(cursor), matched: false });
+  }
+
+  return segments;
+}
+
+export type SearchSuggestion = {
+  /** 추천 라벨(표시 텍스트) */
+  label: string;
+  /** 분류(라벨 옆 보조 표시) */
+  category: SearchCategory;
+  /** 선택 시 이동할 경로 */
+  href: string;
+};
+
+/**
+ * 자동완성 제안 목록을 만든다.
+ * - 인덱스의 제목/키워드 중 쿼리에 부분 일치하는 항목을 점수 순으로 정렬.
+ * - 같은 라벨은 한 번만(제목 우선) 노출한다.
+ * - 빈 쿼리는 빈 배열.
+ * - searchSite와 동일한 normalize/멀티토큰 규칙을 따른다.
+ */
+export function suggestSearch(query: string, limit = 6): SearchSuggestion[] {
+  const q = normalize(query ?? "");
+  if (!q) return [];
+  const tokens = q.split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+
+  type Scored = SearchSuggestion & { score: number; order: number };
+  const byLabel = new Map<string, Scored>();
+
+  SEARCH_INDEX.forEach((entry, order) => {
+    let score = 0;
+    for (const token of tokens) {
+      score += scoreEntry(entry, token);
+    }
+    if (score <= 0) return;
+
+    // 제목을 우선 후보로, 일치한 키워드를 보조 후보로 제안한다.
+    const candidates: Array<{ label: string; bonus: number }> = [
+      { label: entry.title, bonus: 0 },
+    ];
+    for (const kw of entry.keywords) {
+      const nkw = normalize(kw);
+      if (tokens.some((t) => nkw.includes(t)) && normalize(entry.title) !== nkw) {
+        candidates.push({ label: kw, bonus: -1 });
+      }
+    }
+
+    for (const { label, bonus } of candidates) {
+      const key = normalize(label);
+      const next: Scored = {
+        label,
+        category: entry.category,
+        href: entry.href,
+        score: score + bonus,
+        order,
+      };
+      const prev = byLabel.get(key);
+      if (!prev || next.score > prev.score) {
+        byLabel.set(key, next);
+      }
+    }
+  });
+
+  return Array.from(byLabel.values())
+    .sort((a, b) => b.score - a.score || a.order - b.order)
+    .slice(0, Math.max(0, limit))
+    .map(({ label, category, href }) => ({ label, category, href }));
+}
+
 /** 카테고리 표시 순서 */
 export const CATEGORY_ORDER: SearchCategory[] = [
   "가이드",

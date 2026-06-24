@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { searchSite, SEARCH_INDEX } from "./search";
+import { searchSite, SEARCH_INDEX, highlight, suggestSearch } from "./search";
 
 describe("searchSite", () => {
   it("빈 쿼리는 빈 배열을 반환한다", () => {
@@ -104,5 +104,114 @@ describe("searchSite", () => {
         expect(prevIdx).toBeLessThan(curIdx);
       }
     }
+  });
+});
+
+describe("highlight", () => {
+  /** 조각들을 합치면 항상 원본 텍스트와 동일해야 한다(무손실 분할). */
+  function joined(text: string, query: string): string {
+    return highlight(text, query)
+      .map((s) => s.text)
+      .join("");
+  }
+
+  it("빈 텍스트는 빈 배열을 반환한다", () => {
+    expect(highlight("", "상속")).toEqual([]);
+  });
+
+  it("빈/공백 쿼리는 전체를 단일 비매칭 조각으로 반환한다", () => {
+    expect(highlight("상속세 계산기", "")).toEqual([
+      { text: "상속세 계산기", matched: false },
+    ]);
+    expect(highlight("상속세 계산기", "   ")).toEqual([
+      { text: "상속세 계산기", matched: false },
+    ]);
+  });
+
+  it("일치가 없으면 전체를 비매칭 조각으로 반환한다", () => {
+    expect(highlight("부고 문자 생성기", "상속")).toEqual([
+      { text: "부고 문자 생성기", matched: false },
+    ]);
+  });
+
+  it("일치 구간을 matched=true 조각으로 분리한다", () => {
+    const segs = highlight("상속세 계산기", "상속");
+    expect(segs).toEqual([
+      { text: "상속", matched: true },
+      { text: "세 계산기", matched: false },
+    ]);
+  });
+
+  it("조각을 합치면 원본 텍스트와 동일하다(무손실)", () => {
+    expect(joined("상속세 계산기", "계산")).toBe("상속세 계산기");
+    expect(joined("한정승인·상속포기", "상속")).toBe("한정승인·상속포기");
+  });
+
+  it("대소문자를 무시하고 매칭하되 원본 표기는 보존한다", () => {
+    const segs = highlight("FAQ 자주 묻는 질문", "faq");
+    expect(segs[0]).toEqual({ text: "FAQ", matched: true });
+    expect(joined("FAQ 자주 묻는 질문", "faq")).toBe("FAQ 자주 묻는 질문");
+  });
+
+  it("멀티토큰: 각 토큰을 모두 강조한다", () => {
+    const segs = highlight("상속 포기 안내", "상속 포기");
+    const matched = segs.filter((s) => s.matched).map((s) => s.text);
+    expect(matched).toContain("상속");
+    expect(matched).toContain("포기");
+  });
+
+  it("겹치거나 인접한 매칭 구간은 하나로 병합한다", () => {
+    // "상속"과 "속세"가 겹쳐 "상속세"가 하나의 매칭으로 병합되어야 한다.
+    const segs = highlight("상속세", "상속 속세");
+    expect(segs).toEqual([{ text: "상속세", matched: true }]);
+  });
+
+  it("같은 토큰이 여러 번 등장하면 모두 강조한다", () => {
+    const segs = highlight("상속, 또 상속", "상속");
+    const matched = segs.filter((s) => s.matched);
+    expect(matched.length).toBe(2);
+  });
+
+  it("HTML 특수문자를 텍스트로 보존한다(XSS 안전 분할)", () => {
+    const text = "<script>alert(1)</script> 상속";
+    const segs = highlight(text, "상속");
+    // 텍스트가 그대로 보존되어야 한다(이스케이프/실행 없음).
+    expect(joined(text, "상속")).toBe(text);
+    expect(segs.some((s) => s.matched && s.text === "상속")).toBe(true);
+  });
+});
+
+describe("suggestSearch", () => {
+  it("빈/공백 쿼리는 빈 배열을 반환한다", () => {
+    expect(suggestSearch("")).toEqual([]);
+    expect(suggestSearch("   ")).toEqual([]);
+  });
+
+  it("제목 부분 일치 제안을 반환한다", () => {
+    const s = suggestSearch("상속세");
+    expect(s.length).toBeGreaterThan(0);
+    expect(s.some((x) => x.label === "상속세 계산기")).toBe(true);
+  });
+
+  it("limit 개수를 넘지 않는다", () => {
+    const s = suggestSearch("상속", 3);
+    expect(s.length).toBeLessThanOrEqual(3);
+  });
+
+  it("제안 라벨은 중복되지 않는다", () => {
+    const s = suggestSearch("상속", 10);
+    const labels = s.map((x) => x.label);
+    expect(new Set(labels).size).toBe(labels.length);
+  });
+
+  it("각 제안은 이동 경로와 분류를 포함한다", () => {
+    const s = suggestSearch("부고");
+    expect(s.length).toBeGreaterThan(0);
+    expect(s[0].href).toBeTruthy();
+    expect(s[0].category).toBeTruthy();
+  });
+
+  it("일치가 없으면 빈 배열을 반환한다", () => {
+    expect(suggestSearch("존재하지않는검색어zzz")).toEqual([]);
   });
 });
