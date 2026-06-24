@@ -125,6 +125,30 @@ html {
   font-family: var(--font-sans);
 }
 
+/* 상속세 breakdown 막대: 과세표준(전체) 대비 산출세액 비율을 시각화한다.
+   채워지는 길이는 비율에 따라 변하므로 --tax-fill 변수(0~100%)로 주입하고,
+   트랙/채움/트랜지션 스타일은 외부 CSS로 분리한다. */
+.tax-bar {
+  position: relative;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: var(--color-surface-container-high);
+  overflow: hidden;
+}
+.tax-bar__fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--tax-fill, 0%);
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tax-bar__fill {
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+
 /* 인쇄/PDF 저장: 유족 길잡이 진행 상황을 출력해 가족과 공유하거나 보관할 수 있게.
    화면 전용 요소(헤더/푸터/조작 버튼)는 숨기고 본문만 깔끔하게 남긴다. */
 @media print {
