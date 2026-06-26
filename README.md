@@ -12,7 +12,7 @@
 ![libSQL](https://img.shields.io/badge/libSQL%2FTurso-4FF8D2?logo=turso&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-4-3E67B1?logo=zod&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-92_passing-6E9F18?logo=vitest&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-114_passing-6E9F18?logo=vitest&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
 
 ---
@@ -149,13 +149,17 @@ pnpm dev                     # http://localhost:3000
 |---|---|
 | `pnpm dev` | 개발 서버 |
 | `pnpm build` | `prisma generate && next build` |
-| `pnpm test` | Vitest 단위/컴포넌트 테스트 실행 (92개) |
+| `pnpm test` | Vitest 단위/컴포넌트 테스트 실행 (114개) |
 | `pnpm e2e` | Playwright E2E (smoke) |
 | `pnpm lint` | ESLint |
 | `pnpm db:push` | 스키마를 DB에 반영 |
 | `pnpm db:migrate` | 마이그레이션 생성·적용 |
 | `pnpm db:seed` | 시드 데이터 삽입 |
 | `pnpm db:studio` | Prisma Studio (데이터 GUI) |
+
+## 배포
+
+Vercel(앱) + Turso(원격 libSQL DB)로 배포합니다. 단계별 절차는 [DEPLOY.md](./DEPLOY.md)를 참고하세요.
 
 ## 폴더 구조
 
