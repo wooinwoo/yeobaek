@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 const DESCRIPTION =
   "장례 직후부터 행정 신고, 상속과 빚, 세금, 지원금까지. 유족이 가장 많이 묻는 질문을 한곳에 모아 정확하게 답했어요.";
 
