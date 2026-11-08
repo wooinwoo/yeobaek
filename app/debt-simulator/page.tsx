@@ -34,7 +34,7 @@ const QUESTIONS = [
   },
 ];
 
-const card ="bg-surface-container-lowest rounded-3xl p-7 md:p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)]";
+const card ="bg-surface-container-lowest rounded-xl p-7 md:p-8 border border-outline-variant";
 
 export default function DebtSimulator() {
   const [step, setStep] = useState(0);
@@ -74,7 +74,7 @@ export default function DebtSimulator() {
             <div className="flex flex-col gap-3">
               {QUESTIONS[step].opts.map((o) => (
                 <button key={o.v} onClick={() => pick(QUESTIONS[step].key, o.v)}
-                  className="group w-full text-left bg-surface border border-outline-variant rounded-2xl px-5 py-4 hover:border-primary hover:bg-surface-container-low transition-all flex justify-between items-center gap-3">
+                  className="group w-full text-left bg-surface border border-outline-variant rounded-lg px-5 py-4 hover:border-primary hover:bg-surface-container-low transition-all flex justify-between items-center gap-3">
                   <span>
                     <span className="font-semibold">{o.t}</span>
                     {o.s && <span className="block text-sm text-on-surface-variant mt-0.5">{o.s}</span>}
@@ -116,12 +116,12 @@ export default function DebtSimulator() {
             </div>
 
             {result.special && (
-              <div className="text-sm bg-surface-container rounded-2xl px-4 py-3 mb-5 text-on-surface-variant">
+              <div className="text-sm bg-surface-container rounded-lg px-4 py-3 mb-5 text-on-surface-variant">
                 <b>특별한정승인</b>. 빚이 더 많은 줄 ‘중대한 과실 없이’ 몰랐다가 뒤늦게 안 경우, 그 사실을 안 날부터 3개월 안에 한정승인을 할 수 있습니다.
               </div>
             )}
 
-            <div className="text-sm text-outline bg-surface-container rounded-2xl px-4 py-3 mb-6">
+            <div className="text-sm text-outline bg-surface-container rounded-lg px-4 py-3 mb-6">
               본 진단은 참고용이며 법적 효력이 없습니다. 보증·공동명의·기여분 등에 따라 달라지니, 신고 전 반드시 법률 전문가(변호사·법무사)와 상담하세요.
             </div>
 
@@ -143,7 +143,7 @@ export default function DebtSimulator() {
                 { name: "한정승인", hl: true, rows: [["뜻", "재산 한도로만 빚 갚음"], ["빚 책임", "재산 한도까지만"], ["후순위로?", "안 넘어감"], ["신청", "가정법원 신고"], ["추천 상황", "빚 > 재산 / 불확실"]] },
                 { name: "상속포기", rows: [["뜻", "상속 자체를 포기"], ["빚 책임", "없음"], ["후순위로?", "넘어감"], ["신청", "가정법원 신고"], ["추천 상황", "다른 상속인이 한정승인할 때"]] },
               ].map((m) => (
-                <div key={m.name} className={`rounded-3xl p-5 border ${m.hl ? "bg-primary-fixed-dim/20 border-primary-fixed-dim/50" : "bg-surface-container-lowest border-surface-variant"}`}>
+                <div key={m.name} className={`rounded-xl p-5 border ${m.hl ? "bg-primary-fixed-dim/20 border-primary-fixed-dim/50" : "bg-surface-container-lowest border-surface-variant"}`}>
                   <h3 className="font-serif text-lg font-semibold text-on-surface mb-3">{m.name}</h3>
                   <dl className="space-y-2.5">
                     {m.rows.map(([k, v]) => (
@@ -201,7 +201,7 @@ export default function DebtSimulator() {
           {/* 빚 갚기 전 꼭 알아둘 것 */}
           <section>
             <h2 className="font-serif text-2xl font-semibold text-on-surface mb-4">빚 갚기 전, 꼭 알아둘 것</h2>
-            <div className="bg-error-container/30 rounded-3xl p-7 md:p-8 flex flex-col gap-4 text-[15px] leading-relaxed">
+            <div className="bg-error-container/30 rounded-xl p-7 md:p-8 flex flex-col gap-4 text-[15px] leading-relaxed">
               <p><span className="font-semibold text-error">상속 방식을 정하기 전엔, 고인 재산으로 빚을 갚지 마세요.</span> 일부라도 갚으면 ‘재산 처분’으로 보여 <b>단순승인으로 간주</b>될 수 있고, 그러면 한정승인·포기 권리를 잃습니다. (단, 재산 &gt; 빚이라 어차피 단순승인할 상황이면 갚아도 괜찮습니다.)</p>
               <p><span className="font-semibold text-on-surface">장례비는 예외.</span> 사회통념상 적정한 장례비를 상속재산에서 쓰는 것은 단순승인으로 보지 않습니다.</p>
               <p><span className="font-semibold text-on-surface">일부 변제 = 채무 인정.</span> 조금이라도 갚으면 ‘그 빚을 인정’한 게 되어, 이미 지난 소멸시효가 다시 시작될 수 있습니다.</p>

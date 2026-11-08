@@ -108,7 +108,7 @@ export default function SearchView({ searchParams }: SearchViewProps) {
                   <li key={item.id}>
                     <Link
                       href={item.href}
-                      className="block p-5 rounded-2xl bg-surface-container-lowest border border-transparent transition-colors hover:border-outline-variant focus-visible:border-primary"
+                      className="block p-5 rounded-lg bg-surface-container-lowest border border-transparent transition-colors hover:border-outline-variant focus-visible:border-primary"
                     >
                       <span className="block font-serif text-lg font-semibold text-on-surface">
                         <Highlight text={item.title} query={query} />

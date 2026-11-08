@@ -35,7 +35,7 @@ export default function CommunityError({
           다시 시도하기
         </button>
 
-        <div className="mt-10 bg-error-container/50 border border-error/20 rounded-3xl p-6 text-left">
+        <div className="mt-10 bg-error-container/50 border border-error/20 rounded-xl p-6 text-left">
           <h2 className="font-semibold mb-2">지금 많이 힘드신가요?</h2>
           <p className="text-sm text-on-surface-variant mb-3">
             혼자 감당하기 버겁다면, 전문 상담의 도움을 받으세요.

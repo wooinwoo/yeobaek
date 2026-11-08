@@ -23,7 +23,7 @@ test.describe("홈", () => {
 
   test("히어로 CTA로 유족 길잡이로 이동한다", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /지금 필요한 도움 받기/ }).click();
+    await page.getByRole("link", { name: /지금 할 일 확인하기/ }).click();
     await expect(page).toHaveURL(/\/family-guide$/);
     await expect(
       page.getByRole("heading", { level: 1, name: /무엇부터/ }),

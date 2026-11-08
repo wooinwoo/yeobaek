@@ -169,7 +169,7 @@ export default function FamilyGuide() {
         </div>
 
         {/* 상황 맞춤 */}
-        <div className="bg-surface-container rounded-3xl p-6 mb-6">
+        <div className="bg-surface-container rounded-xl p-6 mb-6">
           <div className="font-semibold mb-3 text-sm">
             어떤 상황이신가요?{" "}
             <span className="text-on-surface-variant font-normal">선택하면 필요한 항목만 보여드려요</span>
@@ -216,7 +216,7 @@ export default function FamilyGuide() {
         </div>
 
         {/* 진행률 */}
-        <div className="bg-surface-container-lowest rounded-3xl p-6 md:p-7 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)] flex items-center gap-6 mb-9">
+        <div className="bg-surface-container-lowest rounded-xl p-6 md:p-7 border border-outline-variant flex items-center gap-6 mb-9">
           <div className="relative w-[88px] h-[88px] shrink-0">
             <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90" aria-hidden="true">
               <circle cx="50" cy="50" r="44" fill="none" stroke="var(--color-surface-variant)" strokeWidth="8" />
@@ -269,7 +269,7 @@ export default function FamilyGuide() {
             <div
               role="alertdialog"
               aria-labelledby="reset-confirm-label"
-              className="inline-flex flex-wrap items-center gap-3 min-h-[44px] px-4 py-2 rounded-2xl bg-surface-container border border-outline-variant"
+              className="inline-flex flex-wrap items-center gap-3 min-h-[44px] px-4 py-2 rounded-lg bg-surface-container border border-outline-variant"
             >
               <span id="reset-confirm-label" className="text-sm text-on-surface">
                 체크한 진행 상황을 모두 지울까요? 되돌릴 수 없어요.
@@ -318,10 +318,10 @@ export default function FamilyGuide() {
                     return (
                       <label
                         key={t.id}
-                        className={`flex gap-3.5 items-start rounded-2xl p-4 cursor-pointer border transition-all duration-200 ${
+                        className={`flex gap-3.5 items-start rounded-lg p-4 cursor-pointer border transition-all duration-200 ${
                           on
                             ? "bg-surface-container/50 border-transparent"
-                            : "bg-surface-container-lowest border-surface-variant hover:border-primary/40 hover:shadow-[0_8px_22px_-16px_rgba(120,82,60,0.45)]"
+                            : "bg-surface-container-lowest border-surface-variant hover:border-primary/40"
                         }`}
                       >
                         <input

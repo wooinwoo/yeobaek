@@ -100,7 +100,7 @@ const HIDDEN = [
   { name: "통신·공과금 보증금", how: "휴대폰·인터넷·도시가스·전기의 미환급 요금·보증금, 카드 포인트도 해지 시 함께 정산." },
 ];
 
-const card = "bg-surface-container-lowest rounded-3xl p-7 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)] hover:shadow-[0_16px_38px_-16px_rgba(120,82,60,0.2)] transition-shadow flex flex-col";
+const card = "bg-surface-container-lowest rounded-xl p-7 border border-outline-variant transition-shadow flex flex-col";
 const row = (label: string, value: string) => (
   <div>
     <dt className="text-on-surface-variant text-xs mb-0.5">{label}</dt>
@@ -144,7 +144,7 @@ export default function Support() {
           <p className="text-on-surface-variant mb-6">고인이 들어둔 보험·예금·환급금은 가족도 모르는 경우가 많습니다. 아래로 한 번에 확인하세요.</p>
           <div className="grid sm:grid-cols-2 gap-4">
             {HIDDEN.map((h) => (
-              <div key={h.name} className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+              <div key={h.name} className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
                 <h3 className="font-serif text-lg font-semibold text-on-surface mb-2">{h.name}</h3>
                 <p className="text-on-surface-variant text-sm leading-relaxed">{h.how}</p>
               </div>
@@ -171,7 +171,7 @@ export default function Support() {
               <a
                 key={c.tel}
                 href={`tel:${c.tel.replace(/-/g, "")}`}
-                className={`flex items-center justify-between gap-3 rounded-2xl px-5 py-4 border transition-colors ${
+                className={`flex items-center justify-between gap-3 rounded-lg px-5 py-4 border transition-colors ${
                   c.urgent
                     ? "bg-error-container/40 border-error/20 hover:border-error/40"
                     : "bg-surface-container-lowest border-outline-variant hover:border-primary"
@@ -186,7 +186,7 @@ export default function Support() {
         </section>
 
         {/* 신청 전 알아둘 것 */}
-        <section className="mt-10 bg-surface-container rounded-3xl p-7">
+        <section className="mt-10 bg-surface-container rounded-xl p-7">
           <h2 className="font-serif text-xl font-semibold text-on-surface mb-3">신청 전 알아둘 것</h2>
           <ul className="text-on-surface-variant text-sm space-y-2 leading-relaxed">
             <li>· <b className="text-on-surface">대부분 신청해야 받습니다.</b> 자동으로 나오지 않으니 해당되는 건 꼭 직접 신청하세요.</li>

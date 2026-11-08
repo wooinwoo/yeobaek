@@ -79,7 +79,7 @@ export default function Obituary() {
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* 입력 */}
-          <div className="bg-surface-container-lowest rounded-3xl p-7 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)] grid gap-4">
+          <div className="bg-surface-container-lowest rounded-xl p-7 border border-outline-variant grid gap-4">
             {field("고인 성함", "name", "예) 홍길동")}
             {field("향년 (나이)", "age", "예) 78")}
             {field("별세 일시", "when", "예) 2026년 6월 16일 오전")}
@@ -94,7 +94,7 @@ export default function Obituary() {
 
           {/* 미리보기 */}
           <div className="md:sticky md:top-24">
-            <div className="bg-surface-container rounded-3xl p-6">
+            <div className="bg-surface-container rounded-xl p-6">
               <div className="text-sm text-on-surface-variant mb-3">미리보기</div>
               <pre className="whitespace-pre-wrap font-sans text-[15px] leading-relaxed text-on-surface min-h-[220px]">
                 {text}
@@ -120,19 +120,19 @@ export default function Obituary() {
         <section className="mt-14">
           <h2 className="font-serif text-2xl font-semibold text-on-surface mb-5">부고, 이렇게 보내세요</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+            <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
               <h3 className="font-semibold mb-2">누구에게 · 언제</h3>
               <p className="text-on-surface-variant text-sm leading-relaxed">가까운 가족·친지께 <b className="text-on-surface">먼저 전화</b>로 알리고, 빈소·발인 일정이 정해지면 지인·직장에 문자/카톡으로 부고를 보냅니다. 너무 이른 새벽·늦은 밤은 피하세요.</p>
             </div>
-            <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+            <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
               <h3 className="font-semibold mb-2">담아야 할 것</h3>
               <p className="text-on-surface-variant text-sm leading-relaxed">고인 성함·별세 일시, <b className="text-on-surface">빈소(장소·호실)</b>, 발인 일시, 장지, 상주, 연락처. 위 양식에 채우면 자동으로 정리돼요.</p>
             </div>
-            <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+            <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
               <h3 className="font-semibold mb-2">부의금 계좌</h3>
               <p className="text-on-surface-variant text-sm leading-relaxed">못 오시는 분들을 위해 부고에 <b className="text-on-surface">부의금 계좌를 넣는 건 일반적</b>이에요. 위 양식의 ‘부의금 계좌’에 적으면 문구에 자동으로 들어갑니다. 다만 <b className="text-on-surface">예금주·계좌번호를 정확히</b> 확인하고, 요즘 부고를 사칭한 스미싱 문자도 있으니 되도록 <b className="text-on-surface">아는 사람에게만</b> 보내세요.</p>
             </div>
-            <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+            <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
               <h3 className="font-semibold mb-2">장례 후 답례</h3>
               <p className="text-on-surface-variant text-sm leading-relaxed">조문·부의해 주신 분들께 장례 뒤 <b className="text-on-surface">감사 인사</b>를 전하면 좋습니다. 짧은 문자 한 통이면 충분해요.</p>
             </div>

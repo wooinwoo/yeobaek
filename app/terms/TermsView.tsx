@@ -32,7 +32,7 @@ export default function TermsView({ searchParams }: TermsViewProps) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="궁금한 용어를 검색해보세요"
-          className="w-full pl-12 pr-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-2xl outline-none focus:border-primary transition-colors"
+          className="w-full pl-12 pr-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-lg outline-none focus:border-primary transition-colors"
         />
       </div>
 
@@ -64,7 +64,7 @@ export default function TermsView({ searchParams }: TermsViewProps) {
           {list.map((t) => (
             <article
               key={t.term}
-              className="bg-surface-container-lowest p-8 rounded-3xl shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)] hover:shadow-[0_16px_38px_-16px_rgba(120,82,60,0.22)] transition-shadow flex flex-col gap-3"
+              className="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant transition-shadow flex flex-col gap-3"
             >
               <div className="flex justify-between items-start gap-2">
                 <h2 className="font-serif text-xl font-semibold text-on-surface">{t.term}</h2>

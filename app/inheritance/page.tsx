@@ -27,7 +27,7 @@ const articleJsonLd = {
   },
 };
 
-const card = "bg-surface-container-lowest rounded-3xl p-7 md:p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]";
+const card = "bg-surface-container-lowest rounded-xl p-7 md:p-8 border border-outline-variant";
 const h2 = "font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-5 scroll-mt-24";
 
 const TOC = [
@@ -86,7 +86,7 @@ export default function Inheritance() {
               <p className="text-on-surface-variant text-[15px] leading-relaxed mb-4">
                 같은 순위 상속인끼리는 <b className="text-on-surface">똑같이 나눕니다(균분).</b> 단, <b className="text-on-surface">배우자는 다른 상속인보다 5할(1.5배)을 더</b> 받습니다.
               </p>
-              <div className="overflow-hidden rounded-2xl border border-surface-variant text-sm">
+              <div className="overflow-hidden rounded-lg border border-surface-variant text-sm">
                 <table className="w-full">
                   <thead><tr className="bg-surface-container text-left"><th className="px-4 py-3 font-semibold">상황</th><th className="px-4 py-3 font-semibold">나누는 비율</th></tr></thead>
                   <tbody className="text-on-surface-variant">
@@ -134,7 +134,7 @@ export default function Inheritance() {
               <p className="text-on-surface-variant text-[15px] leading-relaxed mb-4">
                 특정인에게 재산이 쏠려도, 가까운 상속인은 <b className="text-on-surface">법으로 보장된 최소한의 몫(유류분)</b>을 돌려달라 청구할 수 있습니다.
               </p>
-              <div className="overflow-hidden rounded-2xl border border-surface-variant text-sm mb-4">
+              <div className="overflow-hidden rounded-lg border border-surface-variant text-sm mb-4">
                 <table className="w-full">
                   <tbody className="text-on-surface-variant">
                     {[
@@ -172,7 +172,7 @@ export default function Inheritance() {
                 <Link href="/inheritance-tax" className="text-sm font-semibold text-primary">→ 상속세 계산기</Link>
               </div>
             </div>
-            <div className="bg-error-container/30 rounded-3xl p-6 mt-4">
+            <div className="bg-error-container/30 rounded-xl p-6 mt-4">
               <p className="text-[15px] leading-relaxed">
                 <span className="font-semibold text-error">빚이 더 많다면?</span> 분할·등기 전에 한정승인/상속포기부터 정하세요(3개월). 잘못 처분하면 단순승인으로 간주돼 빚을 떠안을 수 있어요.{" "}
                 <Link href="/debt-simulator" className="font-semibold text-primary">→ 빚 상속 진단</Link>
@@ -181,7 +181,7 @@ export default function Inheritance() {
           </section>
         </div>
 
-        <div className="bg-surface-container rounded-3xl p-6 mt-12">
+        <div className="bg-surface-container rounded-xl p-6 mt-12">
           <p className="text-on-surface-variant text-sm leading-relaxed">
             상속분·유류분·분할은 가족 상황(기여분·사전증여·공동명의 등)에 따라 복잡해질 수 있습니다. 분쟁이 우려되면 신고·합의 전에 변호사와 상담하세요. 제도·기한은 변동될 수 있습니다.
           </p>

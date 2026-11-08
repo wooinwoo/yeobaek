@@ -52,10 +52,10 @@ export default async function Og() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #fdf8f2 0%, #f5ebdf 55%, #ece0d2 100%)",
+          background: "#f8f7f4",
           padding: "72px 80px",
           fontFamily: ko ? "Noto Serif KR" : "sans-serif",
-          color: "#3e352d",
+          color: "#262421",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
@@ -64,25 +64,25 @@ export default async function Og() {
               width: 56,
               height: 56,
               borderRadius: 16,
-              background: "#b97a66",
+              background: "#7d5d4b",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <div style={{ width: 22, height: 22, borderRadius: 999, background: "#f0d9b5" }} />
+            <div style={{ width: 22, height: 22, borderRadius: 999, background: "#e6dcd4" }} />
           </div>
           <div style={{ fontSize: 38, fontWeight: 700, letterSpacing: -1 }}>{brand}</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ fontSize: 74, fontWeight: 700, lineHeight: 1.25, letterSpacing: -2 }}>{title}</div>
-          <div style={{ fontSize: 34, color: "#7a6e62", fontWeight: 500 }}>{sub}</div>
+          <div style={{ fontSize: 34, color: "#66615a", fontWeight: 500 }}>{sub}</div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 64, height: 6, borderRadius: 999, background: "#b97a66" }} />
-          <div style={{ fontSize: 24, color: "#a8998a" }}>{foot}</div>
+          <div style={{ width: 64, height: 6, borderRadius: 999, background: "#7d5d4b" }} />
+          <div style={{ fontSize: 24, color: "#a39d94" }}>{foot}</div>
         </div>
       </div>
     ),
