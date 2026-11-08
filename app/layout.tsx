@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 const DESCRIPTION =
   "사랑하는 사람을 떠나보낸 뒤, 무엇을 언제까지 해야 하는지 당신의 상황에 맞춰 한 걸음씩 안내하는 유족 길잡이. 장례·행정·보험·연금·상속·세금·조문예절까지.";
 

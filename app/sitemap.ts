@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 
 // 매 요청마다 현재 시각을 쓰면 lastModified가 늘 갱신돼 크롤러 신뢰를 떨어뜨린다.
 // 빌드 시점에 고정되는 상수로 두어 배포할 때만 바뀌게 한다.
