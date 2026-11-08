@@ -288,7 +288,7 @@ export default function Faq() {
               <ul className="flex flex-col gap-3 list-none p-0 m-0">
                 {group.items.map((item, i) => (
                   <li key={`${group.id}-${i}`}>
-                    <details className="group bg-surface-container-lowest rounded-2xl border border-surface-variant overflow-hidden">
+                    <details className="group bg-surface-container-lowest rounded-lg border border-surface-variant overflow-hidden">
                       <summary className="cursor-pointer list-none px-5 py-4 font-semibold text-on-surface flex justify-between items-center gap-3">
                         {item.q}
                         <ChevronDown
@@ -319,7 +319,7 @@ export default function Faq() {
           ))}
         </div>
 
-        <div className="bg-surface-container rounded-3xl p-6 mt-12">
+        <div className="bg-surface-container rounded-xl p-6 mt-12">
           <p className="text-on-surface-variant text-sm leading-relaxed">
             제도와 기한은 변동될 수 있어, 신청이나 신고 전에 해당 기관에 한 번 더 확인하시길 권합니다. 더 자세한 안내가 필요하면{" "}
             <Link href="/family-guide" className="text-primary font-semibold">유족 길잡이</Link>나{" "}

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "빈소에 들어서는 순간부터 나오는 순간까지, 분향·절·부의금·종교별 예절을 빠짐없이 안내합니다.",
 };
 
-const card = "bg-surface-container-lowest rounded-3xl p-7 md:p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]";
+const card = "bg-surface-container-lowest rounded-xl p-7 md:p-8 border border-outline-variant";
 const h2 = "font-serif text-2xl md:text-3xl font-semibold text-on-surface mb-5 scroll-mt-24";
 
 const TOC = [
@@ -78,7 +78,7 @@ export default function Etiquette() {
               <p className="text-on-surface-variant leading-relaxed mb-3">
                 <b className="text-on-surface">입관(入棺)</b>은 염습한 고인을 관에 모시는 의례로, 보통 <b className="text-on-surface">둘째 날</b>에 합니다. 입관이 끝나면 상주들이 정식으로 상복을 갖춰 입고(<b className="text-on-surface">성복 成服</b>) 첫 제사(성복제)를 올립니다. <b className="text-on-surface">이때부터 빈소가 정식으로 차려지고 분향·재배 같은 정식 조문 예절이 시작됩니다.</b>
               </p>
-              <p className="text-on-surface-variant leading-relaxed bg-error-container/40 rounded-2xl px-4 py-3 text-sm">
+              <p className="text-on-surface-variant leading-relaxed bg-error-container/40 rounded-lg px-4 py-3 text-sm">
                 자택에서 돌아가셨거나 사고·변사로 <b>경찰 검시·부검</b>을 받는 경우, 시신 인도가 늦어져 <b>입관·성복이 장례 둘째 날 등 중간에</b> 이뤄지기도 합니다. 그래서 일찍 조문 가면 아직 성복 전일 수 있어요.
               </p>
             </div>
@@ -177,11 +177,11 @@ export default function Etiquette() {
             <div className={`${card} mb-4`}>
               <p className="text-on-surface-variant mb-4">조문(흉사)에서는 손을 포개는 <b>공수(拱手)</b>가 <b>평소(좋은 일)와 반대</b>입니다.</p>
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="bg-surface-container rounded-2xl p-5">
+                <div className="bg-surface-container rounded-lg p-5">
                   <h4 className="font-semibold mb-1">남성</h4>
                   <p className="text-on-surface-variant text-sm leading-relaxed"><b>오른손을 위로</b> 포갭니다. 두 손을 눈높이로 올렸다가 바닥에 짚고 큰절. 영정에 <b>두 번(재배)</b>, 상주와 <b>한 번</b> 맞절.</p>
                 </div>
-                <div className="bg-surface-container rounded-2xl p-5">
+                <div className="bg-surface-container rounded-lg p-5">
                   <h4 className="font-semibold mb-1">여성</h4>
                   <p className="text-on-surface-variant text-sm leading-relaxed"><b>왼손을 위로</b> 포갭니다. 포갠 손을 어깨높이로 올리고 앉으며 큰절. 절하는 횟수는 남성과 같습니다.</p>
                 </div>
@@ -198,7 +198,7 @@ export default function Etiquette() {
           <section id="words">
             <h2 className={h2}>무슨 말을 건네야 할까요</h2>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="rounded-3xl p-7 bg-primary-fixed-dim/20 border border-primary-fixed-dim/40">
+              <div className="rounded-xl p-7 bg-primary-fixed-dim/20 border border-primary-fixed-dim/40">
                 <h3 className="font-semibold text-primary mb-3">이렇게 말해요</h3>
                 <ul className="list-disc pl-5 space-y-1.5 text-on-surface-variant text-sm">
                   <li>“삼가 고인의 명복을 빕니다.”</li>
@@ -209,7 +209,7 @@ export default function Etiquette() {
                 </ul>
                 <p className="text-xs text-outline mt-3">짧게. 길게 붙잡고 이야기하지 않습니다. 악수는 보통 하지 않습니다.</p>
               </div>
-              <div className="rounded-3xl p-7 bg-surface-container">
+              <div className="rounded-xl p-7 bg-surface-container">
                 <h3 className="font-semibold mb-3">상주의 인사</h3>
                 <p className="text-on-surface-variant text-sm leading-relaxed">
                   상주는 “고맙습니다”, “바쁘신데 와주셔서 감사합니다” 정도면 충분합니다. 굳이 사연을 길게 설명하지 않아도 됩니다. 조문객이 절하면 함께 맞절합니다.
@@ -224,7 +224,7 @@ export default function Etiquette() {
             <div className={`${card} mb-4`}>
               <h3 className="font-semibold mb-3">봉투 쓰는 법</h3>
               <p className="text-on-surface-variant text-sm mb-4">봉투 <b>앞면 가운데에 세로로</b> 아래 중 하나를 씁니다.</p>
-              <div className="border-2 border-dashed border-surface-variant rounded-2xl p-7 text-center bg-surface-container">
+              <div className="border-2 border-dashed border-surface-variant rounded-lg p-7 text-center bg-surface-container">
                 <div className="font-serif text-3xl tracking-[0.3em] text-on-surface">賻 儀</div>
                 <div className="text-sm text-on-surface-variant mt-2">부의(賻儀) · 근조(謹弔) · 조의(弔意) · 추모(追慕)</div>
                 <div className="text-xs text-outline mt-3">뒷면 왼쪽 아래에 소속과 이름을 세로로 적습니다</div>
@@ -233,7 +233,7 @@ export default function Etiquette() {
             <div className={`${card} mb-4`}>
               <h3 className="font-semibold mb-3">금액은 얼마가 적당할까요</h3>
               <p className="text-on-surface-variant text-sm mb-4">정답은 없습니다. 관계와 형편에 맞추되, 보통 <b>홀수(3·5·7만 원)</b>로 하는 관례가 있고 10만 원 단위는 예외로 봅니다. 참고용 기준:</p>
-              <div className="overflow-hidden rounded-2xl border border-surface-variant text-sm">
+              <div className="overflow-hidden rounded-lg border border-surface-variant text-sm">
                 <table className="w-full">
                   <tbody>
                     {[
@@ -310,7 +310,7 @@ export default function Etiquette() {
                 ["회사 동료 부모상, 꼭 가야 하나요?", "친분에 따라 다릅니다. 못 가면 부의금과 위로 문자로 마음을 전해도 결례가 아닙니다."],
                 ["조화(근조화환)는 어떻게 보내나요?", "꽃집·온라인으로 빈소에 보낼 수 있습니다. 리본에 ‘謹弔(근조)’와 보내는 사람(소속·이름)을 적습니다."],
               ].map(([q, a]) => (
-                <details key={q} className="group bg-surface-container-lowest rounded-2xl border border-surface-variant overflow-hidden">
+                <details key={q} className="group bg-surface-container-lowest rounded-lg border border-surface-variant overflow-hidden">
                   <summary className="cursor-pointer list-none px-5 py-4 font-semibold flex justify-between items-center">
                     {q}
                     <ChevronDown className="w-4 h-4 text-outline group-open:rotate-180 transition-transform shrink-0" />
@@ -322,7 +322,7 @@ export default function Etiquette() {
           </section>
         </div>
 
-        <div className="bg-surface-container rounded-3xl p-6 mt-12">
+        <div className="bg-surface-container rounded-xl p-6 mt-12">
           <p className="text-on-surface-variant text-sm">
             예절은 지역·가풍·종교에 따라 조금씩 다릅니다. 핵심은 <b>정중함과 조용함</b>이에요. 형식이 헷갈리면 빈소 도우미나 다른 조문객을 따라 하셔도 충분합니다. 용어가 낯설면{" "}
             <Link href="/terms" className="text-primary font-semibold">용어 사전</Link>을 참고하세요.

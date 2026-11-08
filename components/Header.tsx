@@ -40,21 +40,16 @@ export default function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-surface/85 backdrop-blur-md border-b border-surface-variant shadow-[0_6px_24px_-16px_rgba(120,82,60,0.4)]"
+          ? "bg-surface/95 backdrop-blur border-b border-outline-variant"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="mx-auto max-w-[1120px] w-full flex items-center justify-between px-5 md:px-8 py-4">
+      <div className="mx-auto max-w-[1184px] w-full flex items-center justify-between px-5 md:px-8 py-4">
         <Link
           href="/"
-          className="flex items-center gap-2 font-serif text-2xl font-semibold text-primary"
+          className="font-serif text-[22px] font-semibold tracking-tight text-on-surface"
           onClick={() => setOpen(false)}
         >
-          <svg width="26" height="26" viewBox="0 0 48 48" aria-hidden="true" className="shrink-0">
-            <rect width="48" height="48" rx="13" fill="#b97a66" />
-            <path d="M24 10.5 a13.5 13.5 0 1 1 -9.3 3.7" fill="none" stroke="#fffbf6" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="24" cy="10.5" r="2.6" fill="#f0d9b5" />
-          </svg>
           여백
         </Link>
 
@@ -69,8 +64,8 @@ export default function Header() {
                 aria-current={active ? "page" : undefined}
                 className={`text-sm font-medium pb-1 transition-colors ${
                   active
-                    ? "text-primary border-b-2 border-primary font-bold"
-                    : "text-on-surface-variant hover:text-primary"
+                    ? "text-on-surface border-b border-on-surface"
+                    : "text-on-surface-variant hover:text-on-surface"
                 }`}
               >
                 {item.label}
@@ -83,8 +78,8 @@ export default function Header() {
             aria-current={pathname === "/search" ? "page" : undefined}
             className={`inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors ${
               pathname === "/search"
-                ? "text-primary bg-surface-variant"
-                : "text-on-surface-variant hover:text-primary hover:bg-surface-variant"
+                ? "text-on-surface bg-surface-variant"
+                : "text-on-surface-variant hover:text-on-surface hover:bg-surface-variant"
             }`}
           >
             <Search className="w-5 h-5" aria-hidden="true" />
@@ -93,7 +88,7 @@ export default function Header() {
 
         {/* 모바일 햄버거 */}
         <button
-          className="md:hidden text-primary p-1"
+          className="md:hidden text-on-surface p-1"
           aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -117,12 +112,12 @@ export default function Header() {
       <nav
         id="mobile-menu"
         aria-label="모바일 메뉴"
-        className={`md:hidden fixed top-0 right-0 z-50 h-full w-[76%] max-w-[300px] bg-surface shadow-2xl px-6 pt-20 pb-6 flex flex-col gap-1 transition-transform duration-300 ${
+        className={`md:hidden fixed top-0 right-0 z-50 h-full w-[76%] max-w-[300px] bg-surface border-l border-outline-variant px-6 pt-20 pb-6 flex flex-col gap-1 transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <button
-          className="absolute top-5 right-5 text-3xl leading-none text-primary"
+          className="absolute top-5 right-5 text-3xl leading-none text-on-surface"
           aria-label="닫기"
           onClick={() => setOpen(false)}
         >

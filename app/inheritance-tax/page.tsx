@@ -50,7 +50,7 @@ export default function InheritanceTax() {
           재산과 가족 구성만 입력하면 예상 상속세를 가늠해 드립니다. (간이 추정)
         </p>
 
-        <div className="bg-surface-container-lowest rounded-3xl p-8 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.12)]">
+        <div className="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant">
           {/* 재산 */}
           <label className="block mb-6">
             <div className="flex justify-between items-baseline mb-2">
@@ -89,7 +89,7 @@ export default function InheritanceTax() {
         </div>
 
         {/* 결과 — 예상 세액 */}
-        <div className="bg-primary-fixed-dim/20 border border-primary-fixed-dim/40 rounded-3xl p-8 mt-5 text-center">
+        <div className="bg-primary-fixed-dim/20 border border-primary-fixed-dim/40 rounded-xl p-8 mt-5 text-center">
           <Calculator className="w-7 h-7 text-primary mx-auto mb-2" strokeWidth={1.6} />
           <div className="text-sm text-on-surface-variant mb-1">예상 상속세</div>
           <div className="font-serif text-4xl font-semibold text-on-surface mb-1">
@@ -106,7 +106,7 @@ export default function InheritanceTax() {
         </div>
 
         {/* 결과 — 계산 과정 단계별 내역 */}
-        <section className="bg-surface-container-lowest rounded-3xl p-6 md:p-8 mt-5 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+        <section className="bg-surface-container-lowest rounded-xl p-6 md:p-8 mt-5 border border-outline-variant">
           <h2 className="font-serif text-xl font-semibold text-on-surface mb-1">계산 과정 살펴보기</h2>
           <p className="text-sm text-on-surface-variant mb-5">
             입력하신 값으로 어떻게 세액이 나오는지 단계별로 보여드려요.
@@ -200,7 +200,7 @@ export default function InheritanceTax() {
         </section>
 
         {/* 결과 — 세율 구간표 */}
-        <section className="bg-surface-container-lowest rounded-3xl p-6 md:p-8 mt-5 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+        <section className="bg-surface-container-lowest rounded-xl p-6 md:p-8 mt-5 border border-outline-variant">
           <h2 className="font-serif text-xl font-semibold text-on-surface mb-1">상속세 세율 구간</h2>
           <p className="text-sm text-on-surface-variant mb-4">
             과세표준 구간에 따라 세율이 누진 적용됩니다.
@@ -252,7 +252,7 @@ export default function InheritanceTax() {
           <p>· 즉 <b>재산이 약 10억(배우자 있으면) 이하</b>면 상속세가 0인 경우가 많습니다.</p>
         </div>
 
-        <div className="mt-6 text-sm text-outline bg-surface-container rounded-2xl px-4 py-3">
+        <div className="mt-6 text-sm text-outline bg-surface-container rounded-lg px-4 py-3">
           본 계산은 일괄·배우자 공제만 반영한 <b>간이 추정</b>입니다. 실제 세액은 금융재산공제·동거주택공제·사전증여 등에 따라 달라지니, 신고 전 세무 전문가와 상담하세요.
         </div>
 
@@ -260,12 +260,12 @@ export default function InheritanceTax() {
         <section className="mt-12 flex flex-col gap-4">
           <h2 className="font-serif text-2xl font-semibold text-on-surface">상속세, 이것만 알아두세요</h2>
 
-          <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+          <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
             <h3 className="font-semibold mb-2">무엇이 ‘상속재산’인가요</h3>
             <p className="text-on-surface-variant text-sm leading-relaxed">부동산·예금·주식·자동차 등 고인의 모든 재산에 더해, <b className="text-on-surface">사망보험금·퇴직금(간주상속재산)</b>도 포함됩니다. 또 <b className="text-on-surface">사망 전 증여</b>도 합산돼요. 상속인에게 준 건 10년, 그 외엔 5년 이내 증여분. 고인의 <b className="text-on-surface">빚·공과금·장례비</b>는 빼고(공제) 계산합니다.</p>
           </div>
 
-          <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+          <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
             <h3 className="font-semibold mb-3">주요 공제 (세금 줄여주는 항목)</h3>
             <ul className="text-on-surface-variant text-sm space-y-1.5 leading-relaxed">
               <li>· <b className="text-on-surface">일괄공제 5억</b>, 대부분 기본 적용</li>
@@ -276,12 +276,12 @@ export default function InheritanceTax() {
             </ul>
           </div>
 
-          <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-[0_10px_30px_-12px_rgba(120,82,60,0.1)]">
+          <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
             <h3 className="font-semibold mb-2">신고 · 납부</h3>
             <p className="text-on-surface-variant text-sm leading-relaxed">사망일이 속한 달의 말일부터 <b className="text-on-surface">6개월 이내</b>에 홈택스 또는 관할 세무서에 신고·납부합니다. 세액이 크면 <b className="text-on-surface">분납(2개월)·연부연납</b>(나눠 내기)도 가능해요.</p>
           </div>
 
-          <div className="bg-error-container/30 rounded-3xl p-6">
+          <div className="bg-error-container/30 rounded-xl p-6">
             <h3 className="font-semibold text-error mb-2">기한 넘기면 가산세</h3>
             <p className="text-on-surface-variant text-sm leading-relaxed">신고·납부 기한(6개월)을 넘기면 무신고·납부지연 가산세가 붙습니다. 세금이 0원으로 예상돼도, 공제·재산 평가가 애매하면 <b className="text-on-surface">세무 전문가 상담 후 신고</b>하는 게 안전해요.</p>
           </div>

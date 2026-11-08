@@ -247,14 +247,14 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="w-full text-left bg-surface-container-lowest border border-surface-variant rounded-3xl px-5 py-4 mb-5 text-on-surface-variant flex items-center gap-2 hover:border-outline-variant transition-colors"
+          className="w-full text-left bg-surface-container-lowest border border-surface-variant rounded-xl px-5 py-4 mb-5 text-on-surface-variant flex items-center gap-2 hover:border-outline-variant transition-colors"
         >
           <PencilLine className="w-4 h-4 shrink-0" /> 당신의 이야기를 들려주세요…
         </button>
       ) : (
         <form
           onSubmit={submit}
-          className="bg-surface-container-lowest border border-surface-variant rounded-3xl p-5 mb-5 flex flex-col gap-3"
+          className="bg-surface-container-lowest border border-surface-variant rounded-xl p-5 mb-5 flex flex-col gap-3"
         >
           <div className="flex items-center justify-between">
             <span className="font-semibold text-sm">익명으로 글쓰기</span>
@@ -320,7 +320,7 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
       {/* 목록 */}
       <div className="flex flex-col gap-4">
         {visible.length === 0 && (
-          <div className="text-center py-16 px-6 bg-surface-container-lowest rounded-3xl">
+          <div className="text-center py-16 px-6 bg-surface-container-lowest rounded-xl">
             <PencilLine className="w-8 h-8 mx-auto mb-3 text-outline" aria-hidden="true" />
             <p className="text-on-surface-variant text-base">
               {filter === "전체"
@@ -332,7 +332,7 @@ export default function CommunityBoard({ initialPosts }: { initialPosts: PostDTO
         {visible.map((p) => (
           <article
             key={p.id}
-            className={`bg-surface-container-lowest rounded-3xl p-6 shadow-[0_8px_24px_-14px_rgba(120,82,60,0.12)] motion-safe:transition-opacity motion-safe:duration-150 ${
+            className={`bg-surface-container-lowest rounded-xl p-6 border border-outline-variant motion-safe:transition-opacity motion-safe:duration-150 ${
               p.reported >= REPORT_HIDE_THRESHOLD ? "opacity-60" : ""
             }`}
           >

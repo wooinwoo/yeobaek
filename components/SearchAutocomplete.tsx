@@ -135,7 +135,7 @@ export default function SearchAutocomplete({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className={`w-full min-h-[44px] pl-12 text-base bg-surface-container-lowest border border-outline-variant outline-none focus:border-primary transition-colors ${
-            showButton ? "pr-24 py-3.5 rounded-2xl" : "pr-4 py-3 rounded-xl"
+            showButton ? "pr-24 py-3.5 rounded-lg" : "pr-4 py-3 rounded-xl"
           }`}
         />
         {showButton ? (
@@ -153,7 +153,7 @@ export default function SearchAutocomplete({
         role="listbox"
         aria-label="검색 제안"
         hidden={!showList}
-        className="absolute z-50 left-0 right-0 mt-2 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-[0_12px_32px_-18px_rgba(120,82,60,0.5)] overflow-hidden"
+        className="absolute z-50 left-0 right-0 mt-2 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden"
       >
         {suggestions.map((s, i) => (
           <li
