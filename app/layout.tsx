@@ -1,8 +1,22 @@
 import type { Metadata, Viewport } from "next";
+import { Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+
+// 제목용 세리프는 빌드 때 받아 자체 호스팅한다. 한글 조각은 unicode-range로 필요한 것만 내려간다.
+const notoSerifKr = Noto_Serif_KR({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-noto-serif-kr",
+});
+
+// 본문 Pretendard는 쓰는 글자 조각만 받는 dynamic subset을 쓴다.
+const PRETENDARD_CSS =
+  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 const DESCRIPTION =
@@ -68,7 +82,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className="h-full antialiased">
+    <html lang="ko" className={`h-full antialiased ${notoSerifKr.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={PRETENDARD_CSS} crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface">
         <JsonLd data={websiteJsonLd} />
         <Header />

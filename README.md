@@ -1,19 +1,13 @@
 # 여백 (Yeobaek)
 
-> 가족을 떠나보낸 직후, 무엇을 언제까지 해야 하는지 상황에 맞춰 한 걸음씩 안내하는 한국형 사후 절차 길잡이.
-> 장례부터 행정, 보험·연금·지원금, 상속, 세금, 조문 예절까지 흩어진 정보를 한 곳에 모았습니다.
+장례부터 행정·상속 절차까지, 흩어진 정보를 상황에 맞는 순서로 안내하는 웹 서비스.
+
+**[서비스 보기 → yeobaek.wooki.cc](https://yeobaek.wooki.cc)**
 
 [![CI](https://github.com/wooinwoo/yeobaek/actions/workflows/ci.yml/badge.svg)](https://github.com/wooinwoo/yeobaek/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?logo=prisma&logoColor=white)
-![libSQL](https://img.shields.io/badge/libSQL%2FTurso-4FF8D2?logo=turso&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)
-![Zod](https://img.shields.io/badge/Zod-4-3E67B1?logo=zod&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-114_passing-6E9F18?logo=vitest&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?logo=playwright&logoColor=white)
+![여백 첫 화면](./docs/images/home.webp)
 
 ---
 
@@ -65,7 +59,7 @@
 | **데이터베이스 / ORM** | Prisma 7 + `@prisma/adapter-libsql` · libSQL (로컬 SQLite 파일 / 프로덕션 Turso) |
 | **스타일링** | Tailwind CSS v4 (`@theme` 디자인 토큰) · Noto Serif KR + Pretendard |
 | **검증** | Zod 4 (API 입력 런타임 검증) |
-| **테스트** | Vitest 4 (단위/컴포넌트 테스트 92개) · Playwright (E2E smoke) |
+| **테스트** | Vitest 4 (단위·컴포넌트 테스트) · Playwright (E2E smoke) |
 | **CI** | GitHub Actions (lint · test · build + Playwright E2E) |
 | **아이콘** | lucide-react |
 
@@ -124,7 +118,7 @@ flowchart LR
 4. **법정 기한 D-day 계산의 정확성**
    `lib/dday.ts`는 사망일과 항목별 규칙(월 오프셋, 말일 기준 여부)으로 남은 기한을 계산합니다. 상속세·자동차 이전·안심상속처럼 '사망일이 속한 달 말일' 기준 항목은 `new Date(year, month + n + 1, 0)`으로 그 달 말일을 직접 잡아, 31일 등에서 `setMonth`가 다음 달로 넘어가던 오버플로우를 피합니다. 남은 일수가 7일 이하면 긴급으로 표시하고, 기준 '오늘'을 주입할 수 있어 단위테스트가 시각에 흔들리지 않습니다.
 
-5. **순수 로직 분리 + 자동 테스트(Vitest 92개 + Playwright E2E)**
+5. **순수 로직 분리 + 자동 테스트(Vitest + Playwright E2E)**
    UI에 섞이기 쉬운 계산·판정 로직을 순수 함수로 떼어 내 테스트했습니다. D-day 계산(`lib/dday.ts`), 빚 상속 판정(`lib/debt.ts`), 상속세 추정·단계별 내역(`lib/tax.ts`), 게시글 정렬·입력 검증(`lib/posts.ts`), 통합 검색 채점(`lib/search.ts`)에 더해 커뮤니티 게시판·유족 길잡이 등 컴포넌트 테스트(Testing Library)까지 포함합니다. 세율 구간 경계·공제 적용·정렬 타이브레이크·검증 경계값·검색 가중치 같은 까다로운 케이스를 다룹니다. 커뮤니티 글 작성·공감 흐름은 Playwright E2E smoke로 실제 빌드·기동 환경에서 확인합니다.
 
 6. **SEO / 공유 메타데이터**
@@ -149,7 +143,7 @@ pnpm dev                     # http://localhost:3000
 |---|---|
 | `pnpm dev` | 개발 서버 |
 | `pnpm build` | `prisma generate && next build` |
-| `pnpm test` | Vitest 단위/컴포넌트 테스트 실행 (114개) |
+| `pnpm test` | Vitest 단위·컴포넌트 테스트 실행 |
 | `pnpm e2e` | Playwright E2E (smoke) |
 | `pnpm lint` | ESLint |
 | `pnpm db:push` | 스키마를 DB에 반영 |

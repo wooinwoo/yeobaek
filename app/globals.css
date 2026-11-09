@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap");
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
 /* 여백 (Yeobaek) — 디자인 시스템 v3 (Quiet)
@@ -38,8 +36,8 @@
   --color-on-error: #ffffff;
   --color-error-container: #f5e3df;
 
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
-  --font-serif: "Noto Serif KR", Georgia, serif;
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  --font-serif: var(--font-noto-serif-kr), "Noto Serif KR", Georgia, serif;
 }
 
 html {
