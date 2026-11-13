@@ -14,9 +14,7 @@ const notoSerifKr = Noto_Serif_KR({
   variable: "--font-noto-serif-kr",
 });
 
-// 본문 Pretendard는 쓰는 글자 조각만 받는 dynamic subset을 쓴다.
-const PRETENDARD_CSS =
-  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
+// 본문 Pretendard는 쓰는 글자 조각만 받는 dynamic subset을 쓴다. @font-face 규칙은 app/pretendard.css에 있다.
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 const DESCRIPTION =
@@ -83,7 +81,6 @@ export default function RootLayout({
     <html lang="ko" className={`h-full antialiased ${notoSerifKr.variable}`}>
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link rel="stylesheet" href={PRETENDARD_CSS} crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface">
         <JsonLd data={websiteJsonLd} />
