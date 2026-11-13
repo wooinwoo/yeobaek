@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import Script from "next/script";
 
 // 제목용 세리프는 빌드 때 받아 자체 호스팅한다. 한글 조각은 unicode-range로 필요한 것만 내려간다.
 const notoSerifKr = Noto_Serif_KR({
@@ -87,6 +88,12 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* Cloudflare Web Analytics: 쿠키 없이 방문 수만 센다. Vercel 배포라 Cloudflare 자동 삽입이 안 돼서 직접 넣는다. */}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "096cad020b6a4227975dee1a963fb10c"}'
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
