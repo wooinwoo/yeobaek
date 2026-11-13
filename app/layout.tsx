@@ -14,9 +14,7 @@ const notoSerifKr = Noto_Serif_KR({
   variable: "--font-noto-serif-kr",
 });
 
-// 본문 Pretendard는 쓰는 글자 조각만 받는 dynamic subset을 쓴다.
-const PRETENDARD_CSS =
-  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
+// 본문 Pretendard는 쓰는 글자 조각만 받는 dynamic subset을 쓴다. @font-face 규칙은 app/pretendard.css에 있다.
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yeobaek.wooki.cc";
 const DESCRIPTION =
@@ -36,25 +34,23 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "여백" }],
   category: "guide",
+  // url·title·description을 비워 두면 Next가 각 페이지의 경로·제목·설명으로 채운다.
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: SITE_URL,
+    url: "./",
     siteName: "여백",
-    title: "여백, 혼자 감당하지 않아도 됩니다",
-    description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "여백, 혼자 감당하지 않아도 됩니다",
-    description: DESCRIPTION,
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  alternates: { canonical: SITE_URL },
+  // "./"는 metadataBase와 현재 경로로 풀린다. 절대 주소로 두면 모든 하위 페이지가 홈을 canonical로 가리킨다.
+  alternates: { canonical: "./" },
 };
 
 export const viewport: Viewport = {
@@ -85,7 +81,6 @@ export default function RootLayout({
     <html lang="ko" className={`h-full antialiased ${notoSerifKr.variable}`}>
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link rel="stylesheet" href={PRETENDARD_CSS} crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface">
         <JsonLd data={websiteJsonLd} />

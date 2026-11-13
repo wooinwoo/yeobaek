@@ -1,0 +1,25 @@
+# 여백
+
+> 사랑하는 사람을 떠나보낸 뒤, 무엇을 언제까지 해야 하는지 상황에 맞춰 한 걸음씩 안내하는 유족 길잡이. 장례·행정·보험·연금·상속·세금·조문예절까지 다룹니다.
+
+여백은 한국 제도를 기준으로 사후 절차를 순서와 기한으로 정리한 웹 서비스입니다. 법적 기한·제도는 검증해 반영했지만 제도·금액·기한은 바뀔 수 있고 개인 상황마다 다릅니다. 정보 제공 서비스이며 법률·세무 자문을 대체하지 않습니다.
+
+## 도구
+
+- [유족 길잡이](https://yeobaek.wooki.cc/family-guide): 사망일을 입력하면 무엇을 언제까지 해야 하는지 D-day와 함께 단계별로 안내합니다.
+- [빚 상속 진단](https://yeobaek.wooki.cc/debt-simulator): 가족 구성을 입력하면 단순승인·한정승인·상속포기 중 맞는 선택을 알려드립니다.
+- [상속세 계산기](https://yeobaek.wooki.cc/inheritance-tax): 재산과 가족 구성을 입력하면 예상 상속세를 간이 추정합니다.
+- [부고 문자 생성기](https://yeobaek.wooki.cc/obituary): 빈칸만 채우면 부고 문구를 만들어 바로 복사할 수 있습니다.
+
+## 안내
+
+- [상속 가이드](https://yeobaek.wooki.cc/inheritance): 상속 순위·법정상속분·유류분·등기와 세금.
+- [지원금 안내](https://yeobaek.wooki.cc/support): 국민연금·장제급여·산재·보훈 등 받을 수 있는 지원과 주요 기관 연락처.
+- [조문 예절](https://yeobaek.wooki.cc/etiquette): 분향·절·부의금·종교별 예절.
+- [자주 묻는 질문](https://yeobaek.wooki.cc/faq): 장례 직후 행정 신고, 상속과 빚, 세금, 지원금에 대한 질문과 답.
+- [용어 사전](https://yeobaek.wooki.cc/terms): 장례·상속·보험 용어 57개 풀이.
+
+## 기타
+
+- [커뮤니티](https://yeobaek.wooki.cc/community): 익명으로 고민과 위로를 나누는 공간.
+- [소스 코드](https://github.com/wooinwoo/yeobaek)
